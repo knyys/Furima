@@ -1,38 +1,41 @@
-.register-form{
+.register-form {
     display: flex;
     justify-content: center;
     position: relative;
     width: 100%;
-    
 }
 
-.register-form__content{
+.register-form__content {
     position: absolute;
     top: 30%;
     left: 25%;
     width: 50%;
 }
 
-.form__group{
+.form__group {
     margin: 10px 10px 30px 10px;
 }
 
-.register-form__heading{
+.register-form__heading {
     font-size: 22px;
     text-align: center;
 }
 
-.form__label{
+.form__label {
     font-size: 18px;
     font-weight: bold;
 }
 
-.form__content input{
+.form__content input {
     width: 90%;
     height: 40px;
 }
 
-.form__btn button{
+.form__content{
+    font-size: 24px;
+}
+
+.form__btn button {
     margin: 20px 10px 10px 10px;
     color: #fff;
     font-size: 20px;
@@ -43,10 +46,15 @@
     cursor: pointer;
 }
 
-.login-btn a{
+.login-btn a {
     text-decoration: none;
     color: blue;
     display: flex;
     justify-content: center;
     margin: 20px 0 10px 0;
+}
+
+.form__error {
+    color: red;
+    font-size: 14px;
 }

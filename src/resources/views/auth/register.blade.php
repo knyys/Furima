@@ -17,10 +17,12 @@
                 <label>ユーザー名</label>
             </div>
             <div class="form__content">
-                <input type="text" name="name" value="">
+                <input type="text" name="name" value="{{ old('name') }}">
             </div>
             <div class="form__error">
-                <!--error後で記述-->
+                @error('name')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group">
@@ -28,10 +30,12 @@
                 <label>メールアドレス</label>
             </div>
             <div class="form__content">
-                <input type="email" name="email" value="">
+                <input type="email" name="email" value="{{ old('email') }}">
             </div>
             <div class="form__error">
-                <!--error後で記述-->
+                @error('email')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group">
@@ -39,10 +43,12 @@
                 <label>パスワード</label>
             </div>
             <div class="form__content">
-                <input type="password" name="password" value="">
+                <input type="password" name="password" value="{{ old('password') }}">
             </div>
             <div class="form__error">
-                <!--error後で記述-->
+                @error('password')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group">
@@ -50,10 +56,12 @@
                 <label>確認用パスワード</label>
             </div>
             <div class="form__content">
-                <input type="password" name="confirm-password" value="">
+                <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
             </div>
             <div class="form__error">
-                <!--error後で記述-->
+                @error('password')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__btn">
