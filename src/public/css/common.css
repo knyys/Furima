@@ -1,0 +1,22 @@
+.header{
+    background-color: black;
+    width: 100%;
+    padding: 5px 5px;
+    
+}
+
+.header__inner{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.header__nav{
+    display: flex;
+}
+.header__nav button{
+    border: none;
+    font-size: 14px;
+    color: white;
+}

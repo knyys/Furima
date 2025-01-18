@@ -1,0 +1,51 @@
+.login-form{
+    display: flex;
+    position: relative;
+    width: 100%;
+    
+}
+
+.login-form__content{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+}
+
+.form__group{
+    margin: 10px 10px 30px 10px;
+}
+
+.login-form__heading{
+    font-size: 22px;
+    text-align: center;
+}
+
+.form__label{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form__content input{
+    width: 90%;
+    height: 40px;
+}
+
+.form__btn button{
+    margin: 20px 10px 10px 10px;
+    color: #fff;
+    font-size: 20px;
+    width: 90%;
+    height: 40px;
+    border: none;
+    background-color: #ff6347;
+    cursor: pointer;
+}
+
+.register-btn a{
+    text-decoration: none;
+    color: blue;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 10px 0;
+}
