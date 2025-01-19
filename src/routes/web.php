@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +22,7 @@ Route::post('register', [RegisterController::class, 'store']);
 //ログイン
 Route::get('login', [LoginController::class, 'loginView'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
+
+//プロフィール画面
+Route::get('mypage/first', [ProfileController::class, 'welcome']);
+Route::get('mypage', [ProfileController::class, 'index']);
