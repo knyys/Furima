@@ -26,3 +26,4 @@ Route::post('login', [LoginController::class, 'store']);
 //プロフィール画面
 Route::get('profile/first', [ProfileController::class, 'welcome']);
 Route::get('profile', [ProfileController::class, 'index']);
+
