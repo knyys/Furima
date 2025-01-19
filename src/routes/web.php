@@ -24,5 +24,6 @@ Route::get('login', [LoginController::class, 'loginView'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
 
 //プロフィール画面
-Route::get('mypage/first', [ProfileController::class, 'welcome']);
-Route::get('mypage', [ProfileController::class, 'index']);
+Route::get('profile/first', [ProfileController::class, 'welcome']);
+Route::get('profile', [ProfileController::class, 'index']);
+
