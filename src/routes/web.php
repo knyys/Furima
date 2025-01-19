@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
-
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,10 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
+// 会員登録画面
 Route::get('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
+
+//ログイン
+Route::get('login', [LoginController::class, 'loginView'])->name('login');
+Route::post('login', [LoginController::class, 'store']);

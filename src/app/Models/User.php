@@ -47,7 +47,6 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    //リレーション
     public function items()
     {
         return $this->hasMany(Item::class);
