@@ -1,0 +1,54 @@
+header{
+    background-color: black;
+    width: 100%;
+    padding: 5px 5px; 
+    display: flex;
+    justify-content: center;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header__inner img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px) and (max-width: 850px) { 
+    .header__inner img{ 
+        width: 60%; 
+    } 
+}
+/* PC (1400-1540px) 用のスタイル */ 
+@media (min-width: 1400px) and (max-width: 1540px) { 
+    .header__inner img{ 
+        width: 40%; 
+    } 
+}
+
+.header__inner a{
+    color: white;
+    font-size: 16px;
+}
+
+.header__inner{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.header__nav{
+    display: flex;
+}
+.header__nav button{
+    border: none;
+    font-size: 14px;
+    color: white;
+}
+
