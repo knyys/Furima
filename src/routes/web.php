@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +20,13 @@ use App\Http\Controllers\ProfileController;
 Route::get('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
 
+//プロフィール画面
+Route::get('mypage/profile', [ProfileController::class, 'welcome']);
+Route::get('profile', [ProfileController::class, 'index']);
+
 //ログイン
 Route::get('login', [LoginController::class, 'loginView'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
 
-//プロフィール画面
-Route::get('profile/first', [ProfileController::class, 'welcome']);
-Route::get('profile', [ProfileController::class, 'index']);
-
+//商品一覧
+Route::get('/', [ItemController::class, 'index'])->name('/');
