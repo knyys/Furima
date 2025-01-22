@@ -1,54 +1,129 @@
-header{
+header {
     background-color: black;
     width: 100%;
-    padding: 5px 5px; 
+    padding: 5px 5px;
     display: flex;
-    justify-content: center;
 }
 
-.header__inner {
+.header__logo {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 30%;
 }
 
-.header__inner img {
+.header__logo img {
     max-width: 100%;
     height: auto;
 }
 
-/* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) and (max-width: 850px) { 
-    .header__inner img{ 
-        width: 60%; 
-    } 
-}
-/* PC (1400-1540px) 用のスタイル */ 
-@media (min-width: 1400px) and (max-width: 1540px) { 
-    .header__inner img{ 
-        width: 40%; 
-    } 
-}
-
-.header__inner a{
-    color: white;
-    font-size: 16px;
-}
-
-.header__inner{
+.header__inner {
     display: flex;
     justify-content: space-between;
-
+    width: 100%;
 }
 
-
-.header__nav{
+.header__search-form {
+    width: 100%;
+    align-items: center;
     display: flex;
-}
-.header__nav button{
-    border: none;
-    font-size: 14px;
-    color: white;
+    align-items: center;
 }
 
+.search-form{
+    width: 80%;
+}
+
+.header__search-form input {
+    width: 90%;
+    font-size: 18px;
+    padding: 0 10px;
+    margin: auto;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    gap: 10px;
+    padding: 0 5px;
+}
+
+.logout-btn button {
+    border: none;
+    font-size: 18px;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.nav__btn--mypage a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.nav__btn--sell a {
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px) and (max-width: 850px) {
+    .header__logo img {
+        width: 90%;
+    }
+    .header__inner {
+        width: 80%;
+    }
+
+    .header__search-form {
+        width: 60%;
+    }
+
+    .search-form{
+        width: 100%;
+    }
+
+    .header__search-form input {
+        width: 100%;
+    }
+
+    .header__nav {
+        width: 80%;
+    }
+
+}
+/* PC (1400-1540px) 用のスタイル */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .header__logo img {
+        width: 90%;
+    }
+
+    .header__inner {
+        width: 80%;
+    }
+
+    .header__search-form {
+        width: 90%;
+    }
+
+    .search-form{
+        width: 90%;
+    }
+
+    .header__search-form input {
+        width: 90%;
+    }
+
+    .header__nav {
+        width: 80%;
+    }
+
+}

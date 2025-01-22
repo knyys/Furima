@@ -25,10 +25,10 @@
                     <label>ユーザー名 / メールアドレス</label>
                 </div>
                 <div class="form__content">
-                    <input type="text" name="name_or_email" value="{{ old('name_or_email') }}">
+                    <input type="email" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="form__error">
-                    @error('name_or_email')
+                    @error('email')
                         {{ $message }}
                     @enderror
                 </div>

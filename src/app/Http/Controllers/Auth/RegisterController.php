@@ -19,6 +19,6 @@ class RegisterController extends Controller
     {
         app(CreateNewUser::class)->create($request->validated());
 
-        return view('profile_first');
+        return view('edit_profile');
     }
 }

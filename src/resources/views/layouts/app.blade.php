@@ -13,22 +13,29 @@
 
 <body>
     <header class="header">
+        <div class="header__logo">
+                <img src="{{ asset('storage/logo.svg') }}" alt="logo">
+        </div>
         <div class="header__inner">
-            <img src="{{ asset('storage/logo.svg') }}" alt="logo">
-        </div>           
-        <div class="header__search-form">
-            <form class="search-form" action="" method="">
-            <input type="text" name="search-form" value="なにをお探しですか？" />
-            </form>
-        </div>
-        <div class="header__nav">
-            <form class="logout-btn" action="" method="">
-            <button type="submit">ログアウト</button>
-            </form>
-        </div>
-        <div class="header__nav">
-            <a class="mypage-btn" href="">マイページ</a>
-            <a class="sell-btn" href="">出品</a>
+            <div class="header__search-form">
+                <form class="search-form" action="" method="">
+                <input type="text" name="search-form" value="なにをお探しですか？" />
+                </form>
+            </div>
+            <div class="header__nav">
+                <div class="nav__btn">
+                    <form class="logout-btn" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    <button type="submit">ログアウト</button>
+                    </form>
+                </div>
+                <div class="nav__btn--mypage">
+                    <a class="mypage-btn" href="">マイページ</a>
+                </div>
+                <div class="nav__btn--sell">
+                    <a class="sell-btn" href="">出品</a>
+                </div>
+            </div>
         </div>
     </header>
 

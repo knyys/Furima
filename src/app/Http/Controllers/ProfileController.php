@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function welcome()
     {
-        return view('profile_first');
+        return view('edit_profile');
     }
 
     public function index()
