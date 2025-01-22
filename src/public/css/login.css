@@ -82,7 +82,7 @@
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .register-form__content {
-        width: 50%; /* 幅を狭める */
+        width: 30%; /* 幅を狭める */
     }
 }
 
