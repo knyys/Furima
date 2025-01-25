@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use APP\Models\Profile;
 
+
 class ProfileController extends Controller
 {
     public function welcome()
