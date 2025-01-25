@@ -24,9 +24,16 @@ Route::post('register', [RegisterController::class, 'store']);
 Route::get('mypage/profile', [ProfileController::class, 'welcome']);
 Route::get('profile', [ProfileController::class, 'index']);
 
+Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
+
+
 //ログイン
 Route::get('login', [LoginController::class, 'loginView'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
 
 //商品一覧
-Route::get('/', [ItemController::class, 'index'])->name('/');
+//Route::get('/', [ItemController::class, 'index'])->name('home');
+
+Route::get('/', [ItemController::class, 'mylist'])->name('/');
+
+

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/mylist.css') }}">
 @endsection
 
 @section('nav')
@@ -16,8 +16,8 @@
 
 <!-- タブメニュー -->
 <div class="tab-box">
-    <input type="radio" id="tab_1" class="tabRadio" name="tab" checked>
-    <input type="radio" id="tab_2" class="tabRadio" name="tab">
+    <input type="radio" id="tab_1" class="tabRadio" name="tab">
+    <input type="radio" id="tab_2" class="tabRadio" name="tab" checked>
 
     <ul class="tab-list">
         <li class="tab">
@@ -28,10 +28,10 @@
         </li>
     </ul>
     <div class="tabContentList">
-        <article class="tabContent active" id="content_1">
+        <article class="tabContent" id="content_1">
             <p>商品一覧</p>
         </article>
-        <article class="tabContent" id="content_2">
+        <article class="tabContent active" id="content_2">
             <p>マイページ商品一覧</p>
         </article>
         

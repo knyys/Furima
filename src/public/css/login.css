@@ -16,12 +16,24 @@
     padding: 20px;
 }
 
-.login-form__error {
-    margin: 10px 10px 30px 10px;
-    display: inline;
+.login-form__error{
+    display: block;
+    text-align: center;
+    justify-content: center;
+    margin: 50px 0 50px 0;
+}
+
+.error {   
+    background-color: rgb(255 218 214);
     color: red;
-    font-size: 22px;
-    margin: 10px 0;
+    font-size: 18px;
+    border: 2px red solid;
+    border-radius: 3px;
+    padding: 15px 15px 15px;
+}
+.error img {
+    width: 24px;
+    height: auto;
 }
 
 .form__group {
@@ -81,16 +93,26 @@
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    .register-form__content {
-        width: 30%; /* 幅を狭める */
+    .login-form__content {
+        width: 50%;
     }
 }
 
+
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    .register-form__content {
-        width: 70%; /* 幅を少し広げる */
-        top: 5%; /* 縦位置を調整 */
+    .login-form__content {
+        width: 70%;
+        top: 5%; 
+    }
+
+    .error{
+        font-size: 14px;
+    }
+
+    .error img {
+        width: 16px;
+        height: auto;
     }
 
     .form__label {

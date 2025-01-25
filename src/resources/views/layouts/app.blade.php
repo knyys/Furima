@@ -24,10 +24,7 @@
             </div>
             <div class="header__nav">
                 <div class="nav__btn">
-                    <form class="logout-btn" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                    <button type="submit">ログアウト</button>
-                    </form>
+                    @yield('nav')   
                 </div>
                 <div class="nav__btn--mypage">
                     <a class="mypage-btn" href="">マイページ</a>

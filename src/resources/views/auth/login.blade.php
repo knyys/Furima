@@ -4,19 +4,22 @@
 <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 @endsection
 
-@section('content')    
+@section('content') 
 <div class="login-form">
     <div class="login-form__content">
         <div class="login-form__heading">
             <h2>ログイン</h2>
         </div>
-        <div class="login-form__error">
-        @if ($errors->has('login'))
-            <span class="login__error">
-                {{ $errors->first('login') }}
-            </span>
-        @endif
-        </div>
+    @if ($errors->has('login'))
+    <div class="login-form__error">
+    
+        <span class="error">
+            <img src="{{ asset('storage/error_icons.png') }}" alt="error-icon">
+            {{ $errors->first('login') }}
+        </span>
+    
+    </div>
+    @endif
 
         <form class="form" action="/login" method="post">
             @csrf
