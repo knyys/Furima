@@ -17,11 +17,12 @@ class LoginController extends Controller
     {
         // ユーザー認証
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended(route('/'));
+            return redirect('/');
+            //return redirect('/?page=mylist');
         }
 
-        // 認証失敗時、エラーメッセージを表示
-        return redirect()->route('login')->withErrors([
+        // 認証失敗時、エラーメッセージを表示し入力値を保持
+        return redirect()->route('login')->withInput()->withErrors([
             'login' => 'ログイン情報が登録されていません',
         ]);
     }

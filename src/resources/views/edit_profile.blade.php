@@ -11,14 +11,18 @@
             <h2>プロフィール設定</h2>
         </div>
         <div class="profile-form__img">
-            画像を選択する
+            <img id="image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="プロフィール画像">
+            <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
+                @csrf
+            <output id="image" class="image_output"></output>
+            <input type="file" id="image-input" name="image" accept="image/*">
         </div>
+            画像を選択する
+        
         <div class="form__error">
             <!--error追記-->
         </div>
 
-        <form class="form" action="/profile/first" method="post">
-            @csrf
             <div class="form__group">
                 <div class="form__label">
                     <label>ユーザー名</label>
@@ -58,9 +62,17 @@
         </form>
     </div>
 </div>
-
-
-
-
-
 @endsection
+<script>
+        document.getElementById('image-input').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profile-image').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+    </script>
+

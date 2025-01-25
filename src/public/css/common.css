@@ -47,14 +47,10 @@ header {
     gap: 10px;
     padding: 0 5px;
 }
-
+/*
 .logout-btn button {
-    border: none;
-    font-size: 18px;
-    color: white;
-    background-color: transparent;
-    cursor: pointer;
-}
+    
+}*/
 
 .nav__btn--mypage a {
     text-decoration: none;
