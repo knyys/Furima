@@ -12,9 +12,6 @@
 @endsection
 
 @section('content')
-<div class="item-list">
-
-<!-- タブメニュー -->
 <div class="tab-box">
     <input type="radio" id="tab_1" class="tabRadio" name="tab">
     <input type="radio" id="tab_2" class="tabRadio" name="tab" checked>
@@ -28,11 +25,38 @@
         </li>
     </ul>
     <div class="tabContentList">
-        <article class="tabContent" id="content_1">
-            <p>商品一覧</p>
+        <!--おすすめタブ-->
+        <article class="tab-content" id="content_1">
+            <div class="items__list">
+            <!--foreach使う-->
+            <div class="item">
+                <div class="item-img">
+                    <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
+                    <output id="image" class="image_output"></output>
+                </div>
+                <div class="item-label">
+                    <p>商品名</p>
+                </div>
+            </div>
+            <!--foreach終わり-->
+            </div>    
         </article>
-        <article class="tabContent active" id="content_2">
-            <p>マイページ商品一覧</p>
+
+        <!--マイリストタブ-->
+        <article class="tab-content active" id="content_2">
+            <div class="items__list">
+            <!--foreach使う-->
+            <div class="item">
+                <div class="item-img">
+                    <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
+                    <output id="image" class="image_output"></output>
+                </div>
+                <div class="item-label">
+                    <p>商品名</p>
+                </div>
+            </div>
+            <!--foreach終わり-->
+            </div>
         </article>
         
     </div>
