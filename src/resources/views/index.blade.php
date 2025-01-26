@@ -7,14 +7,13 @@
 @section('nav')
 <form class="logout-btn" action="{{ route('logout') }}" method="POST">
     @csrf
-<button type="submit">ログアウト</button>
+<button type="submit">ログイン</button>
 </form>
 @endsection
 
 @section('content')
 <div class="item-list">
 
-<!-- タブメニュー -->
 <div class="tab-box">
     <input type="radio" id="tab_1" class="tabRadio" name="tab" checked>
     <input type="radio" id="tab_2" class="tabRadio" name="tab">

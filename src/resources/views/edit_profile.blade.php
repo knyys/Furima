@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
+@section('nav')
+<form class="logout-btn" action="{{ route('logout') }}" method="POST">
+    @csrf
+<button type="submit">ログアウト</button>
+</form>
+@endsection
+
 @section('content')
 <div class="profile-form">
     <div class="profile-form__content">
@@ -11,13 +18,16 @@
             <h2>プロフィール設定</h2>
         </div>
         <div class="profile-form__img">
-            <img id="image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="プロフィール画像">
+            <img id="image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="">
             <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
                 @csrf
             <output id="image" class="image_output"></output>
+            <!--画像選択ラベル-->
+            <label for="image-input" class="image-label">画像を選択する</label>
             <input type="file" id="image-input" name="image" accept="image/*">
+
         </div>
-            画像を選択する
+
         
         <div class="form__error">
             <!--error追記-->

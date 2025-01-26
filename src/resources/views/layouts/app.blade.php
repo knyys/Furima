@@ -27,10 +27,10 @@
                     @yield('nav')   
                 </div>
                 <div class="nav__btn--mypage">
-                    <a class="mypage-btn" href="">マイページ</a>
+                    <a class="mypage-btn" href="/mypage">マイページ</a>
                 </div>
                 <div class="nav__btn--sell">
-                    <a class="sell-btn" href="">出品</a>
+                    <a class="sell-btn" href="/sell">出品</a>
                 </div>
             </div>
         </div>
