@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +23,7 @@ Route::post('register', [RegisterController::class, 'store']);
 
 //プロフィール画面
 Route::get('mypage/profile', [ProfileController::class, 'welcome']);
-Route::get('profile', [ProfileController::class, 'index']);
+Route::get('mypage', [ProfileController::class, 'index']);
 
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
 
@@ -31,9 +32,14 @@ Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('prof
 Route::get('login', [LoginController::class, 'loginView'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
 
+// ログアウト
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
+
 //商品一覧
-//Route::get('/', [ItemController::class, 'index'])->name('home');
+Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/', [ItemController::class, 'mylist'])->name('/');
-
+//ログイン済の場合のみ表示
+Route::middleware('auth')->group(function () {
+    Route::get('/', [ItemController::class, 'mylist']);
+    });
 

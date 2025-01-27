@@ -1,10 +1,4 @@
-.logout-btn button{
-    border: none;
-    font-size: 18px;
-    color: white;
-    background-color: transparent;
-    cursor: pointer;
-}
+
 .tab-box {
     display: block;
     width: 100%;
@@ -69,4 +63,58 @@ label:hover {
 #tab_2:checked ~ .tabList .tab #tab_label_2:hover {
     cursor: auto;
     opacity: 1;
+}
+
+
+.item{
+    display: flex;
+    flex-direction: column;
+}
+
+.items__list {
+    display: flex;
+ /* 全体を繰り返し配置（flex-wrap: wrap）いれる */
+    align-items: center;
+}
+
+.item-img img{
+    display: block
+}
+
+.item-icon{
+    width: 200px;
+    height: 200px;
+    border: 1px #dcdcdc solid;
+    background-color: #dcdcdc;
+    
+}
+.item-label{
+    font-size: 18px;
+    text-align: left;
+}
+
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px) and (max-width: 850px) {
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 横スクロールを防止 */
+    }
+    .tab {
+        width: 20%;
+    }
+
+    .tab label {
+        font-size: 14px;
+    }
+
+    .item-icon{
+        width: 140px;
+        height: 140px;
+    }
+
+    .item-label{
+        font-size: 14px;
+    }
+
 }

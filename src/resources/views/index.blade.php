@@ -4,13 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
-@section('nav')
-<form class="logout-btn" action="{{ route('logout') }}" method="POST">
-    @csrf
-<button type="submit">ログイン</button>
-</form>
-@endsection
-
 @section('content')
 <div class="item-list">
 
@@ -27,11 +20,26 @@
         </li>
     </ul>
     <div class="tabContentList">
-        <article class="tabContent active" id="content_1">
-            <p>商品一覧</p>
+        <!--おすすめタブ-->
+        <article class="tab-content" id="content_1">
+            <div class="items__list">
+            <!--foreach使う-->
+            <div class="item">
+                <div class="item-img">
+                    <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
+                    <output id="image" class="image_output"></output>
+                </div>
+                <div class="item-label">
+                    <p>商品名</p>
+                </div>
+            </div>
+            <!--foreach終わり-->
+            </div>    
         </article>
+
+        <!--マイリストタブ-->
         <article class="tabContent" id="content_2">
-            <p>マイページ商品一覧</p>
+
         </article>
         
     </div>

@@ -24,7 +24,14 @@
             </div>
             <div class="header__nav">
                 <div class="nav__btn">
-                    @yield('nav')   
+                    @if (Auth::check())
+                    <form class="logout-btn" action="/logout" method="POST">
+                        @csrf
+                    <button type="submit">ログアウト</button>
+                    </form>
+                    @else
+                    <a class="login-btn" href="/login">ログイン</a>
+                    @endif 
                 </div>
                 <div class="nav__btn--mypage">
                     <a class="mypage-btn" href="/mypage">マイページ</a>

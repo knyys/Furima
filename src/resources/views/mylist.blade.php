@@ -4,13 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/mylist.css') }}">
 @endsection
 
-@section('nav')
-<form class="logout-btn" action="{{ route('logout') }}" method="POST">
-    @csrf
-<button type="submit">ログアウト</button>
-</form>
-@endsection
-
 @section('content')
 <div class="tab-box">
     <input type="radio" id="tab_1" class="tabRadio" name="tab">
