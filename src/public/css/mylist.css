@@ -1,10 +1,4 @@
-.logout-btn button{
-    border: none;
-    font-size: 18px;
-    color: white;
-    background-color: transparent;
-    cursor: pointer;
-}
+
 .tab-box {
     display: block;
     width: 100%;
@@ -107,6 +101,11 @@ label:hover {
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 横スクロールを防止 */
+    }
     .tab {
         width: 20%;
     }

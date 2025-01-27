@@ -49,6 +49,20 @@
     padding: 0 5px;
 }
 
+.logout-btn button {
+    border: none;
+    font-size: 18px;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+.login-btn{
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
 .nav__btn--mypage a {
     text-decoration: none;
     color: white;

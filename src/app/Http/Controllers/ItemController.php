@@ -6,17 +6,21 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function mylist()
+    public function mylist(Request $request)
     {
+        //クエリパラメータ
+        $page = $request->query('page');
+
+        if ($page === 'mylist') {
         return view('mylist');
+        }
+
+        //その他
+        return view('index');
     }
-    //public function index(Request $request)
-    //{ $page = $request->query('page');  
-    // クエリパラメータ 'page' を取得
-    // 例えば、$page が 'mylist' ならば、対応する処理を行う
-    //if ($page === 'mylist') {
-        // マイリスト表示の処理
-    //}
-    
-    // 他の処理:/
+
+    public function index()
+    {
+        return view('index');
+    }
 }

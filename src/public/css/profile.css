@@ -1,15 +1,4 @@
-.logout-btn button {
-    border: none;
-    font-size: 18px;
-    color: white;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 .profile-form {
-    display: flex;
-    justify-content: center;
-    position: relative;
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -17,18 +6,19 @@
 
 .profile-form__content {
     box-sizing: border-box;
-    position: relative;
-    top: 10px;
-    width: 60%;
-    max-width: 800px;
-    min-width: 300px;
     padding: 20px;
 }
 
-.profile-form__img{
+.profile-form__header{
     display: flex;
-    justify-content: flex-start;
     position: relative;
+    top: 20px;
+    left: 10%;
+}
+
+.profile__img{
+    position: absolute;
+    left: 10%;
 }
 
 .profile-icon {
@@ -40,104 +30,160 @@
     margin: 20px 10px 30px 10px;
 }
 
-.image-label{
+.profile__user-name {
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 55px;
+    left: 25%;
+
+}
+
+.profile__edit a{
+    text-decoration: none;
     color: red;
     border: 1px red solid;
     border-radius: 5px;
-    padding: 5px 5px;
-    position: absolute; /* 追加 */
-    top: 35%; /* 追加 */
-    left: 25%; /* 追加 */
-    
+    padding: 5px 30px;
+    position: absolute; 
+    top: 50px;
+    left: 50%; 
+    font-size: 20px;
 }
 
 .profile-form__img input{
     display: none;
 }
 
-.form__group {
-    margin: 10px 10px 30px 10px;
+/*ここからタブ*/
+.profile-form__tab-box {
+    display: block;
+    width: 100%;
+    position: relative;
+    top: 200px;
 }
 
-.profile-form__heading {
-    font-size: 22px;
+.tab-list {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-end;
+    border-bottom: 1px solid black;
+    padding: 0 50px;
+}
+
+.tab {
+    display: block;
+    width: 15%;
+}
+
+.tab label {
+    display: block;
+    font-size: 16px;
+    line-height: 2;
     text-align: center;
+    color: black;
+    padding: 10px;
 }
 
-.form__label {
-    font-size: 18px;
+.tabRadio {
+    display: none;
+}
+
+label:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+/* ラジオボタンがチェックされた時のラベルの文字色 */
+#tab_1:checked ~ .tab-list label[for="tab_1"],
+#tab_2:checked ~ .tab-list label[for="tab_2"] {
+    color: red;
+    font-weight: bold
+}
+
+.tabContent {
+    display: none;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    padding: 50px 0;
+}
+
+#tab_1:checked ~ .tabContentList #content_1,
+#tab_2:checked ~ .tabContentList #content_2 {
+    display: block;
+}
+#tab_1:checked ~ .tabList .tab #tab_label_1,
+#tab_2:checked ~ .tabList .tab #tab_label_2 {
+    line-height: 1.8;
     font-weight: bold;
 }
-
-.form__content input {
-    width: 100%;
-    height: 40px;
-    border: solid 1px;
-    border-radius: 5px;
+#tab_1:checked ~ .tabList .tab #tab_label_1:hover,
+#tab_2:checked ~ .tabList .tab #tab_label_2:hover {
+    cursor: auto;
+    opacity: 1;
 }
 
-.form__content {
-    font-size: 16px;
+.items__list{
+    margin: 50px 50px;
+    display: flex;
+ /* 全体を繰り返し配置（flex-wrap: wrap）いれる */
+    align-items: center;
 }
 
-.form__btn {
-    width: calc(100% - 20px);
+.item{
+    display: flex;
+    flex-direction: column;
+
 }
 
-.form__btn button {
-    margin: 30px 10px 30px 10px;
-    color: #fff;
-    font-size: 20px;
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    border: #ff6347 solid 1px;
-    background-color: #ff6347;
-    cursor: pointer;
+.item-img img{
+    display: block
 }
 
-.form__error {
-    color: red;
-    font-size: 14px;
+.item-icon{
+    width: 200px;
+    height: 200px;
+    border: 1px #dcdcdc solid;
+    background-color: #dcdcdc;
+    
+}
+.item-label{
+    font-size: 18px;
+    text-align: left;
 }
 
-/* PC用 (1400-1540px) */
+/* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    .profile-form__content {
-        width: 50%; 
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 横スクロールを防止 */
     }
-
-    .image-label{
-        left: 30%;   
-    }
-
 }
 
-/* タブレット用 (768-850px) */
+/* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    .profile-form__content {
-        width: 70%; /* 幅を少し広げる */
-        top: 5%; /* 縦位置を調整 */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 横スクロールを防止 */
+    }
+    .tab {
+        width: 20%;
     }
 
-    .profile-icon {
-        width:  100px; 
-        height: 100px;
-    }
-
-    .image-label{
-        top: 35%;
-        left: 30%;
+    .tab label {
         font-size: 14px;
-        
     }
 
-    .form__label {
-        font-size: 16px;
+    .item-icon{
+        width: 140px;
+        height: 140px;
     }
 
-    .form__btn button {
-        font-size: 18px;
+    .item-label{
+        font-size: 14px;
     }
+
 }

@@ -1,14 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-@endsection
-
-@section('nav')
-<form class="logout-btn" action="{{ route('logout') }}" method="POST">
-    @csrf
-<button type="submit">ログアウト</button>
-</form>
+<link rel="stylesheet" href="{{ asset('css/edit_profile.css') }}">
 @endsection
 
 @section('content')
