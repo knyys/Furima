@@ -16,7 +16,7 @@ class CreateConditionsTable extends Migration
         Schema::create('conditions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id');
-            $table->string('ondition');
+            $table->string('condition');
             $table->timestamps();
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
         });

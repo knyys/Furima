@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\AddressRequest;
 use APP\Models\Profile;
 
 
@@ -19,19 +21,23 @@ class ProfileController extends Controller
         return view('profile');
     }
 
-    /*Profile画像反映させるやつ再確認する
+
     public function upload(ProfileRequest $request)
     {
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('public/profile');
+        $data = $request->only(['name', 'address_number', 'address', 'building']);
 
-            $url = Profile::url($path);
+        $profile = Auth::user()->profile;
+        $profile->update($data); 
 
-             return redirect()->back()->with('profile_image_url', $url);
-    }
+        $image = $request->file('image');
+        $path = $image->store('profile', 'public');  
+        $imageUrl = asset('storage/' . $path); 
 
+        $profile->update(['profile_image' => $imageUrl]);
+
+        return back()->with('success', '画像がアップロードされました。');
+
+        // 画像がアップロードされていない場合
         return redirect()->back()->withErrors(['profile_image' => '画像のアップロードに失敗しました']);
-        
-    }*/
+    }
 }
