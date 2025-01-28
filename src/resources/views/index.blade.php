@@ -21,7 +21,7 @@
     </ul>
     <div class="tabContentList">
         <!--おすすめタブ-->
-        <article class="tab-content" id="content_1">
+        <article class="tab-content active" id="content_1">
             <div class="items__list">
             <!--foreach使う-->
             <div class="item">
@@ -38,7 +38,7 @@
         </article>
 
         <!--マイリストタブ-->
-        <article class="tabContent" id="content_2">
+        <article class="tab-content" id="content_2">
 
         </article>
         

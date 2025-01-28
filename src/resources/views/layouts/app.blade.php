@@ -25,7 +25,7 @@
             <div class="header__nav">
                 <div class="nav__btn">
                     @if (Auth::check())
-                    <form class="logout-btn" action="/logout" method="POST">
+                    <form class="logout-btn" action="{{ route('logout') }}" method="POST">
                         @csrf
                     <button type="submit">ログアウト</button>
                     </form>

@@ -18,6 +18,7 @@ class LoginController extends Controller
         // ユーザー認証
         if (Auth::attempt($request->only('email', 'password'))) {
             return redirect('/?page=mylist');
+        }
         
 
         // 認証失敗時、エラーメッセージを表示し入力値を保持
@@ -25,5 +26,4 @@ class LoginController extends Controller
             'login' => 'ログイン情報が登録されていません',
         ]);
     }
-}
 }

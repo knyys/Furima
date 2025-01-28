@@ -12,12 +12,10 @@
         </div>
     @if ($errors->has('login'))
     <div class="login-form__error">
-    
         <span class="error">
             <img src="{{ asset('storage/error_icons.png') }}" alt="error-icon">
             {{ $errors->first('login') }}
         </span>
-    
     </div>
     @endif
 

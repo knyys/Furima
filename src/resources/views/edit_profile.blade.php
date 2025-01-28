@@ -11,19 +11,14 @@
             <h2>プロフィール設定</h2>
         </div>
         <div class="profile-form__img">
-            <img id="image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="">
+            <img id="profile-image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="">
             <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
                 @csrf
             <output id="image" class="image_output"></output>
             <!--画像選択ラベル-->
             <label for="image-input" class="image-label">画像を選択する</label>
-            <input type="file" id="image-input" name="image" accept="image/*">
+            <input type="file" id="image-input" name="image" accept=".jpg, .png">
 
-        </div>
-
-        
-        <div class="form__error">
-            <!--error追記-->
         </div>
 
             <div class="form__group">
@@ -33,6 +28,11 @@
                 <div class="form__content">
                     <input type="text" name="name" value="{{ old('name') }}">
                 </div>
+                <div class="form__error">
+                    @error('name')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
             <div class="form__group">
                 <div class="form__label">
@@ -40,7 +40,11 @@
                 </div>
                 <div class="form__content">
                     <input type="text" name="address_number" value="{{ old('address_number') }}">
-                    <!--ハイフンありの8文字-->
+                </div>
+                <div class="form__error">
+                    @error('address_number')
+                    {{ $message }}
+                    @enderror
                 </div>
             </div>
             <div class="form__group">
@@ -50,6 +54,11 @@
                 <div class="form__content">
                     <input type="text" name="address" value="{{ old('address') }}">
                 </div>
+                <div class="form__error">
+                    @error('address')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
             <div class="form__group">
                 <div class="form__label">
@@ -57,6 +66,11 @@
                 </div>
                 <div class="form__content">
                     <input type="text" name="building" value="{{ old('building') }}">
+                </div>
+                <div class="form__error">
+                    @error('building')
+                    {{ $message }}
+                    @enderror
                 </div>
             </div>
             <div class="form__btn">
