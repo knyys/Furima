@@ -19,23 +19,21 @@
 .header__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
 }
 
 .header__search-form {
     width: 100%;
-    align-items: center;
     display: flex;
     align-items: center;
 }
 
 .search-form{
-    width: 80%;
+    width: 100%;
 }
 
 .header__search-form input {
-    width: 90%;
+    width: 100%;
     font-size: 18px;
     padding: 0 10px;
     margin: auto;
@@ -44,9 +42,10 @@
 .header__nav {
     display: flex;
     justify-content: flex-end;
-    width: 50%;
-    gap: 10px;
+    width: 40%;
+    gap: 20px;
     padding: 0 5px;
+    margin: 0 10px ;
 }
 
 .logout-btn button {
@@ -86,10 +85,14 @@
     html, body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
+        overflow-x: hidden;
     }
+    .header__logo{
+        width: 30%;
+    }
+
     .header__logo img {
-        width: 90%;
+        width: 100%;
     }
     .header__inner {
         width: 80%;
@@ -97,50 +100,69 @@
 
     .header__search-form {
         width: 60%;
+
     }
 
     .search-form{
-        width: 100%;
+        width: 80%;
+        margin-left: 30px;
     }
 
     .header__search-form input {
         width: 100%;
+        font-size: 14px;
     }
 
     .header__nav {
-        width: 80%;
+        width: 40%;
+        gap: 5px;
     }
 
+    .login-btn,
+    .nav__btn--mypage a,
+    .nav__btn--sell a {
+    font-size: 12px;
+}
+  
 }
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
     html, body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
+        overflow-x: hidden; 
+    }
+
+    .header__logo{
+        width: 30%;
+
     }
     .header__logo img {
         width: 90%;
     }
 
     .header__inner {
-        width: 80%;
+        width: 70%;
     }
 
     .header__search-form {
-        width: 90%;
+        width: 60%;
+        display: flex;
+        justify-content: flex-end;
     }
 
     .search-form{
-        width: 90%;
+        width: 90%;    
+        
     }
 
     .header__search-form input {
-        width: 90%;
+        width: 100%;
+    
     }
 
     .header__nav {
-        width: 80%;
+        width:40%;
     }
 
 }
