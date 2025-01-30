@@ -40,17 +40,18 @@
             <!--出品した商品タブ-->
             <article class="tab-content" id="content_1">
                 <div class="items__list">
-                <!--foreach使う-->
+                @foreach ($items as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
-                    <div class="item-label">
-                        <p>商品名</p>
-                    </div>
+                    <span class="item-label">
+                        {{ $item->name }}
+                    </span>
+
                 </div>
-                <!--foreach終わり-->
+                @endforeach
                 </div>    
             </article>
 
