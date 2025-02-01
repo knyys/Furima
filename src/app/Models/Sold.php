@@ -9,9 +9,8 @@ class Sold extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'item_id', 
-        'sold_at'
+    protected $fillable = [ 
+        'sold'
     ];
 
     //リレーション

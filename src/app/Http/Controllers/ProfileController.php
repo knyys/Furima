@@ -6,38 +6,61 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
-use APP\Models\Profile;
+use App\Models\Profile;
+use App\Models\User;
 
 
 class ProfileController extends Controller
 {
+    //プロフィール編集画面の表示
     public function welcome()
     {
         return view('edit_profile');
     }
 
-    public function index()
+
+    //プロフィール編集・更新
+    public function upload(ProfileRequest $profilerequest, AddressRequest $addressrequest)
     {
-        return view('profile');
-    }
+        $data = $addressrequest->only(['address_number', 'address', 'building']);
+    
+        $image = $profilerequest->file('image');
+        if ($image) {
+            $path = $image->store('profile', 'public');  
+            $imageUrl = asset('storage/' . $path); 
+        } else {
+            return redirect()->back()->withErrors(['image' => '画像のアップロードに失敗しました']);
+        }
+ 
+        $user = Auth::user();
 
+        $profile = $user->profile()->firstOrCreate(
+        ['user_id' => $user->id], 
+        [
+            'name' => $user->id,
+            'address_number' => $data['address_number'],
+            'address' => $data['address'],
+            'building' => $data['building'],
+            'image' => $imageUrl
+        ]
+    );
 
-    public function upload(ProfileRequest $request)
-    {
-        $data = $request->only(['name', 'address_number', 'address', 'building']);
-
-        $profile = Auth::user()->profile;
         $profile->update($data); 
+        $profile->update(['image' => $imageUrl]);
 
-        $image = $request->file('image');
-        $path = $image->store('profile', 'public');  
-        $imageUrl = asset('storage/' . $path); 
-
-        $profile->update(['profile_image' => $imageUrl]);
-
-        return back()->with('success', '画像がアップロードされました。');
+        return redirect('/')->with('success', '登録が完了しました。')->with('imageUrl', $imageUrl);
 
         // 画像がアップロードされていない場合
-        return redirect()->back()->withErrors(['profile_image' => '画像のアップロードに失敗しました']);
+        return redirect('/mypage/profile')->back()->withErrors(['image' => '画像のアップロードに失敗しました']);
+    }
+
+    //プロフィール画面の表示
+    public function index()
+    {
+        $user = Auth::user();
+        $profile = $user->profile; 
+        $items = $user->items;
+
+        return view('profile', compact('user', 'profile', 'items'));
     }
 }

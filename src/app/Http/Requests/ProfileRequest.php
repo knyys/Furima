@@ -27,4 +27,13 @@ class ProfileRequest extends FormRequest
             'image' => 'required|max:1024|mimes:jpeg,png'
         ];
     }
+
+    public function messages()
+    {
+        return [
+        'image.required' => '画像をアップロードしてください',
+        'image.max' => '画像のサイズは1MB以下にしてください。',
+        'image.mimes' => 'アップロードできる画像の形式はJPEGまたはPNGのみです。',
+        ];
+    }
 }
