@@ -47,6 +47,12 @@
     display: none;
 }
 
+.image-name {
+    margin-left: 10px;  
+    color: #333;  
+    font-size: 14px;
+}
+
 .form__group {
     margin: 10px 10px 30px 10px;
 }

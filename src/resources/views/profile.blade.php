@@ -9,14 +9,14 @@
     <div class="profile-form__content">
         <div class="profile-form__header">
             <div class="profile__img">
-                <img id="image" class="profile-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="">
+                <img id="image" class="profile-icon" src="{{ asset($profile->image) }}" alt="プロフィール画像">
                 <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
                 @csrf
                 <output id="image" class="image_output"></output>
             </div>    
             <div class="profile__user-name">    
                 <!--ユーザー名を表示できるようにする-->
-                <span>ユーザー名</span>
+                <span>{{ $user->name }}</span>
             </div>
             <div class="profile__edit">
                 <a class="edit-page" href="/mypage/profile">プロフィールを編集</a>
@@ -43,13 +43,12 @@
                 @foreach ($items as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/profile/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
                     <span class="item-label">
                         {{ $item->name }}
                     </span>
-
                 </div>
                 @endforeach
                 </div>    
@@ -58,23 +57,21 @@
             <!--購入した商品-->
             <article class="tabContent" id="content_2">
                 <div class="items__list">
-                <!--foreach使う-->
+                @foreach ($items as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
-                    <div class="item-label">
-                        <p>商品名</p>
-                    </div>
+                    <span class="item-label">
+                        {{ $item->name }}
+                    </span>
                 </div>
-                <!--foreach終わり-->
+                @endforeach
                 </div>    
             </article>   
         </div>       
     </div>
 </div>
-
-
 
 @endsection

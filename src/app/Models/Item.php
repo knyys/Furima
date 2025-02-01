@@ -11,10 +11,9 @@ class Item extends Model
 
     protected $fillable = [
         'name', 
-        'description', 
+        'detail', 
         'price', 
-        'category_id', 
-        'condition_id'
+        'image'
     ];
 
     protected $casts = [
