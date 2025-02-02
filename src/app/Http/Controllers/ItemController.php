@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Condition;
+use App\Models\Category;
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -22,6 +25,15 @@ class ItemController extends Controller
         //その他
         $items = Item::all();
         return view('index', compact('items'));
+    }
+
+    //商品詳細画面
+    public function detail($id)
+    {
+        $item = Item::with(['conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+
+        return view('detail', compact('item'));
+     // return view('detail');
     }
 
 }

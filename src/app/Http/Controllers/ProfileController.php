@@ -43,7 +43,7 @@ class ProfileController extends Controller
             'building' => $data['building'],
             'image' => $imageUrl
         ]
-    );
+        );
 
         $profile->update($data); 
         $profile->update(['image' => $imageUrl]);
