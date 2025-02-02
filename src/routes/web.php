@@ -39,11 +39,11 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 
 //商品一覧
 Route::get('/', [ItemController::class, 'index'])->name('home');
+//商品詳細
+Route::get('/items/{item}', [ItemController::class, 'detail'])->name('item.detail');
+//Route::get('/items', [ItemController::class, 'detail']);
 
-//ログイン済の場合のみ表示
-/*Route::middleware('auth')->group(function () {
-    Route::get('/', [ItemController::class, 'index'])->name('home');
-});*/
+
 
 //商品出品画面
 Route::get('/sell', [SellController::class, 'index']);

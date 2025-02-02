@@ -37,14 +37,19 @@ class Item extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function category()
+    public function getlikesCountAttribute()
     {
-        return $this->belongsTo(Category::class);
+        return $this->likes()->count();
     }
 
-    public function condition()
+    public function categories()
     {
-        return $this->belongsTo(Condition::class);
+        return $this->hasMany(Category::class);
+    }
+
+    public function conditions()
+    {
+        return $this->hasMany(Condition::class);
     }
 
     public function sold()

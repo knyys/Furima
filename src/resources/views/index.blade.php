@@ -25,10 +25,12 @@
                 <div class="items__list">
                 @foreach ($items as $item)
                 <div class="item">
+                    <a href="{{ route('item.detail', ['item' => $item->id]) }}">
                     <div class="item-img">
                         <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
+                    </a>
                     <span class="item-label">
                         {{ $item->name }}
                     </span>
