@@ -14,7 +14,9 @@
 <body>
     <header class="header">
         <div class="header__logo">
+            <a href="/">
                 <img src="{{ asset('storage/logo.svg') }}" alt="logo">
+            </a>
         </div>
         <div class="header__inner">
             <div class="header__search-form">
@@ -34,7 +36,7 @@
                     @endif 
                 </div>
                 <div class="nav__btn--mypage">
-                    <a class="mypage-btn" href="/mypage">マイページ</a>
+                    <a class="mypage-btn" href="{{ route('mypage') }}">マイページ</a>
                 </div>
                 <div class="nav__btn--sell">
                     <a class="sell-btn" href="/sell">出品</a>

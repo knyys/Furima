@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConditionsTable extends Migration
+class CreateBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateConditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conditions', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id');
-            $table->string('condition');
+            $table->string('brand');
             $table->timestamps();
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+     
         });
     }
 
@@ -29,6 +29,6 @@ class CreateConditionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conditions');
+        Schema::dropIfExists('brands');
     }
 }

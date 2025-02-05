@@ -21,17 +21,20 @@
         <!--おすすめタブ-->
         <article class="tab-content" id="content_1">
             <div class="items__list">
-            <!--foreach使う-->
-            <div class="item">
-                <div class="item-img">
-                    <img id="image" class="item-icon" src="{{ asset('storage/profile/default.jpg') }}" alt="商品画像">
-                    <output id="image" class="image_output"></output>
+            @foreach ($items as $item)
+                <div class="item">
+                    <a href="{{ route('item.detail', ['item' => $items->id]) }}">
+                    <div class="item-img">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $items->image) }}" alt="商品画像:{{ $item->name }}">
+                        <output id="image" class="image_output"></output>
+                    </div>
+                    </a>
+                    <span class="item-label">
+                        {{ $item->name }}
+                    </span>
+
                 </div>
-                <div class="item-label">
-                    <p>商品名</p>
-                </div>
-            </div>
-            <!--foreach終わり-->
+                @endforeach
             </div>    
         </article>
 

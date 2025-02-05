@@ -14,7 +14,9 @@
 <body>
     <header class="header">
       <div class="header__inner">
+        <a href="/">
         <img src="{{ asset('storage/logo.svg') }}" alt="logo">
+        </a>
       </div>      
     </header>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::post('register', [RegisterController::class, 'store']);
 
 //プロフィール画面
 Route::get('mypage/profile', [ProfileController::class, 'welcome']);
-Route::get('mypage', [ProfileController::class, 'index']);
+Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
 
@@ -41,9 +42,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 Route::get('/', [ItemController::class, 'index'])->name('home');
 //商品詳細
 Route::get('/items/{item}', [ItemController::class, 'detail'])->name('item.detail');
-//Route::get('/items', [ItemController::class, 'detail']);
+Route::post('/items/{item}', [ItemController::class, 'addComment']);
+
 
 
 
 //商品出品画面
 Route::get('/sell', [SellController::class, 'index']);
+
+//商品購入
+Route::get('/purchase/{item}', [PurchaseController::class, 'index']);
