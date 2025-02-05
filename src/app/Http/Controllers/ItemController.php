@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Condition;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
@@ -27,13 +29,35 @@ class ItemController extends Controller
         return view('index', compact('items'));
     }
 
+    //コメント追加後画面
+    public function addComment(CommentRequest $commentrequest, $id)
+    {
+        // 未認証ユーザーはログインページへリダイレクト
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
+    $user = Auth::user();
+        $item = Item::with(['conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+
+        Comment::create([
+        'user_id' => Auth::id(),
+        'item_id' => $item->id,
+        'comment' => $commentrequest->comment,
+        ]);
+
+        return redirect()->route('item.detail', ['item' => $id])->with('success', 'コメントを追加しました。');
+
+    return view('detail', compact('item'));
+
+    }
+
     //商品詳細画面
     public function detail($id)
     {
         $item = Item::with(['conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
 
-        return view('detail', compact('item'));
-     // return view('detail');
-    }
+    return view('detail', compact('item'));
 
+    }
 }

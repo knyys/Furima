@@ -5,12 +5,25 @@
 @endsection
 
 @section('content')
+<div class="alert">
+@if(session('success'))
+    <div class="alert-success">
+        {{ session('success') }}
+    </div>
+@elseif($errors->any())
+    <div class="alert-danger">
+        <p>エラーがあります。</p>
+    </div>
+@endif
+</div>
+
 <div class="item-page__detail">
     <div class="detail__content">
         <div class="item__img">
             <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }} ">
             <output id="image" class="image_output"></output>
         </div>
+        
         <div class="item__detail">
             <div class="item__name">
                 {{ $item->name }}
@@ -34,9 +47,9 @@
                 <span class="action--comment" data-item-id="2">💬</span>
             </div>
             <div class="item-purchase__btn">
-                <button class="purchase__btn">
+                <a class="purchase__btn" href="/purchase/{item}">
                     購入手続きへ
-                </button>
+                </a>
             </div>
             <div class="item__description">
                 <span class="description__label">商品説明</span>
@@ -79,7 +92,7 @@
                 <div class="comment__content">
                     <div class="comment__user">
                         <span class="user__img">
-                            <img id="image" class="item-icon" src="{{ asset('storage/' . $comment->user->profile_image) }} " alt="ユーザー画像">
+                            <img id="image" class="item-icon" src="{{ asset('storage/profile/' . $comment->user->image) }} " alt="ユーザー画像">
                             <output id="image" class="image_output"></output>
                         </span>
                         <span class="user__name">
@@ -87,19 +100,25 @@
                         </span>
                     </div>
                     <div class="comment__detail">
-                        {{ $comment->content }}
+                        {{ $comment->comment }}
                     </div>
                 </div>
                 @endforeach
                 @endif
                 
                 <div class="comment-form">
+                    
                     <span class="comment-form__label">商品へのコメント</span>
-                    <form action="" method="">
+                    <form action="" method="post">
                         @csrf
-                    <textarea class="comment__box"></textarea>
+                        <div class="comment__danger">
+                            @error('comment')
+                            {{ $message }}
+                            @enderror
+                        </div>
+                    <textarea class="comment__box" name="comment"></textarea>
                     <div class="comment-form__btn">
-                    <button class="purchase__btn">
+                    <button class="purchase__btn" type="submit">
                         コメントを送信する
                     </button>
                     </form>

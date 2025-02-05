@@ -57,6 +57,10 @@ class ProfileController extends Controller
     //プロフィール画面の表示
     public function index()
     {
+        if (!Auth::check()) {
+
+        return response('', 200);
+    }
         $user = Auth::user();
         $profile = $user->profile; 
         $items = $user->items;

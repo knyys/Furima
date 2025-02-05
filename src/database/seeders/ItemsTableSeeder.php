@@ -22,7 +22,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
             'condition_id' => 1,
             'category_id' => 1,
-        'user_id' => 1],
+            'user_id' => 1],
 
             ['name' => 'HDD', 'price' => 5000, 
             'image' => 'images/HDD+Hard+Disk.jpg',
