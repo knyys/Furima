@@ -14,18 +14,16 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('categories')->insert([
-            ['category' => '腕時計', 'item_id' => 1],
-            ['category' => '家電', 'item_id' => 2],
-            ['category' => '食品', 'item_id' => 3],
-            ['category' => '靴', 'item_id' => 4],
-            ['category' => '家電', 'item_id' => 5],
-            ['category' => '家電', 'item_id' => 6],
-            ['category' => '鞄', 'item_id' => 7],
-            ['category' => 'キッチン用品', 'item_id' => 8],
-            ['category' => 'キッチン用品', 'item_id' => 9],
-            ['category' => 'コスメ', 'item_id' => 10,],
-            ['category' => 'メンズ', 'item_id' => 1],
-         ]);
+        DB::table('categories')->insert([
+            ['category' => '腕時計'], //1
+            ['category' => '家電'], //2
+            ['category' => '食品'], //3
+            ['category' => '靴'], //4
+            ['category' => '鞄'], //5
+            ['category' => 'キッチン用品'], //6
+            ['category' => 'コスメ'], //7
+            ['category' => 'メンズ'], //8
+            ['category' => 'レディース'], //9
+        ]);
     }
 }

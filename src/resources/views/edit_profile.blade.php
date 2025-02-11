@@ -7,9 +7,8 @@
 @section('content')
 <div class="profile-form">
     <div class="profile-form__content">
-        <div class="profile-form__heading">
-            <h2>プロフィール設定</h2>
-        </div>
+        <h2 class="profile-form__heading">プロフィール設定</h2>
+
         <div class="profile-form__img">
             <img id="profile-image" class="profile-icon" src="{{ $imageUrl ?? asset('storage/profile/default.jpg') }}" alt="">
             <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">

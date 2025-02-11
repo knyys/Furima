@@ -33,8 +33,8 @@ class ItemController extends Controller
     public function addComment(CommentRequest $commentrequest, $id)
     {
         // 未認証ユーザーはログインページへリダイレクト
-    if (!Auth::check()) {
-        return redirect()->route('login');
+        if (!Auth::check()) {
+            return response('', 200);
     }
 
     $user = Auth::user();
