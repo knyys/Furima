@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SellController extends Controller
 {
+    /*
     public function index()
     {
         if (!Auth::check()) {
@@ -15,6 +16,12 @@ class SellController extends Controller
     }
         
         $user = Auth::user();
+        return view('exhibit');
+    }
+    */
+
+    public function index()
+    {
         return view('exhibit');
     }
 }

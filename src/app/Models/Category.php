@@ -16,6 +16,6 @@ class Category extends Model
     //リレーション
     public function items()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsToMany(Item::class, 'category_item');
     }
 }

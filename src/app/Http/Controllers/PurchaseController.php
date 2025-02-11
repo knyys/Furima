@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+    /*
     public function index($id)
     {
         if (!auth()->check()) {
@@ -16,5 +17,8 @@ class PurchaseController extends Controller
         $user = Auth::user();
         return view('purchase');
     }
+    */
+
+    
 }
 

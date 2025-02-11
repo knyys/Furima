@@ -17,8 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('condition_id');
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
             $table->string('name');
             $table->integer('price');
             $table->string('image');
@@ -26,7 +25,6 @@ class CreateItemsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('condition_id')->references('id')->on('conditions')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
 });
 

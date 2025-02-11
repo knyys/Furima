@@ -37,10 +37,9 @@
     border: 1px red solid;
     border-radius: 5px;
     padding: 5px 5px;
-    position: absolute; /* 追加 */
-    top: 35%; /* 追加 */
-    left: 25%; /* 追加 */
-    
+    position: absolute; 
+    top: 35%;
+    left: 25%;
 }
 
 .profile-form__img input{

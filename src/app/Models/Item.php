@@ -10,10 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'detail', 
-        'price', 
-        'image'
+        'name', 'price', 'image', 'detail', 'condition_id', 'user_id', 'brand_id'
     ];
 
     protected $casts = [
@@ -44,7 +41,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_item');
     }
 
     public function conditions()
