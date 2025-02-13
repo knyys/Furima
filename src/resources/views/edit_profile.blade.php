@@ -10,7 +10,7 @@
         <h2 class="profile-form__heading">プロフィール設定</h2>
 
         <div class="profile-form__img">
-            <img id="profile-image" class="profile-icon" src="{{ $imageUrl ?? asset('storage/profile/default.jpg') }}" alt="">
+            <img class="icon" src="" alt="">
             <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
                 @csrf
             <output id="image" class="image_output"></output>

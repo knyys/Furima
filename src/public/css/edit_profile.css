@@ -23,7 +23,7 @@
     position: relative;
 }
 
-.profile-icon {
+.profile-form__img img {
     border-radius: 50%;
     width:  140px;       
     height: 140px;    
@@ -50,7 +50,11 @@
     margin-left: 10px;  
     color: #333;  
     font-size: 14px;
+    position: absolute;
+    top: 100px;
+
 }
+    
 
 .form__group {
     margin: 10px 10px 30px 10px;

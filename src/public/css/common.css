@@ -24,8 +24,7 @@
 
 .header__search-form {
     width: 100%;
-    display: flex;
-    align-items: center;
+    
 }
 
 .search-form{
@@ -33,10 +32,13 @@
 }
 
 .header__search-form input {
-    width: 100%;
+    width: 70%;
     font-size: 18px;
     padding: 0 10px;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    
 }
 
 .header__nav {

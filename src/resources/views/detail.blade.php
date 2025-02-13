@@ -28,8 +28,12 @@
             <div class="item__name">
                 {{ $item->name }}
             </div>
-            <div class="item__bland">
-                ブランド名
+            <div class="item__brand">
+                @if($item->brand)
+                    {{ $item->brand->brand }}
+                @else
+                    <p></p>
+                @endif
             </div>
             <div class="item__price">
                 <span class="item__currency">￥</span>
@@ -41,10 +45,12 @@
                     <!--☆の画像にする？-->
                 </span>
                 <span class="favorite-count" id="favorite-count-{{ $item->id }}">
-    {{ $item->favorites_count }} 
-</span>
+                    {{ $item->favorites_count }} 
+                </span>
                     <!--ふきだし画像にする？-->
-                <span class="action--comment" data-item-id="2">💬</span>
+                <span class="action--comment" data-item-id="2">
+                    <img class="comment-icon" src="{{ asset( 'storage/吹き出しのアイコン.png') }}" alt="">
+                </span>
             </div>
             <div class="item-purchase__btn">
                 <a class="purchase__btn" href="/purchase/{item}">
@@ -61,7 +67,7 @@
                 <span class="info__label">商品の情報</span>
                 <div class="item__category">
                     <span class="item__category-label">カテゴリー</span>
-                    @foreach( $item->categories as $category)
+                    @foreach($item->categories as $category)
                     <ul>
                         <li class="item__category-type">{{ $category->category }}</li>
                     </ul>
@@ -69,11 +75,7 @@
                 </div>
                 <div class="item__condition">
                     <span class="item__condition-label">商品の状態</span>
-                    @foreach($item->conditions as $condition)
-                    <ul>
-                        <li class="item__condition-type">{{ $condition->condition }}</li>
-                    </ul>
-                    @endforeach
+                    <span class="item__condition-type">{{ $item->conditions->first()->condition }}</span>
                 </div>
             </div>
 
@@ -92,8 +94,8 @@
                 <div class="comment__content">
                     <div class="comment__user">
                         <span class="user__img">
-                            <img id="image" class="item-icon" src="{{ asset('storage/profile/' . $comment->user->image) }} " alt="ユーザー画像">
-                            <output id="image" class="image_output"></output>
+                            <img class="icon" src="{{ $comment->user->image }} " alt="ユーザー画像">
+
                         </span>
                         <span class="user__name">
                             {{ $comment->user->name }}

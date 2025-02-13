@@ -20,8 +20,8 @@
         </div>
         <div class="header__inner">
             <div class="header__search-form">
-                <form class="search-form" action="" method="">
-                <input type="text" name="search-form" value="なにをお探しですか？" />
+                <form class="search-form" action="{{ route('home') }}" method="get">
+                <input type="text" name="item_name"  value="{{ request('item_name') }}" placeholder="なにをお探しですか？" />
                 </form>
             </div>
             <div class="header__nav">
@@ -49,5 +49,24 @@
       @yield('content')
     </main>
 </body>
+<script>
+    document.getElementById('image-input').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('.icon').src = e.target.result; 
+            }
+            reader.readAsDataURL(file);
+
+            // 画像名の表示
+            document.getElementById('image-name').textContent = file.name;
+        } else {
+            document.getElementById('image-name').textContent = '';
+        }
+        // 画像選択ラベルを非表示
+            document.querySelector('.image-label').style.display = 'none';
+    });
+</script>
 
 </html>

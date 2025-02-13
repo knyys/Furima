@@ -11,7 +11,7 @@
 	<div class="form__content">
 		<div class="item__img">
 			<span class="content__label">商品画像</span>
-			<img class="item-icon" src="">
+			<img class="icon" src="">
             <form method="POST" action="" enctype="multipart/form-data">
                 @csrf
             <output id="image" class="image_output"></output>
@@ -53,11 +53,12 @@
 		<div class="item__condition">
 			<span class="content__label">商品の状態</span>
 			<select class="condition" name="condition">
-			<option value="">選択してください</option>
-			<option value="">良好</option>
-			<option value="">目立った傷や汚れなし</option>
-			<option value="">やや傷や汚れあり</option>
-			<option value="">状態が悪い</option>
+			<option value="" selected hidden>選択してください</option>
+			<option value="良好">良好</option>
+			<option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
+			<option value="やや傷や汚れあり">やや傷や汚れあり</option>
+			<option value="状態が悪い">状態が悪い</option>
+			</select>
 		</div>
 
 		<h3 class="content__title">商品名と説明</h3>
@@ -74,17 +75,15 @@
 			
 		<div class="item__price">
 			<span class="content__label">販売価格</span>
-			<input type="" name="price">
+			<input type="number" name="price" min="0" step="1" placeholder="￥">
 		</div>
 		<div class="exhiit-form__btn">
 			<button class="exhibit__btn" type="submit">出品する</button>
 		</div>
 		</form>
 	</div>
-	
-	
-	
-	
+
 </div>
 
 @endsection
+

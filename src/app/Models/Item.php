@@ -17,6 +17,15 @@ class Item extends Model
         'price' => 'integer',
     ];
 
+    //ローカルスコープ（検索）
+    public function scopeNameSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            return $query->where('name', 'like', "%{$keyword}%");
+        }
+        return $query;
+    }
+
 
     //リレーション
     public function user()
@@ -53,4 +62,10 @@ class Item extends Model
     {
         return $this->hasOne(Sold::class);
     }
+
+    public function brand()
+    {
+        return $this->hasOne(Brand::class);
+    }
 }
+
