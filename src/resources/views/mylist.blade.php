@@ -21,16 +21,16 @@
         <!--おすすめタブ-->
         <article class="tab-content" id="content_1">
             <div class="items__list">
-            @foreach ($items as $item)
+            @foreach ($allItems as $allItem)
                 <div class="item">
-                    <a href="{{ route('item.detail', ['item' => $items->id]) }}">
+                    <a href="{{ route('item.detail', ['item' => $allItem->id]) }}">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $items->image) }}" alt="商品画像:{{ $item->name }}">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $allItem->image) }}" alt="商品画像:{{ $allItem->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
                     </a>
                     <span class="item-label">
-                        {{ $item->name }}
+                        {{ $allItem->name }}
                     </span>
 
                 </div>

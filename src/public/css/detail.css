@@ -62,7 +62,7 @@
     font-weight: bold;
 }
 
-.item__bland {
+.item__brand {
     font-size: 14px;
 }
 
@@ -81,8 +81,6 @@
     display: flex;
     justify-content: space-between;
     width: 20%;
-
-
 }
 
 /* お気に入りの☆*/
@@ -98,11 +96,11 @@
 /*ここまで*/
 
 /* コメント数　*/
-.action--comment {
-    font-size: 50px;
-    cursor: pointer;
-    margin-top: 0px;
-    transition: color 0.3s;
+.comment-icon{
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .item-purchase__btn {
@@ -155,8 +153,7 @@
     margin-right: 10px;
 }
 
-.item__category ul,
-.item__condition ul{
+.item__category ul{
     list-style: none;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -172,7 +169,7 @@
 
 .item__condition-type {
     font-size: 12px;
-    list-style: none;
+    margin: 0 20px;
 }
 
 .item__comment {

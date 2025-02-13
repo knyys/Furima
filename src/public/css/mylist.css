@@ -36,17 +36,11 @@ label:hover {
     cursor: pointer;
     opacity: 0.8;
 }
-/* ラベル選んだ時文字赤くする */
+/* ラジオボタンがチェックされた時のラベルの文字色 */
 #tab_1:checked ~ .tab-list label[for="tab_1"],
 #tab_2:checked ~ .tab-list label[for="tab_2"] {
     color: red;
     font-weight: bold
-}
-
-.tabContentList{
-    margin: 40px 40px;
-    width: 100%;
-    height: 100%;
 }
 
 .tab-content {
@@ -54,7 +48,13 @@ label:hover {
     font-size: 16px;
     color: black;
     text-align: center;
+    padding: 50px 0;
+}
+
+.tabContentList{
+    margin: 40px 40px;
     width: 100%;
+    height: 100%;
 }
 
 #tab_1:checked ~ .tabContentList #content_1,
@@ -72,15 +72,19 @@ label:hover {
     opacity: 1;
 }
 
+
 .item{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin: 20px 30px 50px 30px;
 }
 
 .items__list {
     display: flex;
- /* 全体を繰り返し配置（flex-wrap: wrap）いれる */
-    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
 }
 
 .item-img img{
@@ -96,6 +100,7 @@ label:hover {
 }
 .item-label{
     font-size: 18px;
+    width: 200px;
     text-align: left;
 }
 

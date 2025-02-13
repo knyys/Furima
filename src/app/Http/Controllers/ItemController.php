@@ -13,21 +13,29 @@ use App\Http\Requests\CommentRequest;
 class ItemController extends Controller
 {
     public function index(Request $request)
-    {
-        //クエリパラメータ
-        $page = $request->query('page');
+{
+    $page = $request->query('page');
+    $searchKeyword = $request->input('item_name');
 
-        if ($page === 'mylist') {
-            if (auth()->check()) {
-                $items = auth()->user()->items; 
-                return view('mylist', compact('items'));
-            }
-        }
+    // すべての商品を検索
+    $allItems = Item::nameSearch($searchKeyword)->get();
 
-        //その他
-        $items = Item::all();
-        return view('index', compact('items'));
+    // ログイン
+    if (auth()->check()) {
+        $userItems = auth()->user()->items()->nameSearch($searchKeyword)->get();
+    } else {
+        $userItems = collect(); // 未ログイン
     }
+
+    // マイリストページなら 'mylist' を表示
+    if ($page === 'mylist') {
+        return view('mylist', compact('userItems', 'allItems', 'searchKeyword'));
+    }
+
+    // 通常の一覧ページ
+    return view('index', compact('userItems', 'allItems', 'searchKeyword'));
+}
+
 
     //コメント追加後画面
     public function addComment(CommentRequest $commentrequest, $id)
@@ -37,8 +45,8 @@ class ItemController extends Controller
             return response('', 200);
     }
 
-    $user = Auth::user();
-        $item = Item::with(['conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+        $user = Auth::user();
+        $item = Item::with(['brand','conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
 
         Comment::create([
         'user_id' => Auth::id(),
@@ -55,9 +63,10 @@ class ItemController extends Controller
     //商品詳細画面
     public function detail($id)
     {
-        $item = Item::with(['conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+        $item = Item::with(['brand', 'conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
 
     return view('detail', compact('item'));
 
     }
+
 }
