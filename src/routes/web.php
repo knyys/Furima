@@ -49,6 +49,7 @@ Route::post('/items/{item}', [ItemController::class, 'addComment']);
 
 //商品出品画面
 Route::get('/sell', [SellController::class, 'index']);
+Route::post('/sell', [SellController::class, 'sell'])->name('sell');
 
 //商品購入
 Route::get('/purchase/{item}', [PurchaseController::class, 'index']);

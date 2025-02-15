@@ -42,7 +42,7 @@ class ItemController extends Controller
     {
         // 未認証ユーザーはログインページへリダイレクト
         if (!Auth::check()) {
-            return response('', 200);
+            return redirect('/login')->with('error', 'ログインしてください');
     }
 
         $user = Auth::user();
@@ -68,5 +68,7 @@ class ItemController extends Controller
     return view('detail', compact('item'));
 
     }
+
+
 
 }

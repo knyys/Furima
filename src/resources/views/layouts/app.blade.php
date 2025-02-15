@@ -64,8 +64,16 @@
         } else {
             document.getElementById('image-name').textContent = '';
         }
-        // 画像選択ラベルを非表示
-            document.querySelector('.image-label').style.display = 'none';
+        // 画像選択ラベル
+            const label = document.querySelector('.image-label');
+        if (this.files.length > 0) {
+            label.textContent = '画像を変更する';
+        } else {
+            label.textContent = '画像を選択する'; 
+
+        }
+    
+            
     });
 </script>
 
