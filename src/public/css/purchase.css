@@ -1,0 +1,157 @@
+.purchase-form{
+    width: 100%;
+    position: relative;
+}
+
+.purchase-form__content{
+    position: absolute;
+    top: 80px;
+    left: 15%;
+    width: 40%;
+    margin-right: 20px;
+}
+
+.item,
+.purchase{
+    display: flex;
+    padding-bottom: 30px;
+    border-bottom: 1px solid black;
+}
+
+.item-img{
+    width: 200px;
+    height: 200px;
+    border: 1px solid #dcdcdc;
+    background-color: #dcdcdc;
+}
+
+.item__name{
+    margin-left: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item__price{
+    margin-left: 30px;
+}
+
+.item__currency{
+    font-size: 18px;
+}
+
+.item__amount{
+    font-size: 22px;
+}
+
+.purchase{
+    padding-top: 20px;
+    flex-direction: column;
+}
+
+.purchase-method{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-left: 20px;   
+}
+
+.method__select{
+    width: 80%;
+    display: flex;
+    margin-left: 20px;
+}
+
+.method__select select{
+    width: 50%;
+    margin-left: 40px;
+    height: 20px;
+}
+
+.method__select option{
+    background-color: #afafb0;
+}
+
+.shipping-address{
+    padding-top: 20px;
+}
+
+.shipping-address__header{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px 30px 20px;
+}
+
+.shipping-address__header label{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.address__update-button{
+    text-decoration:none;  
+    color: blue;  
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.address-number,
+.address{
+    margin-left: 60px;
+}
+
+.postal-mark,
+.number,
+.address__details{
+    font-size: 16px;
+}
+
+.purchase-form__confirmation{
+    position: absolute;
+    top: 80px;
+    right:15%;
+    width: 25%;
+    margin-left: 30px;
+}
+
+.confirmation__price,
+.confirmation__purchase{
+    width: 100%;
+    display: flex;
+    padding: 40px 0;
+    margin-right: 15%;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.confirmation__purchase{
+    border-bottom: 1px solid black;
+}
+
+.confirmation__label{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.confirmation__content{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.purchase-form__btn{
+    margin: 50px 0;
+    width: 100%;
+}
+.purchase__btn{
+    border-radius: 5px;
+    border: #ff6347 solid 1px;
+    background-color: #ff6347;
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}

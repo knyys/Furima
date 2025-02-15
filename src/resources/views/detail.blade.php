@@ -8,7 +8,7 @@
 <div class="alert">
 @if(session('success'))
     <div class="alert-success">
-        {{ session('success') }}
+        <p>{{ session('success') }}</p>
     </div>
 @elseif($errors->any())
     <div class="alert-danger">
@@ -83,7 +83,7 @@
             <div class="item__comment">
                 <div class="comment__count">
                 コメント
-               <!-- コメントがない場合は コメント だけが表示され、コメントがある場合は コメント（3）になる-->
+               <!-- コメントがない場合は コメント だけ表示、コメントがある場合は コメント（3）になる-->
                 @if($item->comments->count() > 0)
                 （{{ $item->comments->count() }}）
                 @endif

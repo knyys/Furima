@@ -11,7 +11,7 @@ class PurchaseController extends Controller
     public function index($id)
     {
         if (!auth()->check()) {
-        return redirect('/login'); 
+            return redirect('/login')->with('error', 'ログインしてください');
         }
         
         $user = Auth::user();

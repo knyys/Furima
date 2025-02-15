@@ -5,6 +5,11 @@
 @endsection
 
 @section('content') 
+<div class="alert">
+    @if(session('error'))
+        <p class="alert--danger">{{ session('error') }}</p>
+    @endif
+</div>
 <div class="login-form">
     <div class="login-form__content">
         <div class="login-form__heading">
