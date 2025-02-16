@@ -53,7 +53,7 @@
                 </span>
             </div>
             <div class="item-purchase__btn">
-                <a class="purchase__btn" href="/purchase/{item}">
+                <a class="purchase__btn" href="/purchase/{{ $item->id }}">
                     購入手続きへ
                 </a>
             </div>

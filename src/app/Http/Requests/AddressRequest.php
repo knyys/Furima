@@ -37,8 +37,8 @@ class AddressRequest extends FormRequest
         'name.required' => 'お名前を入力してください',
         'address_number.required' =>'郵便番号を入力してください。',        
         'address_number.regex' => '郵便番号は「XXX-XXXX」の形式で入力してください。',
-         'address.required' => '住所を入力してください',
-         'building.required' => '建物名を入力してください',
+        'address.required' => '住所を入力してください',
+        'building.required' => '建物名を入力してください',
         ];
     }
 

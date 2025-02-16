@@ -24,7 +24,16 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'method' => 'required',
+            'address' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+        'method.required' => '支払い方法を選択してください',
+        'address.required' => '送付先住所を入力してください',   
         ];
     }
 }
