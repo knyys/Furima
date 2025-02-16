@@ -15,7 +15,6 @@
                 <output id="image" class="image_output"></output>
             </div>    
             <div class="profile__user-name">    
-                <!--ユーザー名を表示できるようにする-->
                 <span>{{ $user->name }}</span>
             </div>
             <div class="profile__edit">

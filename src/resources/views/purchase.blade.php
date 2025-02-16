@@ -25,7 +25,7 @@
         <div class="purchase">
             <label class="purchase-method" for="">支払い方法</label>
             <div class="method__select">
-            <select name="method">
+            <select id="options" name="method">
                 <option value="">選択してください</option>
                 <option value="コンビニ払い" {{ old('method') == 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
                 <option value="カード支払い" {{ old('method') == 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
@@ -59,10 +59,9 @@
         <div class="confirmation__purchase">
             <div class="confirmation__label">支払い方法</div>
             <div class="confirmation__content">
-                <span class="payment-method">コンビニ払い</span>
+                <span id="selectedText" class="payment-method">{{ old('method') }}</span>
             </div>
-        </div>
-    
+        </div>        
 
         <div class="purchase-form__btn">
             <button class="purchase__btn" type="submit">購入する</button>
@@ -70,4 +69,10 @@
     </div>
 </form>
 </div>
+
+<script>
+document.getElementById("options").addEventListener("change", function() {
+    document.getElementById("selectedText").textContent = this.value;
+});
+</script>
 @endsection

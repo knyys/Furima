@@ -53,7 +53,7 @@
                 </span>
             </div>
             <div class="item-purchase__btn">
-                <a class="purchase__btn" href="/purchase/{{ $item->id }}">
+                <a class="purchase__btn" href="{{ route('purchase', ['item' => $item->id]) }}">
                     購入手続きへ
                 </a>
             </div>

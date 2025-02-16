@@ -25,7 +25,7 @@
 
             <div class="address-form__details">
                 <label for="">住所</label>
-                <input type="text" name="address" value="{{ old('address_number') }}">
+                <input type="text" name="address" value="{{ old('address') }}">
                 <div class="danger">
                     @error('address')
                         {{ $message }}

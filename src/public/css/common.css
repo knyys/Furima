@@ -1,7 +1,7 @@
 .header{
     background-color: black;
     width: 100%;
-    padding: 5px 5px;
+    height: 60px;
     display: flex;
 }
 
@@ -12,18 +12,19 @@
 }
 
 .header__logo img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    padding-left: 10px;
 }
 
 .header__inner {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 70%;
 }
 
 .header__search-form {
-    width: 100%;
+    width: 50%;
     
 }
 
@@ -32,12 +33,14 @@
 }
 
 .header__search-form input {
-    width: 70%;
+    width: 75%;
+    height: 40px;
     font-size: 18px;
     padding: 0 10px;
     margin: auto;
     display: flex;
     justify-content: center;
+    border-radius: 5px;
     
 }
 
@@ -56,7 +59,15 @@
     color: white;
     background-color: transparent;
     cursor: pointer;
+    height: 30px;
+    align-items: center;
 }
+
+.nav__btn a{
+    height: 30px;
+    align-items: center;
+}
+
 .login-btn{
     text-decoration: none;
     font-size: 18px;
@@ -69,15 +80,16 @@
     color: white;
     cursor: pointer;
     font-size: 18px;
+    height: 30px;
 }
 
 .nav__btn--sell a {
     text-decoration: none;
     border: 1px solid black;
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: white;
     color: black;
-    padding: 0 20px;
+    padding: 5px 20px;
     cursor: pointer;
     font-size: 18px;
 }
