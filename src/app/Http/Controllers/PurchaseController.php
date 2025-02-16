@@ -12,17 +12,16 @@ use App\Models\Profile;
 class PurchaseController extends Controller
 {
     
-    public function index($id)
+    public function index(Item $item)
     {
-
         if (!auth()->check()) {
             return redirect('/login')->with('error', 'ログインしてください');
         }
         
         $user = Auth::user();
         $profile = $user->profile;
-        $item = Item::findOrFail($id);
-
+    
+        
         return view('purchase', compact('user', 'profile', 'item'));
     }
 

@@ -3,7 +3,6 @@
     position: relative;
 }
 
-
 .address-form {
     width: 50%;
     position: absolute;
@@ -62,4 +61,9 @@
     background-color: #ff6347;
     cursor: pointer;
     margin: 40px 0 40px 0;
+}
+
+.danger{
+    color: red;
+    font-size: 16px;
 }
