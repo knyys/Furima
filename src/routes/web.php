@@ -8,6 +8,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\AddressController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,16 +41,19 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 
 //商品一覧
 Route::get('/', [ItemController::class, 'index'])->name('home');
+
 //商品詳細
 Route::get('/items/{item}', [ItemController::class, 'detail'])->name('item.detail');
 Route::post('/items/{item}', [ItemController::class, 'addComment']);
-
-
-
 
 //商品出品画面
 Route::get('/sell', [SellController::class, 'index']);
 Route::post('/sell', [SellController::class, 'sell'])->name('sell');
 
 //商品購入
-Route::get('/purchase/{item}', [PurchaseController::class, 'index']);
+Route::get('/purchase/{item}', [PurchaseController::class, 'index'])->name('purchase');
+Route::post('/purchase/{item}', [PurchaseController::class, '']);
+
+//住所変更
+Route::get('/address/{item}', [AddressController::class, 'index']);
+Route::post('/address/{item}', [AddressController::class, 'update']);

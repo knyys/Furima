@@ -51,8 +51,9 @@
     color: #333;  
     font-size: 14px;
     position: absolute;
-    top: 100px;
-
+    top: 55%;
+    left: 25%;
+    padding: 5px 0;
 }
     
 

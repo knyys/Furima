@@ -15,7 +15,9 @@ class ProfileController extends Controller
     //プロフィール編集画面の表示
     public function welcome()
     {
-        return view('edit_profile');
+        $user = Auth::user();
+        $profile = $user->profile;
+        return view('edit_profile', compact('user', 'profile'));
     }
 
 
