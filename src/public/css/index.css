@@ -1,8 +1,8 @@
-
 .tab-box {
     display: block;
     width: 100%;
     margin-top: 50px;
+    max-width: 1600px;
 }
 
 .tab-list {
@@ -40,7 +40,7 @@ label:hover {
 #tab_1:checked ~ .tab-list label[for="tab_1"],
 #tab_2:checked ~ .tab-list label[for="tab_2"] {
     color: red;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .tab-content {
@@ -51,7 +51,7 @@ label:hover {
     padding: 50px 0;
 }
 
-.tabContentList{
+.tabContentList {
     margin: 40px 40px;
     width: 100%;
     height: 100%;
@@ -72,52 +72,66 @@ label:hover {
     opacity: 1;
 }
 
-
-.item{
+.item {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px 30px 50px 30px;
+    position: relative;
 }
 
 .items__list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-
 }
 
-.item-img img{
-    display: block
+.item-img img {
+    display: block;
 }
 
-.item-icon{
+.item-icon {
     width: 200px;
     height: 200px;
     border: 1px #dcdcdc solid;
     background-color: #dcdcdc;
-    
 }
-.item-label{
+
+.item--sold {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    font-weight: bold;
+    position: absolute;
+    top: 75px;
+    width: 200px;
+    height: 50px;
+    background: rgba(241, 13, 13, 0.6);
+}
+
+.item-label {
     font-size: 18px;
     width: 200px;
     text-align: left;
 }
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; 
+        overflow-x: hidden;
     }
 }
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; 
+        overflow-x: hidden;
     }
     .tab {
         width: 20%;
@@ -127,17 +141,17 @@ label:hover {
         font-size: 14px;
     }
 
-    .item-icon{
+    .item-icon {
         width: 140px;
         height: 140px;
     }
 
-    .item-label{
+    .item-label {
         font-size: 14px;
         width: 140px;
     }
 
-    .item{
-    margin: 10px 10px;
+    .item {
+        margin: 10px 10px;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\Like;
 use App\Models\Condition;
 use App\Models\Category;
 use App\Models\Comment;
@@ -18,11 +19,28 @@ class ItemController extends Controller
     $searchKeyword = $request->input('item_name');
 
     // すべての商品を検索
-    $allItems = Item::nameSearch($searchKeyword)->get();
+    $allItems = Item::nameSearch($searchKeyword)
+        ->with('solds')
+        ->get();
+
+    $allItems->each(function ($item) {
+        $item->is_sold = $item->solds()->exists();
+    });
 
     // ログイン
     if (auth()->check()) {
-        $userItems = auth()->user()->items()->nameSearch($searchKeyword)->get();
+        $user = auth()->user();
+        $userItems = $user->likedItems()
+        ->with('solds')
+        ->where(function ($query) use ($searchKeyword) {
+            if (!empty($searchKeyword)) {
+                $query->where('name', 'like', "%{$searchKeyword}%");
+            }
+        })->get();
+
+        $userItems->each(function ($item) {
+            $item->is_sold = $item->solds()->exists();
+        });
     } else {
         $userItems = collect(); // 未ログイン
     }
@@ -46,13 +64,15 @@ class ItemController extends Controller
     }
 
         $user = Auth::user();
-        $item = Item::with(['brand','conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+        $item = Item::with(['brand','conditions', 'categories', 'comments.user','likes','solds'])->findOrFail($id);
 
         Comment::create([
         'user_id' => Auth::id(),
         'item_id' => $item->id,
         'comment' => $commentrequest->comment,
         ]);
+
+        $item->is_sold = $item->solds()->exists();
 
         return redirect()->route('item.detail', ['item' => $id])->with('success', 'コメントを追加しました。');
 
@@ -63,7 +83,9 @@ class ItemController extends Controller
     //商品詳細画面
     public function detail($id)
     {
-        $item = Item::with(['brand', 'conditions', 'categories', 'comments.user','likes'])->findOrFail($id);
+        $item = Item::with(['brand', 'conditions', 'categories', 'comments.user','likes', 'solds'])->findOrFail($id);
+
+        $item->is_sold = $item->solds()->exists();
 
     return view('detail', compact('item'));
 

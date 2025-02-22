@@ -40,7 +40,12 @@ class Item extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(User::class, 'item_like', 'item_id', 'user_id')->withTimestamps();
+    }
+
+    public function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'item_like', 'item_id', 'user_id')->withTimestamps();
     }
 
     public function getlikesCountAttribute()
@@ -58,7 +63,7 @@ class Item extends Model
         return $this->hasMany(Condition::class);
     }
 
-    public function sold()
+    public function solds()
     {
         return $this->hasOne(Sold::class);
     }
@@ -66,6 +71,11 @@ class Item extends Model
     public function brand()
     {
         return $this->hasOne(Brand::class);
+    }
+
+    public function shippingAddresses()
+    {
+        return $this->hasMany(ShippingAddress::class);
     }
 }
 

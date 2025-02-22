@@ -1,6 +1,7 @@
 .profile-form {
     width: 100%;
     height: 100%;
+    max-width: 1600px;
     padding: 20px;
 }
 
@@ -125,16 +126,16 @@ label:hover {
 }
 
 .items__list{
-    margin: 50px 50px;
     display: flex;
- /* 全体を繰り返し配置（flex-wrap: wrap）いれる */
-    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .item{
     display: flex;
     flex-direction: column;
-
+    align-items: center;
+    margin: 20px 30px 50px 30px;
 }
 
 .item-img img{

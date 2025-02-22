@@ -36,14 +36,15 @@
         <div class="shipping-address">
             <div class="shipping-address__header">
             <label for="">配送先</label>    
-            <a class="address__update-button" href="/address/{{ $item->id }}">変更する</a>
+            <a class="address__update-button" href="/purchase/address/{{ $item->id }}">変更する</a>
             </div>
             <div class="address-number">
                 <span class="postal-mark">〒</span>
-                <span class="number">{{ session('profile')['address_number'] ?? $profile->address_number }}</span>
+                <span class="number">{{ old('address_number', session('shipping_address.address_number', $profile->address_number)) }}</span>
             </div>
             <div class="address">
-                <span class="address__details">{{ session('profile')['address'] ?? $profile->address }}{{ session('profile')['building'] ?? $profile->building }}</span>
+                <span class="address__details">{{ old('address', session('shipping_address.address', $profile->address)) }}
+        {{ old('building', session('shipping_address.building', $profile->building)) }}</span>
             </div>
         </div>
     </div>

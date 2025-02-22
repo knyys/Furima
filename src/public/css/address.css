@@ -1,6 +1,7 @@
 .address-update__pag{
     width: 100%;
     position: relative;
+    max-width: 1600px;
 }
 
 .address-form {
