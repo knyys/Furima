@@ -28,11 +28,18 @@
                         <img id="image" class="item-icon" src="{{ asset( 'storage/' . $allItem->image) }}" alt="商品画像:{{ $allItem->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
+                    <!--Sold-->
+                    @if ($allItem->is_sold)
+                    <div class="item--sold">
+                        <span class="sold-label">Sold</span>
+                    </div>
+                    @endif
+                    <!--Sold-->
                     </a>
+                    
                     <span class="item-label">
                         {{ $allItem->name }}
                     </span>
-
                 </div>
                 @endforeach
             </div>    
@@ -48,6 +55,13 @@
                         <img id="image" class="item-icon" src="{{ asset( 'storage/' . $userItem->image) }}" alt="商品画像:{{ $userItem->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
+                    <!--Sold-->
+                    @if ($userItem->is_sold)
+                    <div class="item--sold">
+                        <span class="sold-label">Sold</span>
+                    </div>
+                    @endif
+                    <!--Sold-->
                     </a>
                     <span class="item-label">
                         {{ $userItem->name }}

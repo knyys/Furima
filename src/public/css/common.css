@@ -1,6 +1,7 @@
 .header{
     background-color: black;
     width: 100%;
+    max-width: 1600px;
     height: 60px;
     display: flex;
 }
@@ -101,9 +102,10 @@
         padding: 0;
         overflow-x: hidden;
     }
+}
 
   
-}
+
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
     html, body {

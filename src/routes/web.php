@@ -9,6 +9,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,5 +56,5 @@ Route::get('/purchase/{item}', [PurchaseController::class, 'index'])->name('purc
 Route::post('/purchase/{item}', [PurchaseController::class, '']);
 
 //住所変更
-Route::get('/address/{item}', [AddressController::class, 'index']);
-Route::post('/address/{item}', [AddressController::class, 'update']);
+Route::get('/purchase/address/{item}', [AddressController::class, 'index']);
+Route::post('/purchase/address/{item}', [AddressController::class, 'updateAddress'])->name('address.update');

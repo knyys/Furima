@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
+use App\Models\ShippingAddress;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -15,14 +17,34 @@ class AddressController extends Controller
         return view('address', compact('item'));
     }
 
-    public function update(AddressRequest $request, $item)
+
+    //配送先変更
+    public function updateAddress(AddressRequest $request, Item $item)
     {
-        $profile = $request->only(['address_number', 'address', 'building']);
-        session(['profile' => $profile]);
+        $user = Auth::user();
 
+        $shippingAddress = Shippingaddress::updateOrCreate(
+        [
+            'user_id' => $user->id,
+            'item_id' => $item->id
+        ],
+        [
+            'address_number' => $request->address_number,
+            'address' => $request->address,
+            'building' => $request->building,
+        ]
+    );
 
-        $item = Item::findOrFail($item);
+    // セッションに保存
+    session([
+        'shipping_address' => [
+        'address_number' => $shippingAddress->address_number,
+        'address' => $shippingAddress->address,
+        'building' => $shippingAddress->building,
+        ]
+    ]);
 
-        return redirect()->route('purchase', ['item' => $item->id]) ->with('success', '配送先を更新しました')->with('profile', $profile);
+        return redirect()->route('purchase', ['item' => $item->id])->with('success', '配送先が更新されました。');
     }
+
 }

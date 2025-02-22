@@ -22,6 +22,11 @@ class SellController extends Controller
         $user = Auth::user();
         return view('exhibit');
     }
+
+    public function getIsSoldAttribute()
+{
+    return $this->sells()->exists() ? 'Sold' : '';
+}
     
 
     //出品（できない）

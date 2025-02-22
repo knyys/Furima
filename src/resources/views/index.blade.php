@@ -31,6 +31,13 @@
                         <output id="image" class="image_output"></output>
                     </div>
                     </a>
+                    <!--Sold-->
+                    @if ($allItem->is_sold)
+                    <div class="item--sold">
+                        <span class="sold-label">Sold</span>
+                    </div>
+                    @endif
+                    <!--Sold-->
                     <span class="item-label">
                         {{ $allItem->name }}
                     </span>

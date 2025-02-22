@@ -37,12 +37,12 @@
         </ul>
         <div class="tabContentList">
             <!--出品した商品タブ-->
-            <article class="tab-content" id="content_1">
+            <article class="tab-content active" id="content_1">
                 <div class="items__list">
-                @foreach ($items as $item)
+                @foreach ($userItems as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/profile/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         <output id="image" class="image_output"></output>
                     </div>
                     <span class="item-label">
@@ -56,7 +56,7 @@
             <!--購入した商品-->
             <article class="tabContent" id="content_2">
                 <div class="items__list">
-                @foreach ($items as $item)
+                @foreach ($purchasedItems as $item)
                 <div class="item">
                     <div class="item-img">
                         <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">

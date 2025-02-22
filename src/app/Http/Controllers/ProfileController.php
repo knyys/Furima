@@ -8,7 +8,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Profile;
 use App\Models\User;
-
+use App\Models\Item;
 
 class ProfileController extends Controller
 {
@@ -65,8 +65,20 @@ class ProfileController extends Controller
     }
         $user = Auth::user();
         $profile = $user->profile; 
-        $items = $user->items;
+        // 出品した商品
+        $userItems = $user->items;
+        // 購入した商品
+        $purchasedItems = Item::whereIn('id', function ($query) use ($user) {
+            $query->select('item_id')
+                ->from('solds')
+                ->where('user_id', $user->id)
+                ->where('sold', true);
+        })
+        ->where('user_id', '!=', $user->id)
+        ->get();
 
-        return view('profile', compact('user', 'profile', 'items'));
+        $purchasedItems = $purchasedItems->whereNotIn('id', $userItems->pluck('id'));
+
+        return view('profile', compact('user', 'profile', 'userItems', 'purchasedItems'));
     }
 }

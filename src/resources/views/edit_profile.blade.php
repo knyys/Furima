@@ -10,7 +10,7 @@
         <h2 class="profile-form__heading">プロフィール設定</h2>
 
         <div class="profile-form__img">
-            <img class="icon" src="{{ asset($profile->image) }}" alt="">
+            <img class="icon" src="{{ asset($profile->image ?? 'profile/default.png') }}" alt="">
             <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
                 @csrf
             <output id="image" class="image_output"></output>
@@ -30,7 +30,7 @@
                 <label>ユーザー名</label>
             </div>
             <div class="form__content">
-                <input type="text" name="name" value="{{ old('name', $user->name) }}">
+                <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}">
             </div>
             <div class="form__error">
                 @error('name')
@@ -44,7 +44,7 @@
                 <label>郵便番号</label>
             </div>
             <div class="form__content">
-                <input type="text" name="address_number" value="{{ old('address_number', $profile->address_number) }}">
+                <input type="text" name="address_number" value="{{ old('address_number', $profile->address_number ?? '') }}">
             </div>
             <div class="form__error">
                 @error('address_number')
@@ -58,7 +58,7 @@
                 <label>住所</label>
             </div>
             <div class="form__content">
-                <input type="text" name="address" value="{{ old('address', $profile->address) }}">
+                <input type="text" name="address" value="{{ old('address', $profile->address ?? '') }}">
             </div>
             <div class="form__error">
                 @error('address')
@@ -72,7 +72,7 @@
                 <label>建物名</label>
             </div>
             <div class="form__content">
-                <input type="text" name="building" value="{{ old('building', $profile->building) }}">
+                <input type="text" name="building" value="{{ old('building', $profile->building ?? '') }}">
             </div>
             <div class="form__error">
                 @error('building')

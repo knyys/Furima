@@ -24,6 +24,7 @@ class CreateSoldsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

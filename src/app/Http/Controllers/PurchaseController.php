@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Profile;
 
 class PurchaseController extends Controller
 {
-    
+    // 購入画面表示
     public function index(Item $item)
     {
         if (!auth()->check()) {
@@ -20,10 +21,12 @@ class PurchaseController extends Controller
         
         $user = Auth::user();
         $profile = $user->profile;
-    
         
         return view('purchase', compact('user', 'profile', 'item'));
     }
+
+
+    
 
     /*public function purchase(PurchaseRequest $request, $id)
     {

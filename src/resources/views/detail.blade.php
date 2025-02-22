@@ -22,6 +22,13 @@
         <div class="item__img">
             <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }} ">
             <output id="image" class="image_output"></output>
+            <!--Sold-->
+            @if ($item->is_sold)
+            <div class="item--sold">
+                <span class="sold-label">Sold</span>
+            </div>
+            @endif
+            <!--Sold-->
         </div>
         
         <div class="item__detail">
@@ -41,15 +48,21 @@
                 <span class="tax-included">（税込）</span>
             </div>
             <div class="item__action">
-                <span class="action--favorite" data-item-id="1">☆
-                    <!--☆の画像にする？-->
+                <span class="action--favorite" data-item-id="1">
+                    <img class="fovorite-icon" src="{{ asset( 'storage/hoshi.png') }}" alt="">
                 </span>
                 <span class="favorite-count" id="favorite-count-{{ $item->id }}">
                     {{ $item->favorites_count }} 
                 </span>
-                    <!--ふきだし画像にする？-->
                 <span class="action--comment" data-item-id="2">
-                    <img class="comment-icon" src="{{ asset( 'storage/吹き出しのアイコン.png') }}" alt="">
+                    <img class="comment-icon" src="{{ asset( 'storage/comment.png') }}" alt="">
+
+                    <span class="comments__count">
+                        <!--コメント数を下に表示-->
+                    @if($item->comments->count() > 0)
+                        {{ $item->comments->count() }}
+                    @endif
+                    </span>
                 </span>
             </div>
             <div class="item-purchase__btn">
@@ -83,7 +96,7 @@
             <div class="item__comment">
                 <div class="comment__count">
                 コメント
-               <!-- コメントがない場合は コメント だけ表示、コメントがある場合は コメント（3）になる-->
+               <!-- コメントがある場合は コメント数 表示-->
                 @if($item->comments->count() > 0)
                 （{{ $item->comments->count() }}）
                 @endif
