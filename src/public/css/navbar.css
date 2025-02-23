@@ -19,23 +19,19 @@
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
         overflow-x: hidden;
     }
-    .header__inner img {
-        width: 70%;
-    }
 }
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; 
-    }
-    .header__inner img {
-        width: 70%;
+        overflow-x: hidden;
     }
 }

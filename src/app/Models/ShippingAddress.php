@@ -17,6 +17,7 @@ class ShippingAddress extends Model
         'building',
     ];
 
+
     // User モデルとのリレーション
     public function user()
     {

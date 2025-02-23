@@ -19,7 +19,7 @@
             <input type="file" id="image-input" name="image" accept=".jpg, .png">
             <span id="image-name" class="image-name"></span>
        </div>
-       <div class="form__error">
+       <div class="img__error">
             @error('image')
                 {{ $message }}
             @enderror
