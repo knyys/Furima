@@ -5,8 +5,20 @@
 @endsection
 
 @section('content')
+<div class="alert">
+@if(session('success'))
+    <div class="alert-success">
+        <p>{{ session('success') }}</p>
+    </div>
+@elseif($errors->any())
+    <div class="alert-danger">
+        <p>{{ session('error') }}</p>
+    </div>
+@endif
+</div>
+
 <div class="purchase-form">
-    <form action="" method="post">
+    <form action="{{ route('purchase.complete', ['item' => $item->id]) }}" method="post">
         @csrf
 
     <div class="purchase-form__content">
@@ -30,6 +42,11 @@
                 <option value="コンビニ払い" {{ old('method') == 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
                 <option value="カード支払い" {{ old('method') == 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
             </select>
+            </div>
+            <div class="danger">
+                @error('method')
+                {{ $message }}
+                @enderror
             </div>
         </div>
 

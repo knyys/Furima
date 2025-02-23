@@ -1,3 +1,8 @@
+.alert{
+    font-size: 20px;
+    color: #ff6347;
+    
+}
 .purchase-form{
     width: 100%;
     max-width: 1600px;
@@ -66,10 +71,18 @@
     width: 50%;
     margin-left: 40px;
     height: 20px;
+    font-size: 14px;
 }
 
 .method__select option{
     background-color: #afafb0;
+}
+
+.danger{
+    margin-left: 60px;
+    font-size: 16px;
+    color: red;
+    margin-top: 5px;
 }
 
 .shipping-address{

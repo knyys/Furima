@@ -17,10 +17,10 @@ class CreateSoldsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('item_id');
-            $table->boolean('sold')->default(false);
+            $table->boolean('sold')->default(0);
+            $table->string('method');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
-
         });
     }
 

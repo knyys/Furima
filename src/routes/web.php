@@ -53,7 +53,7 @@ Route::post('/sell', [SellController::class, 'sell'])->name('sell');
 
 //商品購入
 Route::get('/purchase/{item}', [PurchaseController::class, 'index'])->name('purchase');
-Route::post('/purchase/{item}', [PurchaseController::class, '']);
+Route::post('/purchase/{item}', [PurchaseController::class, 'purchase'])->name('purchase.complete');
 
 //住所変更
 Route::get('/purchase/address/{item}', [AddressController::class, 'index']);
