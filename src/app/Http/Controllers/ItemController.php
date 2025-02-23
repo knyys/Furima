@@ -20,6 +20,7 @@ class ItemController extends Controller
 
     // すべての商品を検索
     $allItems = Item::nameSearch($searchKeyword)
+        ->where('user_id', '!=', auth()->id())
         ->with('solds')
         ->get();
 
@@ -30,20 +31,18 @@ class ItemController extends Controller
     // ログイン
     if (auth()->check()) {
         $user = auth()->user();
+        
         $userItems = $user->likedItems()
-        ->with('solds')
-        ->where(function ($query) use ($searchKeyword) {
-            if (!empty($searchKeyword)) {
-                $query->where('name', 'like', "%{$searchKeyword}%");
-            }
-        })->get();
+            ->nameSearch($searchKeyword)
+            ->with('solds')
+            ->get();
 
         $userItems->each(function ($item) {
             $item->is_sold = $item->solds()->exists();
         });
-    } else {
-        $userItems = collect(); // 未ログイン
-    }
+        } else {
+            $userItems = collect(); // 未ログイン
+        }
 
     // マイリストページなら 'mylist' を表示
     if ($page === 'mylist') {
@@ -75,9 +74,6 @@ class ItemController extends Controller
         $item->is_sold = $item->solds()->exists();
 
         return redirect()->route('item.detail', ['item' => $id])->with('success', 'コメントを追加しました。');
-
-    return view('detail', compact('item'));
-
     }
 
     //商品詳細画面
@@ -87,10 +83,9 @@ class ItemController extends Controller
 
         $item->is_sold = $item->solds()->exists();
 
-    return view('detail', compact('item'));
+        return view('detail', compact('item'));
 
     }
-
 
 
 }

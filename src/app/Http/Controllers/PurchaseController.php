@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PurchaseRequest;
-use App\Http\Requests\AddressRequest;
-use App\Models\User;
 use App\Models\Item;
-use App\Models\Profile;
+use App\Models\Sold;
+use App\Models\ShippingAddress;
+use Illuminate\Support\Facades\DB;
+
 
 class PurchaseController extends Controller
 {
@@ -26,19 +27,37 @@ class PurchaseController extends Controller
     }
 
 
-    
-
-    /*public function purchase(PurchaseRequest $request, $id)
+    // 商品購入
+    public function purchase(PurchaseRequest $request, Item $item)
     {
-        $data = $request->only(['method']);
-        $item = Item::select(['name', 'price'])->findOrFail($id);
-        $user = Auth::user();
-        $profile = $user->profile; 
+        if ($item->sold) {
+            return redirect()->route('purchase.show', ['item' => $item->id])
+                ->with('error', 'この商品はすでに売れています。');
+        }
 
-        return view('purchase', compact('user', 'profile', 'item'));
-    }*/
-    
+        // Soldテーブルにレコードを作成
+        $sold = Sold::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item->id,
+            'sold' => 1,
+            'method' => $request->method,
+        ]);
 
-    
+        $item->update(['sold' => 1]);
+
+        ShippingAddress::updateOrCreate(
+            ['user_id' => Auth::id(), 'item_id' => $item->id],
+            [
+                'address_number' => $request->session()->get('shipping_address.address_number'),
+                'address' => $request->session()->get('shipping_address.address'),
+                'building' => $request->session()->get('shipping_address.building'),
+            ]
+        );
+
+         return redirect()->route('purchase', ['item' => $item->id])
+            ->with('success', '購入が完了しました！');
+    }
+
+
+
 }
-

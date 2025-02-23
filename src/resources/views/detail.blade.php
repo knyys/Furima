@@ -107,8 +107,7 @@
                 <div class="comment__content">
                     <div class="comment__user">
                         <span class="user__img">
-                            <img class="icon" src="{{ $comment->user->image }} " alt="ユーザー画像">
-
+                            <img class="icon" src="{{ $comment->user->profile->image }} " alt="ユーザー画像">
                         </span>
                         <span class="user__name">
                             {{ $comment->user->name }}

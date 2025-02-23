@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->integer('price');
             $table->string('image');
             $table->string('detail');
+            $table->boolean('sold')->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('condition_id')->references('id')->on('conditions')->onDelete('cascade');

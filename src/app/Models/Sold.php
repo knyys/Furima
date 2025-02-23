@@ -10,7 +10,10 @@ class Sold extends Model
     use HasFactory;
 
     protected $fillable = [ 
-        'sold'
+        'user_id', 
+        'item_id',
+        'sold',
+        'method'
     ];
 
     //リレーション

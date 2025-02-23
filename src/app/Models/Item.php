@@ -10,7 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'image', 'detail', 'condition_id', 'user_id', 'brand_id'
+        'name', 'price', 'image', 'detail', 'condition_id', 'user_id', 'brand_id', 'sold'
     ];
 
     protected $casts = [
