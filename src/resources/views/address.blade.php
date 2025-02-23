@@ -43,7 +43,7 @@
                 </div>
             </div>
         
-            <div class="adderss-form__btn">
+            <div class="address-form__btn">
                 <button class="btn--update">更新する</button>
             </div>
         </div>

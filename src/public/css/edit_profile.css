@@ -12,13 +12,11 @@
     box-sizing: border-box;
     position: relative;
     top: 10px;
-    width: 60%;
-    max-width: 800px;
-    min-width: 300px;
+    width: 50%;
     padding: 20px;
 }
 
-.profile-form__img{
+.profile-form__img {
     display: flex;
     justify-content: flex-start;
     position: relative;
@@ -26,37 +24,44 @@
 
 .profile-form__img img {
     border-radius: 50%;
-    width:  140px;       
-    height: 140px;    
+    width: 140px;
+    height: 140px;
     background-color: #dcdcdc;
     border: #dcdcdc 1px solid;
     margin: 20px 10px 30px 10px;
 }
 
-.image-label{
+.image-label {
     color: red;
     border: 1px red solid;
     border-radius: 5px;
     padding: 5px 5px;
-    position: absolute; 
+    position: absolute;
     top: 35%;
     left: 25%;
 }
 
-.profile-form__img input{
+.profile-form__img input {
     display: none;
 }
 
 .image-name {
-    margin-left: 10px;  
-    color: #333;  
+    margin-left: 10px;
+    color: #333;
     font-size: 14px;
     position: absolute;
     top: 55%;
     left: 25%;
     padding: 5px 0;
 }
-    
+
+.img__error {
+    color: red;
+    font-size: 16px;
+    position: absolute;
+    top: 27%;
+    left: 25%;
+}
 
 .form__group {
     margin: 10px 10px 30px 10px;
@@ -75,6 +80,7 @@
 .form__content input {
     width: 100%;
     height: 40px;
+    font-size: 18px;
     border: solid 1px;
     border-radius: 5px;
 }
@@ -103,54 +109,105 @@
 .form__error {
     color: red;
     font-size: 14px;
-}
-
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-    .profile-form__content {
-        width: 50%; 
-    }
-
-    .image-label{
-        left: 30%;   
-    }
-
+    margin-top: 5px;
 }
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; 
-    }
-    .profile-form__content {
-        width: 70%; 
-        top: 5%; 
+        overflow-x: hidden;
     }
 
-    .profile-icon {
-        width:  100px; 
+    .profile-form__content {
+        width: 60%;
+    }
+
+    .profile-form__img img {
+        width: 100px;
         height: 100px;
     }
 
-    .image-label{
-        top: 35%;
-        left: 30%;
+    .image-label {
         font-size: 14px;
-        
+        left: 30%;
+    }
+
+    .image-name {
+        font-size: 12px;
+        left: 30%;
+    }
+
+    .img__error {
+        font-size: 14px;
+        top: 27%;
+        left: 33%;
     }
 
     .form__label {
         font-size: 16px;
     }
 
+    .form__content input {
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .form__content {
+        font-size: 14px;
+    }
+
     .form__btn button {
         font-size: 18px;
+        height: 35px;
+    }
+
+    .form__error {
+        color: red;
+        font-size: 12px;
+    }
+}
+
+/* PC用 (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    .profile-form__content {
+        width: 50%;
+    }
+
+    .profile-form__img img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .image-label {
+        font-size: 18px;
+        left: 30%;
+    }
+
+    .image-name {
+        font-size: 14px;
+        left: 30%;
+    }
+
+    .img__error {
+        font-size: 18px;
+        top: 30%;
+        left: 30%;
+    }
+
+    .form__label {
+        font-size: 20px;
+    }
+
+    .form__error {
+        font-size: 16px;
     }
 }

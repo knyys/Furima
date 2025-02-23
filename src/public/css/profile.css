@@ -1,6 +1,5 @@
 .profile-form {
     width: 100%;
-    height: 100%;
     max-width: 1600px;
     padding: 20px;
 }
@@ -10,22 +9,22 @@
     padding: 20px;
 }
 
-.profile-form__header{
+.profile-form__header {
     display: flex;
     position: relative;
     top: 20px;
     left: 10%;
 }
 
-.profile__img{
+.profile__img {
     position: absolute;
     left: 10%;
 }
 
 .profile-icon {
     border-radius: 50%;
-    width:  140px;       
-    height: 140px;    
+    width: 140px;
+    height: 140px;
     background-color: #dcdcdc;
     border: #dcdcdc 1px solid;
     margin: 20px 10px 30px 10px;
@@ -37,22 +36,21 @@
     position: absolute;
     top: 55px;
     left: 25%;
-
 }
 
-.profile__edit a{
+.profile__edit a {
     text-decoration: none;
     color: red;
     border: 1px red solid;
     border-radius: 5px;
     padding: 5px 30px;
-    position: absolute; 
+    position: absolute;
     top: 50px;
-    left: 50%; 
+    left: 50%;
     font-size: 20px;
 }
 
-.profile-form__img input{
+.profile-form__img input {
     display: none;
 }
 
@@ -99,7 +97,7 @@ label:hover {
 #tab_1:checked ~ .tab-list label[for="tab_1"],
 #tab_2:checked ~ .tab-list label[for="tab_2"] {
     color: red;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .tabContent {
@@ -125,66 +123,109 @@ label:hover {
     opacity: 1;
 }
 
-.items__list{
+.items__list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.item{
+.item {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px 30px 50px 30px;
 }
 
-.item-img img{
-    display: block
+.item-img img {
+    display: block;
 }
 
-.item-icon{
+.item-icon {
     width: 200px;
     height: 200px;
     border: 1px #dcdcdc solid;
     background-color: #dcdcdc;
-    
 }
-.item-label{
+.item-label {
     font-size: 18px;
     text-align: left;
 }
 
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
-    }
-}
-
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
+        overflow-x: hidden;
     }
+    .profile-form {
+        width: 100%;
+        height: 1540px;
+    }
+
+    .profile-form__content {
+        padding: 10px;
+    }
+
+    .profile-icon {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile__user-name {
+        font-size: 20px;
+        left: 33%;
+    }
+
+    .profile__edit a {
+        font-size: 16px;
+    }
+
+    /*ここからタブ*/
+    .profile-form__tab-box {
+        top: 180px;
+    }
+
     .tab {
         width: 20%;
+        margin: 0 5px;
     }
 
     .tab label {
         font-size: 14px;
     }
 
-    .item-icon{
-        width: 140px;
-        height: 140px;
-    }
-
-    .item-label{
+    .tabContent {
         font-size: 14px;
+        padding: 20px 0;
     }
 
+    .item {
+        margin: 20px 30px 20px 20px;
+    }
+
+    .item-icon {
+        width: 150px;
+        height: 150px;
+    }
+
+    .item-label {
+        font-size: 14px;
+        width: 150px;
+    }
+}
+
+/* PC (1400-1540px) 用のスタイル */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    .profile-form {
+        width: 100%;
+        height: 1540px;
+    }
 }

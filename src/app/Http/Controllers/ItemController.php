@@ -41,10 +41,10 @@ class ItemController extends Controller
             $item->is_sold = $item->solds()->exists();
         });
         } else {
-            $userItems = collect(); // 未ログイン
+            $userItems = collect(); 
         }
 
-    // マイリストページなら 'mylist' を表示
+    // マイリストページ
     if ($page === 'mylist') {
         return view('mylist', compact('userItems', 'allItems', 'searchKeyword'));
     }
@@ -57,7 +57,7 @@ class ItemController extends Controller
     //コメント追加後画面
     public function addComment(CommentRequest $commentrequest, $id)
     {
-        // 未認証ユーザーはログインページへリダイレクト
+        
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'ログインしてください');
     }

@@ -1,4 +1,4 @@
-.alert{
+.alert {
     font-size: 14px;
     margin: 10px 30px;
     text-align: center;
@@ -6,13 +6,12 @@
     justify-content: flex-end;
 }
 
-.alert--danger{
+.alert--danger {
     color: red;
     border: 1px solid red;
     background-color: rgb(255 218 214);
     border-radius: 5px;
     padding: 10px 20px;
-    
 }
 
 .login-form {
@@ -33,14 +32,14 @@
     padding: 20px;
 }
 
-.login-form__error{
+.login-form__error {
     display: block;
     text-align: center;
     justify-content: center;
     margin: 50px 0 50px 0;
 }
 
-.error {   
+.error {
     background-color: rgb(255 218 214);
     color: red;
     font-size: 18px;
@@ -108,32 +107,20 @@
     font-size: 14px;
 }
 
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
-    }
-    .login-form__content {
-        width: 50%;
-    }
-}
-
-
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* 横スクロールを防止 */
     }
     .login-form__content {
         width: 70%;
-        top: 5%; 
+        top: 5%;
     }
 
-    .error{
+    .error {
         font-size: 14px;
     }
 
@@ -148,5 +135,18 @@
 
     .form__btn button {
         font-size: 18px;
+    }
+}
+
+/* PC用 (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 横スクロールを防止 */
+    }
+    .login-form__content {
+        width: 50%;
     }
 }

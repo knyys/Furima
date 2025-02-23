@@ -30,32 +30,7 @@ class PurchaseController extends Controller
     // 商品購入
     public function purchase(PurchaseRequest $request, Item $item)
     {
-        if ($item->sold) {
-            return redirect()->route('purchase.show', ['item' => $item->id])
-                ->with('error', 'この商品はすでに売れています。');
-        }
-
-        // Soldテーブルにレコードを作成
-        $sold = Sold::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-            'sold' => 1,
-            'method' => $request->method,
-        ]);
-
-        $item->update(['sold' => 1]);
-
-        ShippingAddress::updateOrCreate(
-            ['user_id' => Auth::id(), 'item_id' => $item->id],
-            [
-                'address_number' => $request->session()->get('shipping_address.address_number'),
-                'address' => $request->session()->get('shipping_address.address'),
-                'building' => $request->session()->get('shipping_address.building'),
-            ]
-        );
-
-         return redirect()->route('purchase', ['item' => $item->id])
-            ->with('success', '購入が完了しました！');
+    
     }
 
 
