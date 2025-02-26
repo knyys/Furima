@@ -1,8 +1,7 @@
 .alert {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    max-width: 1600px;
+    width: 100vw;
     position: relative;
 }
 
@@ -33,8 +32,8 @@
 
 .item-page__detail {
     position: relative;
-    width: 100%;
-    max-width: 1600px;
+    width: 100vw;
+
 }
 
 .detail__content {
@@ -102,19 +101,8 @@
     width: 20%;
 }
 
-/* お気に入りの☆*/
-.action--favorite {
-    font-size: 50px;
-    cursor: pointer;
-    color: gray; /* クリック前 */
-    transition: color 0.3s;
-}
-.action--favorite.active {
-    color: gold; /* クリック後 */
-}
-/*ここまで*/
 
-/* コメント数　*/
+.action--favorite,
 .action--comment {
     display: flex;
     flex-direction: column;
@@ -127,10 +115,12 @@
     vertical-align: bottom;
 }
 
+.favorite-count,
 .comments__count {
     text-align: center;
     font-size: 14px;
     margin: 2px 0 5px 0;
+    height: 20px;
 }
 
 .item-purchase__btn {
@@ -287,6 +277,10 @@
         overflow-x: hidden;
     }
 
+    .alert {
+        width: 100%;
+    }
+
     .alert-success,
     .alert-danger {
         font-size: 12px;
@@ -328,8 +322,8 @@
         width: 40px;
         height: 40px;
     }
-    .fovorite-icon {
-        margin-right: 20px;
+    .action--favorite {
+        margin-right: 60px;
     }
 
     .comments__count {
@@ -366,7 +360,6 @@
     .item__category ul {
         width: 20%;
         display: flex;
-        justify-content: flex-start;
         padding-left: 0;
     }
 

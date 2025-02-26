@@ -63,7 +63,7 @@ class ItemController extends Controller
     }
 
         $user = Auth::user();
-        $item = Item::with(['brand','conditions', 'categories', 'comments.user','likes','solds'])->findOrFail($id);
+        $item = Item::with(['condition', 'categories', 'comments.user','likes','solds'])->findOrFail($id);
 
         Comment::create([
         'user_id' => Auth::id(),
@@ -79,7 +79,7 @@ class ItemController extends Controller
     //商品詳細画面
     public function detail($id)
     {
-        $item = Item::with(['brand', 'conditions', 'categories', 'comments.user','likes', 'solds'])->findOrFail($id);
+        $item = Item::with(['condition', 'categories', 'comments.user','likes', 'solds'])->findOrFail($id);
 
         $item->is_sold = $item->solds()->exists();
 

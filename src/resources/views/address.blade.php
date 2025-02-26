@@ -14,7 +14,7 @@
 
         <div class="address-form__content">
             <div class="address-form__details">
-                <label for="">郵便番号</label>
+                <label>郵便番号</label>
                 <input type="text" name="address_number" value="{{ old('address_number') }}">
                 <div class="danger">
                     @error('address_number')
@@ -24,7 +24,7 @@
             </div>
 
             <div class="address-form__details">
-                <label for="">住所</label>
+                <label>住所</label>
                 <input type="text" name="address" value="{{ old('address') }}">
                 <div class="danger">
                     @error('address')
@@ -34,7 +34,7 @@
             </div>
 
             <div class="address-form__details">
-                <label for="">建物名</label>
+                <label>建物名</label>
                 <input type="text" name="building" value="{{ old('building') }}">
                 <div class="danger">
                     @error('building')

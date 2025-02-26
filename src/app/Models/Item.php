@@ -10,7 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'image', 'detail', 'condition_id', 'user_id', 'brand_id', 'sold'
+        'name', 'price', 'image', 'detail', 'condition_id', 'user_id', 'sold', 'brand'
     ];
 
     protected $casts = [
@@ -40,17 +40,8 @@ class Item extends Model
 
     public function likes()
     {
-        return $this->belongsToMany(User::class, 'item_like', 'item_id', 'user_id')->withTimestamps();
-    }
-
-    public function likedUsers()
-    {
-        return $this->belongsToMany(User::class, 'item_like', 'item_id', 'user_id')->withTimestamps();
-    }
-
-    public function getlikesCountAttribute()
-    {
-        return $this->likes()->count();
+        return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id')
+                    ->withTimestamps();
     }
 
     public function categories()
@@ -58,24 +49,15 @@ class Item extends Model
         return $this->belongsToMany(Category::class, 'category_item');
     }
 
-    public function conditions()
+    public function condition()
     {
-        return $this->hasMany(Condition::class);
+        return $this->belongsTo(Condition::class);
     }
 
     public function solds()
     {
-        return $this->hasOne(Sold::class);
+        return $this->hasMany(Sold::class);
     }
 
-    public function brand()
-    {
-        return $this->hasOne(Brand::class);
-    }
-
-    public function shippingAddresses()
-    {
-        return $this->hasMany(ShippingAddress::class);
-    }
 }
 

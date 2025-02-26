@@ -23,54 +23,55 @@
         </div>
     </div>
 
-    <div class="profile-form__tab-box">
-        <input type="radio" id="tab_1" class="tabRadio" name="tab" checked>
-        <input type="radio" id="tab_2" class="tabRadio" name="tab">
+    @php
+        $currentPage = request('page', 'sell'); 
+    @endphp
 
+    <div class="profile-form__tab-box">
         <ul class="tab-list">
             <li class="tab">
-                <label name="tab_label_1" for="tab_1">出品した商品</label>
+                <a href="{{ route('mypage', ['page' => 'sell']) }}" class="{{ $currentPage == 'sell' ? 'active' : '' }}">
+                    出品した商品
+                </a>   
             </li>
             <li class="tab">
-                <label name="tab_label_2" for="tab_2">購入した商品</label>
+                <a href="{{ route('mypage', ['page' => 'buy']) }}" class="{{ $currentPage == 'buy' ? 'active' : '' }}">
+                    購入した商品
+                </a>
             </li>
         </ul>
+
         <div class="tabContentList">
-            <!--出品した商品タブ-->
+            @if ($currentPage == 'sell')
             <article class="tab-content active" id="content_1">
                 <div class="items__list">
                 @foreach ($userItems as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
-                        <output id="image" class="image_output"></output>
+                        <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                     </div>
-                    <span class="item-label">
-                        {{ $item->name }}
-                    </span>
+                    <span class="item-label">{{ $item->name }}</span>
                 </div>
                 @endforeach
                 </div>    
             </article>
+            @endif
 
-            <!--購入した商品-->
-            <article class="tabContent" id="content_2">
+            @if ($currentPage == 'buy')
+            <article class="tab-content active" id="content_2">
                 <div class="items__list">
                 @foreach ($purchasedItems as $item)
                 <div class="item">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
-                        <output id="image" class="image_output"></output>
+                        <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                     </div>
-                    <span class="item-label">
-                        {{ $item->name }}
-                    </span>
+                    <span class="item-label">{{ $item->name }}</span>
                 </div>
                 @endforeach
                 </div>    
-            </article>   
+            </article>
+            @endif  
         </div>       
     </div>
 </div>
-
 @endsection
