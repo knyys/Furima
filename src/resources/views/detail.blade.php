@@ -37,7 +37,7 @@
             </div>
             <div class="item__brand">
                 @if($item->brand)
-                    {{ $item->brand->brand }}
+                    {{ $item->brand }}
                 @else
                     <p></p>
                 @endif
@@ -50,10 +50,13 @@
             <div class="item__action">
                 <span class="action--favorite" data-item-id="1">
                     <img class="fovorite-icon" src="{{ asset( 'storage/hoshi.png') }}" alt="">
+                
+                    <span class="favorite__count">
+                        <!--お気に入り数を下に表示-->
+                    
+                    </span>
                 </span>
-                <span class="favorite-count" id="favorite-count-{{ $item->id }}">
-                    {{ $item->favorites_count }} 
-                </span>
+
                 <span class="action--comment" data-item-id="2">
                     <img class="comment-icon" src="{{ asset( 'storage/comment.png') }}" alt="">
 
@@ -88,7 +91,7 @@
                 </div>
                 <div class="item__condition">
                     <span class="item__condition-label">商品の状態</span>
-                    <span class="item__condition-type">{{ $item->conditions->first()->condition }}</span>
+                    <span class="item__condition-type">{{ $item->condition->first()->condition }}</span>
                 </div>
             </div>
 
@@ -132,6 +135,19 @@
                         </div>
                     <textarea class="comment__box" name="comment"></textarea>
                     <div class="comment-form__btn">
+                        <!--Soldの場合はボタン非活性-->
+                        @if ($item->is_sold) 
+                            <button class="purchase__btn purchase__btn--disabled" disabled>
+                                コメントを送信する
+                            </button>
+                        @endif
+                        @if (!$item->is_sold)
+                            <button class="purchase__btn" type="submit">
+                                コメントを送信する
+                            </button>
+                        @endif
+
+
                     <button class="purchase__btn" type="submit">
                         コメントを送信する
                     </button>
@@ -144,19 +160,3 @@
 
 @endsection
 
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".action--favorite").forEach(favorite => {
-        favorite.addEventListener("click", function () {
-            this.classList.toggle("active"); 
-            const itemId = this.dataset.itemId;
-            const isFavorite = this.classList.contains("active");
-
-            // お気に入り登録の処理
-            console.log(`アイテムID ${itemId} のお気に入り状態: ${isFavorite}`);
-
-        });
-    });
-});
-</script>

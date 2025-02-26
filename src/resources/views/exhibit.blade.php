@@ -11,7 +11,7 @@
 <div class="form__content">
 	<span class="content__label">商品画像</span>
 	<div class="item__img">
-		<img class="icon" src="" value="{{ old('image') }}">
+		<img class="icon" src="">
         <form method="post" action="{{ route('sell') }}" enctype="multipart/form-data">
            @csrf
         <output id="image" class="image_output"></output>
@@ -87,7 +87,7 @@
 	</div>
 	
 	<div class="item__brand">
-		<span class="content__label">ブランド</span>
+		<span class="content__label">ブランド名</span>
 		<input type="text" name="brand"  value="{{ old('brand') }}">
 	</div>
 

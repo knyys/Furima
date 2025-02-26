@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLikesTable extends Migration
+class CreateSoldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,21 @@ class CreateLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('solds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('item_id');
-            $table->boolean('like')->default(false);
+            $table->boolean('sold')->default(0);
+            $table->string('method');
+            $table->string('address_number');
+            $table->string('address', );
+            $table->string('building', );
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
-
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade'); 
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -31,6 +36,6 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('solds');
     }
 }

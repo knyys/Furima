@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
             'condition_id' => 1,
             'user_id' => 1,
-            'brand_id' => 1
+            'brand' => 'COACH'
         ]);
         $item1->categories()->attach([1, 8]);
 
@@ -34,7 +34,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => '高速で信頼性の高いハードディスク',
             'condition_id' => 2,
             'user_id' => 2,
-            'brand_id' => null
+            'brand' => null
         ]);
         $item2->categories()->attach([2]);
 
@@ -45,7 +45,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => '新鮮な玉ねぎ3束のセット',
             'condition_id' => 3,
             'user_id' => 3,
-            'brand_id' => null
+            'brand' => null
         ]);
         $item1->categories()->attach([3]);
 
@@ -56,7 +56,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => 'クラシックなデザインの革靴',
             'condition_id' => 4,
             'user_id' => 1,
-            'brand_id' => 2
+            'brand' => 'REGAL'
         ]);
         $item4->categories()->attach([4, 8]);
 
@@ -67,7 +67,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => '高性能なノートパソコン',
             'condition_id' => 1,
             'user_id' => 2,
-            'brand_id' => 3
+            'brand' => 'Lenovo'
         ]);
         $item5->categories()->attach([2]);
 
@@ -78,7 +78,7 @@ class ItemsTableSeeder extends Seeder
             'detail' => '高音質のレコーディング用マイク',
             'condition_id' => 2,
             'user_id' => 2,
-            'brand_id' => null
+            'brand' => null
         ]);
         $item6->categories()->attach([2]);
 
@@ -89,7 +89,7 @@ class ItemsTableSeeder extends Seeder
             'detail' =>  'おしゃれなショルダーバッグ',
             'condition_id' => 3,
             'user_id' => 1,
-            'brand_id' => null
+            'brand' => null
         ]);
         $item7->categories()->attach([5, 9]);
         
@@ -100,7 +100,7 @@ class ItemsTableSeeder extends Seeder
             'detail' =>  '使いやすいタンブラー',
             'condition_id' => 4,
             'user_id' => 3,
-            'brand_id' => 4
+            'brand' => 'THERMOS'
         ]);
         $item8->categories()->attach([6]);
     
@@ -111,7 +111,7 @@ class ItemsTableSeeder extends Seeder
             'detail' =>  '手動のコーヒーミル',
             'condition_id' => 1,
             'user_id' => 3,
-            'brand_id' => 5
+            'brand' =>  'HARIO'
         ]);
         $item9->categories()->attach([6]);
 
@@ -122,7 +122,7 @@ class ItemsTableSeeder extends Seeder
             'detail' =>  '便利なメイクアップセット',
             'condition_id' => 2,
             'user_id' => 3,
-            'brand_id' => 6
+            'brand' => 'CANMAKE'
         ]); 
         $item10->categories()->attach([7, 9]);
 

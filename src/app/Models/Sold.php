@@ -13,12 +13,24 @@ class Sold extends Model
         'user_id', 
         'item_id',
         'sold',
-        'method'
+        'method',
+        'address_number',
+        'address',
+        'building',
     ];
 
-    //リレーション
-     public function item()
+
+    // User モデルとのリレーション
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Item モデルとのリレーション
+    public function item()
     {
         return $this->belongsTo(Item::class);
     }
+
+
 }
