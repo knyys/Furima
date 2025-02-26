@@ -1,8 +1,9 @@
 .tab-box {
     display: block;
-    width: 100%;
+    width: 100vw;
     margin-top: 50px;
-    max-width: 1600px;
+
+    
 }
 
 .tab-list {

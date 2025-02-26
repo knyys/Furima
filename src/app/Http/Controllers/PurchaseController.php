@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PurchaseRequest;
+use Illuminate\Support\Facades\Session;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\ShippingAddress;
@@ -23,8 +24,14 @@ class PurchaseController extends Controller
         $user = Auth::user();
         $profile = $user->profile;
         
-        return view('purchase', compact('user', 'profile', 'item'));
-    }
+        $shippingAddress = Session::get('shipping_address', [
+        'address_number' => $profile->address_number ?? '',
+        'address' => $profile->address ?? '',
+        'building' => $profile->building ?? '',
+    ]);
+
+    return view('purchase', compact('user', 'profile', 'item', 'shippingAddress'));
+}
 
 
     // 商品購入

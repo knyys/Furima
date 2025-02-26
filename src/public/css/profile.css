@@ -1,6 +1,5 @@
 .profile-form {
-    width: 100%;
-    max-width: 1600px;
+    width: 100vw;
     padding: 20px;
 }
 
@@ -76,7 +75,8 @@
     width: 15%;
 }
 
-.tab label {
+.tab a {
+    text-decoration: none;
     display: block;
     font-size: 16px;
     line-height: 2;
@@ -94,12 +94,10 @@ label:hover {
     opacity: 0.8;
 }
 /* ラジオボタンがチェックされた時のラベルの文字色 */
-#tab_1:checked ~ .tab-list label[for="tab_1"],
-#tab_2:checked ~ .tab-list label[for="tab_2"] {
+.tab-list a.active {
     color: red;
     font-weight: bold;
 }
-
 .tabContent {
     display: none;
     font-size: 16px;
@@ -148,6 +146,7 @@ label:hover {
 }
 .item-label {
     font-size: 18px;
+    width: 200px;
     text-align: left;
 }
 

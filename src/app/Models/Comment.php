@@ -15,7 +15,7 @@ class Comment extends Model
         'comment'
     ];
 
-    public function scopeOfItem($query, $itemId)
+    public function scopeOfItem($query, int $itemId)
     {
         return $query->where('item_id', $itemId);
     }

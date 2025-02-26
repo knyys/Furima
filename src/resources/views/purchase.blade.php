@@ -60,8 +60,10 @@
                 <span class="number">{{ old('address_number', session('shipping_address.address_number', $profile->address_number)) }}</span>
             </div>
             <div class="address">
-                <span class="address__details">{{ old('address', session('shipping_address.address', $profile->address)) }}
-        {{ old('building', session('shipping_address.building', $profile->building)) }}</span>
+                <span class="address__details">
+                    {{ old('address', session('shipping_address.address', $profile->address)) }}
+                    {{ old('building', session('shipping_address.building', $profile->building)) }}
+                </span>
             </div>
         </div>
     </div>

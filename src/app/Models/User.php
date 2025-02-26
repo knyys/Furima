@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'remember_token',
     ];
 
     /**
@@ -60,11 +61,12 @@ class User extends Authenticatable
 
     public function likedItems()
     {
-        return $this->belongsToMany(Item::class, 'item_like', 'user_id', 'item_id')->withTimestamps();
+        return $this->belongsToMany(Item::class, 'likes', 'user_id', 'item_id')
+            ->withTimestamps();
     }
 
-    public function shippingAddresses()
+    public function solds()
     {
-        return $this->hasMany(ShippingAddress::class);
+        return $this->hasMany(Sold::class);
     }
 }

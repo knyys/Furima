@@ -4,8 +4,7 @@
     
 }
 .purchase-form{
-    width: 100%;
-    max-width: 1600px;
+    width: 100vw;
     position: relative;
 }
 

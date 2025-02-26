@@ -1,7 +1,6 @@
 .address-update__page{
-    width: 100%;
+    width: 100vw;
     position: relative;
-    max-width: 1600px;
 }
 
 .address-form {
@@ -18,7 +17,7 @@
 .address-form__header {
     font-size: 24px;
     font-weight: bold;
-    margin: 10px 0 40px 0;
+    margin: 50px 0 40px 0;
     text-align: center;
 }
 
@@ -47,7 +46,7 @@
     margin: 5px 0;
 }
 
-.adderss-form__btn{
+.address-form__btn{
     width: 100%;
 }
 
