@@ -32,10 +32,13 @@ class ItemController extends Controller
     if (auth()->check()) {
         $user = auth()->user();
         
-        $userItems = $user->likedItems()
-            ->nameSearch($searchKeyword)
-            ->with('solds')
-            ->get();
+        $userItems = Like::where('user_id', $user->id)
+            ->with(['item.solds']) 
+            ->whereHas('item', function ($query) use ($searchKeyword) {
+                $query->nameSearch($searchKeyword); 
+            })
+            ->get()
+            ->pluck('item'); 
 
         $userItems->each(function ($item) {
             $item->is_sold = $item->solds()->exists();

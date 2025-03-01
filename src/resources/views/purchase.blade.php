@@ -57,12 +57,13 @@
             </div>
             <div class="address-number">
                 <span class="postal-mark">〒</span>
-                <span class="number">{{ old('address_number', session('shipping_address.address_number', $profile->address_number)) }}</span>
+                <span class="number"> {{ session('shipping_address.address_number', old('address_number', $profile->address_number)) }}</span>
             </div>
             <div class="address">
                 <span class="address__details">
-                    {{ old('address', session('shipping_address.address', $profile->address)) }}
-                    {{ old('building', session('shipping_address.building', $profile->building)) }}
+                   {{ session('shipping_address.address', old('address', $profile->address)) }}
+        {{ session('shipping_address.building', old('building', $profile->building)) }}
+    </span>
                 </span>
             </div>
         </div>

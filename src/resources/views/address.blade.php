@@ -6,7 +6,8 @@
 
 @section('content')
 <div class="address-update__page">
-    <form class="address-form" action="{{ route('address.update', ['item' => $item->id]) }}" method="post">
+    <form class="address-form" action="{{ route('address.update', ['item' => $item->id]) }}" method="post">  
+        @method('PATCH')
         @csrf
         <div class="address-form__header">
             住所の変更

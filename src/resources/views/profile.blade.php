@@ -48,8 +48,18 @@
                 @foreach ($userItems as $item)
                 <div class="item">
                     <div class="item-img">
+                        <a href="{{ route('item.detail', ['item' => $item->id]) }}">
                         <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        </a>
                     </div>
+                   
+                    <!--Sold-->
+                    @if ($item->is_sold)
+                    <div class="item--sold">
+                        <span class="sold-label">Sold</span>
+                    </div>
+                    @endif
+                    <!--Sold-->
                     <span class="item-label">{{ $item->name }}</span>
                 </div>
                 @endforeach
@@ -63,8 +73,11 @@
                 @foreach ($purchasedItems as $item)
                 <div class="item">
                     <div class="item-img">
+                        <a href="{{ route('item.detail', ['item' => $item->id]) }}">
                         <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        </a>
                     </div>
+                        
                     <span class="item-label">{{ $item->name }}</span>
                 </div>
                 @endforeach

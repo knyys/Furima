@@ -28,7 +28,6 @@ Route::post('register', [RegisterController::class, 'store']);
 //プロフィール画面
 Route::get('mypage/profile', [ProfileController::class, 'welcome']);
 Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
-
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
 
 
@@ -38,7 +37,6 @@ Route::post('/login', [LoginController::class, 'store']);
 
 //ログアウト
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
 
 //商品一覧
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -57,4 +55,5 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'purchase'])->name('
 
 //住所変更
 Route::get('/purchase/address/{item}', [AddressController::class, 'index']);
-Route::post('/purchase/address/{item}', [AddressController::class, 'updateAddress'])->name('address.update');
+Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddress'])->name('address.update');
+
