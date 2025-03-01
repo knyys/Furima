@@ -19,6 +19,6 @@ class RegisterController extends Controller
     {
         app(CreateNewUser::class)->create($request->validated());
 
-        return view('edit_profile');
+        return redirect('/mypage/profile')->with('success', '登録が完了しました。プロフィールを編集してください。');
     }
 }

@@ -24,7 +24,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|max:1024|mimes:jpeg,png'
+            'image' => 'nullable|max:1024|mimes:jpeg,png'
         ];
     }
 

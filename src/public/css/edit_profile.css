@@ -1,3 +1,20 @@
+.alert {
+    font-size: 14px;
+    margin: 10px 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.alert--success {
+    padding: 10px 20px;
+    color: green;
+    border: 1px solid green;
+    background-color: rgb(199, 255, 199);
+    border-radius: 5px;
+}
+
+
+
 .profile-form {
     display: flex;
     justify-content: center;
