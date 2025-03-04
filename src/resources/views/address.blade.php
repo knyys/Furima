@@ -45,9 +45,13 @@
             </div>
         
             <div class="address-form__btn">
-                <button class="btn--update">更新する</button>
+                <button class="btn--update" type="submit">更新する</button>
             </div>
         </div>
     </form>
 </div>
+@endsection
+
+@section('js')
+
 @endsection

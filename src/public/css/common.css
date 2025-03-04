@@ -1,6 +1,14 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100%;
+    overflow-x: hidden;
+}
 .header {
     background-color: black;
-    width: 100vw;
+    width: 100%;
     height: 60px;
     display: flex;
 }
@@ -45,7 +53,7 @@
 .header__nav {
     display: flex;
     justify-content: flex-end;
-    width: 40%;
+    width: 50%;
     gap: 20px;
     padding: 0 5px;
     margin: 0 10px;
@@ -73,12 +81,13 @@
     cursor: pointer;
 }
 
-.nav__btn--mypage a {
+.mypage-btn {
     text-decoration: none;
     color: white;
     cursor: pointer;
     font-size: 18px;
     height: 30px;
+    align-items: center;
 }
 
 .nav__btn--sell a {
@@ -92,15 +101,40 @@
     font-size: 18px;
 }
 
-/* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
+/* PC (1400-1540px) 用のスタイル */
+@media (min-width: 1400px) {
+    .header__search-form {
+        width: 60%;
     }
 
+    .header__search-form input {
+        font-size: 20px;
+    }
+
+    .header__nav {
+        gap: 30px;
+    }
+
+    .logout-btn button,
+    .login-btn,
+    .nav__btn--mypage a,
+    .nav__btn--sell a {
+        font-size: 30px;
+    }
+
+    .nav__btn a {
+        height: 30px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1540px) {
+    
+}
+
+
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px){
     .header {
         width: 100%;
         height: 60px;
@@ -145,36 +179,47 @@
     }
 }
 
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
+@media (max-width: 850px) {
+    .header {
+        width: 100%;
+        height: 60px;
+    }
+
+    .header__logo {
+        width: 30%;
+    }
+
+    .header__logo img {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .header__inner {
+        width: 70%;
     }
 
     .header__search-form {
-        width: 60%;
+        width: 50%;
+    }
+
+    .search-form {
+        width: 100%;
     }
 
     .header__search-form input {
-        font-size: 20px;
+        width: 80%;
+        font-size: 14px;
     }
 
     .header__nav {
-        gap: 30px;
+        width: 60%;
+        gap: 15px;
     }
 
     .logout-btn button,
     .login-btn,
     .nav__btn--mypage a,
     .nav__btn--sell a {
-        font-size: 20px;
-    }
-
-    .nav__btn a {
-        height: 30px;
-        align-items: center;
+        font-size: 14px;
     }
 }

@@ -297,12 +297,6 @@
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
 
     .alert {
         width: 100%;
@@ -452,12 +446,6 @@
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
 
     .item__category-label,
     .item__condition-label {

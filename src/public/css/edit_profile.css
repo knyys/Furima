@@ -14,12 +14,10 @@
 }
 
 
-
 .profile-form {
     display: flex;
     justify-content: center;
-    position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     padding: 20px;
 }
@@ -130,72 +128,14 @@
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
 
-    .profile-form__content {
-        width: 60%;
-    }
-
-    .profile-form__img img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .image-label {
-        font-size: 14px;
-        left: 30%;
-    }
-
-    .image-name {
-        font-size: 12px;
-        left: 30%;
-    }
-
-    .img__error {
-        font-size: 14px;
-        top: 27%;
-        left: 33%;
-    }
-
-    .form__label {
-        font-size: 16px;
-    }
-
-    .form__content input {
-        height: 30px;
-        font-size: 14px;
-    }
-
-    .form__content {
-        font-size: 14px;
-    }
-
-    .form__btn button {
-        font-size: 18px;
-        height: 35px;
-    }
-
-    .form__error {
-        color: red;
-        font-size: 12px;
-    }
 }
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
+
     .profile-form__content {
-        width: 50%;
+        width: 40%;
     }
 
     .profile-form__img img {

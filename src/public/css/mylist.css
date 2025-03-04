@@ -42,19 +42,18 @@ label:hover {
     font-weight: bold;
 }
 
+.tabContentList {
+    margin: 30px 0;
+    padding: 0 60px;
+    width: 100%;
+    height: 100%;
+}
 .tab-content {
     display: none;
     font-size: 16px;
     color: black;
     text-align: center;
     padding: 50px 0;
-}
-
-.tabContentList {
-    margin: 40px 40px;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
 }
 
 #tab_1:checked ~ .tabContentList #content_1,
@@ -72,20 +71,26 @@ label:hover {
     opacity: 1;
 }
 
+.items__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 80px; 
+    width: 100%;
+    margin: 0 auto; 
+}
+
 .item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 30px 50px 30px;
-}
-.item a {
+    margin: 20px 0;
     position: relative;
+    max-width: 200px; 
+    width: 100%;
 }
 
-.items__list {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+.item a {
+    position: relative;
 }
 
 .item-img img {
@@ -107,106 +112,23 @@ label:hover {
     font-weight: bold;
     position: absolute;
     top: 75px;
-    width: 200px;
+    width: 100%;
     height: 50px;
     background: rgba(241, 13, 13, 0.6);
 }
 
 .item-label {
     font-size: 18px;
-    width: 200px;
+    width: 100%;
     text-align: left;
 }
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-    .tab-box {
-        width: 100%;
-        margin-top: 40px;
-    }
 
-    .tab-list {
-        padding: 0 30px;
-    }
-
-    .tab label {
-        font-size: 14px;
-    }
-
-    .tab-content {
-        font-size: 14px;
-        padding: 20px 0;
-    }
-
-    .tabContentList {
-        margin: 30px 30px;
-    }
-
-    .item {
-        margin: 20px 30px 20px 20px;
-    }
-
-    .item-icon {
-        width: 150px;
-        height: 150px;
-    }
-
-    .item--sold {
-        font-size: 18px;
-        padding: 5px 0 5px 0;
-        top: 60px;
-        width: 150px;
-        height: 40px;
-    }
-
-    .item-label {
-        font-size: 14px;
-        width: 150px;
-    }
 }
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
 
-    .tab-box {
-        width: 100%;
-        margin-top: 50px;
-    }
 
-    .tab-list {
-        padding: 0 50px;
-    }
-
-    .tab label {
-        font-size: 20px;
-    }
-
-    .tab-content {
-        font-size: 16px;
-        padding: 40px 0;
-    }
-
-    .tabContentList {
-        margin: 50px 50px;
-    }
-
-    .item {
-        margin: 20px 40px 40px 30px;
-    }
-
-    .item-label {
-        font-size: 20px;
-        width: 200px;
-    }
 }
