@@ -57,11 +57,11 @@
             </div>
             <div class="address-number">
                 <span class="postal-mark">〒</span>
-                <span class="number"> {{ $profile->address_number }}</span>
+                <span class="number"> {{ session('address_number', $profile->address_number) }}</span>
             </div>
             <div class="address">
                 <span class="address__details">
-                    {{ $profile->address }} {{ $profile->building }}
+                    {{ session('address', $profile->address) }} {{ session('building', $profile->building) }}
                 </span>
             </div>
         </div>

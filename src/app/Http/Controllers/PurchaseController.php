@@ -35,27 +35,33 @@ class PurchaseController extends Controller
 }
 
 
-    // 商品購入(できない)
+    // 商品購入
     public function purchase(PurchaseRequest $request, $itemId)
 {
     $item = Item::findOrFail($itemId);
     $profile = Profile::where('user_id', Auth::id())->first();
 
+    $shippingAddress = Session::get('shipping_address', [
+        'address_number' => $profile->address_number,
+        'address' => $profile->address,
+        'building' => $profile->building,
+    ]);
 
-    DB::transaction(function () use ($item, $profile, $request) {
+    DB::transaction(function () use ($item, $profile, $request, $shippingAddress) {
         $sold = new Sold();
         $sold->user_id = Auth::id();
         $sold->item_id = $item->id;
         $sold->sold = 1;
         $sold->method = $request->method;
-        $sold->address_number = $profile->address_number;
-        $sold->address = $profile->address;
-        $sold->building = $profile->building;
+        $sold->address_number = $shippingAddress['address_number'];
+        $sold->address = $shippingAddress['address'];
+        $sold->building = $shippingAddress['building'];
         $sold->save();
     });
 
+    Session::forget('shipping_address'); //セッション削除
+
     return redirect()->route('mypage', ['page' => 'buy'])->with('success', '購入が完了しました');
 }
-
 
 }

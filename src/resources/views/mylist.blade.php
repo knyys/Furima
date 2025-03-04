@@ -48,15 +48,15 @@
         <!--マイリストタブ-->
         <article class="tab-content active" id="content_2">
             <div class="items__list">
-            @foreach ($userItems as $userItem)
+            @foreach ($userItems as $like)
                 <div class="item">
-                    <a href="{{ route('item.detail', ['item' => $userItem->id]) }}">
+                    <a href="{{ route('item.detail', ['item' => $like->id]) }}">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $userItem->image) }}" alt="商品画像:{{ $userItem->name }}">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $like->item->image) }}" alt="商品画像:{{ $like->item->item_name }}">
                         <output id="image" class="image_output"></output>
                     </div>
                     <!--Sold-->
-                    @if ($userItem->is_sold)
+                    @if ($like->is_sold)
                     <div class="item--sold">
                         <span class="sold-label">Sold</span>
                     </div>
@@ -64,7 +64,7 @@
                     <!--Sold-->
                     </a>
                     <span class="item-label">
-                        {{ $userItem->name }}
+                        {{ $like->name }}
                     </span>
 
                 </div>

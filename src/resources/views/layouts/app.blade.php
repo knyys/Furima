@@ -23,6 +23,7 @@
             <div class="header__search-form">
                 <form class="search-form" action="{{ route('home') }}" method="get">
                 <input type="text" name="item_name"  value="{{ request('item_name') }}" placeholder="なにをお探しですか？" />
+                <input type="hidden" name="page" value="{{ request('page') }}">
                 </form>
             </div>
             <div class="header__nav">
