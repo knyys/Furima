@@ -5,6 +5,14 @@
 @endsection
 
 @section('content')
+<div class="alert">
+    @if(session('success'))
+    <div class="alert-success">
+        <p>{{ session('success') }}</p>
+    </div>
+    @endif
+</div>
+
 <div class="profile-form">
     <div class="profile-form__content">
         <div class="profile-form__header">
@@ -15,7 +23,7 @@
                 <output id="image" class="image_output"></output>
             </div>    
             <div class="profile__user-name">    
-                <span>{{ $user->name }}</span>
+                {{ $user->name }}
             </div>
             <div class="profile__edit">
                 <a class="edit-page" href="/mypage/profile">プロフィールを編集</a>
@@ -87,4 +95,7 @@
         </div>       
     </div>
 </div>
+@endsection
+
+@section('js')
 @endsection

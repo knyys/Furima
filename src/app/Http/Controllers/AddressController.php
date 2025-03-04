@@ -23,8 +23,6 @@ class AddressController extends Controller
     //配送先変更(できない)
     public function updateAddress(AddressRequest $request, Item $item)
     {
-        $userId = auth()->id();
-
         session([
         'shipping_address' => [
             'address_number' => $request->address_number,
@@ -32,18 +30,7 @@ class AddressController extends Controller
             'building' => $request->building,
         ]
     ]);
-    $sold = Sold::where('user_id', $userId)
-                ->where('item_id', $item->id)
-                ->where('sold', false) // 未購入状態のものに限定
-                ->first();
-    
-        if ($sold) {
-        $sold->address_number = $request->address_number;
-        $sold->address = $request->address;
-        $sold->building = $request->building;
-        $sold->save();
-    
-    }
+
     return redirect()->route('purchase', ['item' => $item->id])
                      ->with('success', '住所が更新されました。');
     }

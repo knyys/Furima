@@ -169,12 +169,7 @@
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
+
     .exhibit-page {
         width: 100%;
     }
@@ -335,10 +330,5 @@
 
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
+
 }

@@ -30,7 +30,6 @@ Route::get('mypage/profile', [ProfileController::class, 'welcome']);
 Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
 
-
 //ログイン
 Route::get('/login', [LoginController::class, 'loginView'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);

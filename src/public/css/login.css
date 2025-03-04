@@ -109,12 +109,7 @@
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
-    }
+
     .login-form__content {
         width: 70%;
         top: 5%;
@@ -140,12 +135,7 @@
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* 横スクロールを防止 */
-    }
+
     .login-form__content {
         width: 50%;
     }

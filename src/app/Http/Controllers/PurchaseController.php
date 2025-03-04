@@ -8,6 +8,7 @@ use App\Http\Requests\PurchaseRequest;
 use Illuminate\Support\Facades\Session;
 use App\Models\Item;
 use App\Models\Sold;
+use App\Models\Profile;
 use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\DB;
 
@@ -34,12 +35,27 @@ class PurchaseController extends Controller
 }
 
 
-    // 商品購入
-    public function purchase(PurchaseRequest $request, Item $item)
-    {
-    
-    }
+    // 商品購入(できない)
+    public function purchase(PurchaseRequest $request, $itemId)
+{
+    $item = Item::findOrFail($itemId);
+    $profile = Profile::where('user_id', Auth::id())->first();
 
+
+    DB::transaction(function () use ($item, $profile, $request) {
+        $sold = new Sold();
+        $sold->user_id = Auth::id();
+        $sold->item_id = $item->id;
+        $sold->sold = 1;
+        $sold->method = $request->method;
+        $sold->address_number = $profile->address_number;
+        $sold->address = $profile->address;
+        $sold->building = $profile->building;
+        $sold->save();
+    });
+
+    return redirect()->route('mypage', ['page' => 'buy'])->with('success', '購入が完了しました');
+}
 
 
 }

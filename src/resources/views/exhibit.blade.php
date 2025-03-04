@@ -124,3 +124,31 @@
 </div>
 
 @endsection
+
+@section('js')
+<script>
+    document.getElementById('image-input').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('.icon').src = e.target.result; 
+            }
+            reader.readAsDataURL(file);
+
+            // 画像名の表示
+            document.getElementById('image-name').textContent = file.name;
+        } else {
+            document.getElementById('image-name').textContent = '';
+        }
+        // 画像選択ラベル
+            const label = document.querySelector('.image-label');
+        if (this.files.length > 0) {
+            label.textContent = '画像を変更する';
+        } else {
+            label.textContent = '画像を選択する'; 
+
+        }     
+    });
+</script>
+@endsection

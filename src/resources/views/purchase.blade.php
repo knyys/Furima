@@ -57,13 +57,11 @@
             </div>
             <div class="address-number">
                 <span class="postal-mark">〒</span>
-                <span class="number"> {{ session('shipping_address.address_number', old('address_number', $profile->address_number)) }}</span>
+                <span class="number"> {{ $profile->address_number }}</span>
             </div>
             <div class="address">
                 <span class="address__details">
-                   {{ session('shipping_address.address', old('address', $profile->address)) }}
-        {{ session('shipping_address.building', old('building', $profile->building)) }}
-    </span>
+                    {{ $profile->address }} {{ $profile->building }}
                 </span>
             </div>
         </div>
@@ -90,7 +88,9 @@
     </div>
 </form>
 </div>
+@endsection
 
+@section('js')
 <script>
 document.getElementById("options").addEventListener("change", function() {
     document.getElementById("selectedText").textContent = this.value;
