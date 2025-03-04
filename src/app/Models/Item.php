@@ -20,10 +20,10 @@ class Item extends Model
     //ローカルスコープ（検索）
     public function scopeNameSearch($query, $keyword)
     {
-        if (!empty($keyword)) {
-            return $query->where('name', 'like', "%{$keyword}%");
-        }
-        return $query;
+        if ($keyword) {
+        return $query->where('name', 'like', '%' . $keyword . '%');
+    }
+    return $query;
     }
 
 

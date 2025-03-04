@@ -28,24 +28,27 @@ class ItemController extends Controller
         $item->is_sold = $item->solds()->exists();
     });
 
-    // ログイン
+    // ログインしている場合
     if (auth()->check()) {
         $user = auth()->user();
         
+        // ユーザーが「いいね」したアイテムを検索
         $userItems = Like::where('user_id', $user->id)
-            ->with(['item.solds']) 
             ->whereHas('item', function ($query) use ($searchKeyword) {
-                $query->nameSearch($searchKeyword); 
-            })
-            ->get()
-            ->pluck('item'); 
+            // item_name に対して検索を適用
+            if ($searchKeyword) {
+                $query->nameSearch($searchKeyword);
+            }
+        })
+        ->with('item.solds')
+        ->get();
 
-        $userItems->each(function ($item) {
-            $item->is_sold = $item->solds()->exists();
+        $userItems->each(function ($like) {
+            $like->item->is_sold = $like->item->solds()->exists();
         });
-        } else {
-            $userItems = collect(); 
-        }
+    } else {
+        $userItems = collect(); 
+    }
 
     // マイリストページ
     if ($page === 'mylist') {
@@ -55,6 +58,7 @@ class ItemController extends Controller
     // 通常の一覧ページ
     return view('index', compact('userItems', 'allItems', 'searchKeyword'));
 }
+
 
 
     //コメント追加後画面
