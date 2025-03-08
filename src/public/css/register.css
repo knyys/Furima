@@ -11,8 +11,6 @@
     position: relative;
     top: 10%;
     width: 60%;
-    max-width: 800px;
-    min-width: 300px;
     padding: 20px;
 }
 
@@ -64,27 +62,63 @@
     display: block;
     text-align: center;
     margin: 20px 0;
+    font-size: 16px;
 }
 
 .form__error {
     color: red;
     font-size: 14px;
+    margin-top: 5px;
 }
 
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) and (max-width: 850px) {
+@media (min-width: 768px) {
 
-    .register-form__content {
-        width: 60%; 
+    .register-form__heading {
+        font-size: 20px;
+    }
+
+    .form__btn button {
+        font-size: 18px;
+    }
+
+    .form__error {
+        color: red;
+        font-size: 14px;
     }
 
 }
 
 /* PC用 (1400-1540px) */
-@media (min-width: 1400px) and (max-width: 1540px) {
+@media (min-width: 1400px) {
 
     .register-form__content {
-        width: 50%;
+        width: 40%;
     }
+
+    .register-form__heading {
+        font-size: 24px;
+    }
+
+    .form__label {
+        font-size: 20px;
+    }
+
+    .form__content{
+        font-size: 18px;
+    }
+
+    .form__btn button {
+        font-size: 20px;
+    }
+
+    .login-btn a {
+        font-size: 18px;
+    }
+
+    .form__error {
+        font-size: 16px;
+    }
+
 }

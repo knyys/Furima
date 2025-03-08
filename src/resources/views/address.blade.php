@@ -5,18 +5,6 @@
 @endsection
 
 @section('content')
-<div class="alert">
-@if(session('success'))
-    <div class="alert-success">
-        <p>{{ session('success') }}</p>
-    </div>
-@elseif($errors->any())
-    <div class="alert-danger">
-        <p>{{ $errors->first() }}</p>
-    </div>
-@endif
-</div>
-
 <div class="address-update__page">
     <form class="address-form" action="{{ route('address.update', ['item' => $item->id]) }}" method="post">  
         @method('PATCH')
@@ -28,7 +16,7 @@
         <div class="address-form__content">
             <div class="address-form__details">
                 <label>郵便番号</label>
-                <input type="text" name="address_number" value="{{ old('address_number') ?: $profile->address_number }}">
+                <input type="text" name="address_number" value="{{ old('address_number') }}">
                 <div class="danger">
                     @error('address_number')
                         {{ $message }}
@@ -38,7 +26,7 @@
 
             <div class="address-form__details">
                 <label>住所</label>
-                <input type="text" name="address" value="{{ old('address') ?: $profile->address }}">
+                <input type="text" name="address" value="{{ old('address') }}">
                 <div class="danger">
                     @error('address')
                         {{ $message }}
@@ -48,7 +36,7 @@
 
             <div class="address-form__details">
                 <label>建物名</label>
-                <input type="text" name="building" value="{{ old('building') ?: $profile->building }}">
+                <input type="text" name="building" value="{{ old('building') }}">
                 <div class="danger">
                     @error('building')
                         {{ $message }}

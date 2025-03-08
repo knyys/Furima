@@ -15,7 +15,7 @@
 <body>
     <header class="header">
         <div class="header__logo">
-            <a href="{{ Auth::check() ? route('home', ['page' => 'mylist']) : route('home') }}">
+            <a href="{{ route('home') }}">
                 <img src="{{ asset('storage/logo.svg') }}" alt="logo">
             </a>
         </div>

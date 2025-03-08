@@ -70,7 +70,11 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = $user->profile; 
         // 出品した商品
-        $userItems = $user->items;
+        $userItems = $user->items; //自分が出品したものすべて
+        $userItems->each(function ($item) {
+        $item->is_sold = $item->solds()->exists(); //soldになったもの
+        });
+
         // 購入した商品
         $purchasedItems = Item::whereIn('id', function ($query) use ($user) {
             $query->select('item_id')

@@ -8,11 +8,8 @@
 <div class="alert">
 @if(session('success'))
     <div class="alert-success">
-        <p>{{ session('success') }}</p>
-    </div>
-@elseif($errors->any())
-    <div class="alert-danger">
-        <p>{{ session('error') }}</p>
+        <img src="{{ asset( 'storage/check-icon.png') }}" alt="商品画像">
+        <span>{{ session('success') }}</span>
     </div>
 @endif
 </div>

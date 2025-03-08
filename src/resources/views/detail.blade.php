@@ -85,7 +85,7 @@
             </div>
             <div class="item-purchase__btn">
                 <!--Soldの場合はボタン非活性-->
-                @if ($item->is_sold) 
+                @if ($item->is_sold || $item->is_user_item) 
                     <button class="purchase__btn--disabled" disabled>
                          購入手続きへ
                     </button>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="item__condition">
                     <span class="item__condition-label">商品の状態</span>
-                    <span class="item__condition-type">{{ $item->condition->first()->condition }}</span>
+                    <span class="item__condition-type">{{ $item->condition->condition }}</span>
                 </div>
             </div>
 
@@ -159,7 +159,7 @@
                     <textarea class="comment__box" name="comment"></textarea>
                     <div class="comment-form__btn">
                         <!--Soldの場合はボタン非活性-->
-                        @if ($item->is_sold) 
+                        @if ($item->is_sold || $item->is_user_item)  
                             <button class="comment-form__btn--disabled" disabled>
                                 コメントを送信する
                             </button>

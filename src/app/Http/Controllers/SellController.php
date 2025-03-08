@@ -36,8 +36,8 @@ class SellController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $condition = $request->input('condition');
-        $conditionId = Condition::where('condition', $condition)->first()->id;
-        $data['condition_id'] = $conditionId;
+        $conditionRecord = Condition::where('condition', $condition)->first();
+        $data['condition_id'] = $conditionRecord->id;
         
         $categories = $request->input('category');
         $categoryIds = Category::whereIn('category', $categories)->pluck('id')->toArray();
@@ -54,10 +54,10 @@ class SellController extends Controller
         $item = Item::create($data);
 
         $item->categories()->attach($categoryIds);
-        $item->condition()->associate($conditionId);
+        
 
         $item->save();
 
-        return redirect()->route('mypage', ['item' => $item->id]);
+        return redirect()->route('mypage', ['item' => $item->id])->with('success', '商品を出品しました');
     }
 }

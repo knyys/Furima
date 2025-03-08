@@ -6,6 +6,9 @@
 
 @section('content')
 <div class="item-list">
+    @php
+        $currentPage = request('page', 'index'); 
+    @endphp
 
     <div class="tab-box">
         <input type="radio" id="tab_1" class="tabRadio" name="tab" checked>
@@ -48,10 +51,33 @@
             </article>
 
             <!--マイリストタブ-->
-            <article class="tab-content" id="content_2">
+            @if ($currentPage == 'mylist')
+            <article class="tab-content active" id="content_2">
+            <div class="items__list">
+            @foreach ($userItems as $like)
+                <div class="item">
+                    <a href="{{ route('item.detail', ['item' => $like->id]) }}">
+                    <div class="item-img">
+                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $like->item->image) }}" alt="商品画像:{{ $like->item->item_name }}">
+                        <output id="image" class="image_output"></output>
+                    </div>
+                    <!--Sold-->
+                    @if ($like->item->is_sold)
+                    <div class="item--sold">
+                        <span class="sold-label">Sold</span>
+                    </div>
+                    @endif
+                    <!--Sold-->
+                    </a>
+                    <span class="item-label">
+                        {{ $like->item->name }}
+                    </span>
 
-            </article>
-            
+                </div>
+                @endforeach
+            </div>
+        </article>
+           @endif 
         </div>
     </div>
 </div>
