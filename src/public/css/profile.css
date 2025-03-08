@@ -10,7 +10,7 @@
     margin: 10px 30px;
     padding: 0 10px;
     text-align: center;
-    width: 15%;
+    width: 20%;
     position: absolute;
     top: 10px;
     color: green;
@@ -144,8 +144,8 @@ label:hover {
 
 .items__list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 80px; 
+    grid-template-columns: repeat(6, minmax(200px, 1fr)); 
+    gap: 50px;
     width: 100%;
     margin: 0 auto;
     padding: 10px 40px;
@@ -178,45 +178,57 @@ label:hover {
     text-align: left;
 }
 
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) {
-
-
+.item--sold {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    position: absolute;
+    top: 75px;
+    width: 100%;
+    height: 50px;
+    background: rgba(241, 13, 13, 0.6);
 }
 
-/* タブレット (768-850px) 用のスタイル */
 
-@media (min-width: 768px) and (max-width: 850px) {
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px) {
+
+    .alert-success{
+        font-size: 12px;
+    }
+
+    .profile__img {
+        left: 8%;
+    }
 
     .profile-icon {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
 
     .profile__user-name {
         font-size: 22px;
-        left: 35%;
+        top: 60px;
+        left: 26%;
     }
 
-    /*ここからタブ*/
-    .tab {
-        width: 15%;
+    .profile__edit a {
+        top: 60px;
+        font-size: 16px;
     }
 
     .tab a {
         font-size: 14px;
     }
 
-    .tabContent {
-        font-size: 14px;
-    }
-
-    .profile-form .items__list {
-        grid-template-columns: repeat(4, 1fr)!important; 
-        gap: 60px; 
+    .items__list {
+        grid-template-columns: repeat(4, minmax(150px, 1fr)); 
     }
 
     .item {
+        margin: 10px 0;
         max-width: 150px; 
     }
 
@@ -232,6 +244,63 @@ label:hover {
     .item-label {
         font-size: 16px;
     }
+
+    .item--sold {
+        font-size: 15px;
+        top: 55px;
+        width: 100%;
+        height: 40px;
+    }
+
 }
 
+/* PC (1400-1540px) 用のスタイル */
+@media (min-width: 1400px) {
 
+    .alert-success{
+        font-size: 16px;
+    }
+
+    .profile__user-name {
+        font-size: 26px;
+        top: 70px;
+        left: 20%;
+    }
+
+    .profile__edit a {
+        padding: 5px 50px;
+        top: 70px;
+        font-size: 22px;
+    }
+
+    .tab a {
+        font-size: 18px;
+    }
+
+    .items__list {
+        grid-template-columns: repeat(6, minmax(200px, 1fr)); 
+    }
+
+    .item {
+        max-width: 240px; 
+    }
+
+    .item-icon {
+        width: 240px;
+        height: 240px;
+    }
+
+    .item-label {
+        font-size: 18px;
+    }
+
+    .item--sold {
+        font-size: 24px;
+        padding: 16px 0;
+        top: 90px;
+        width: 100%;
+        height: 60px;
+    }
+
+
+}

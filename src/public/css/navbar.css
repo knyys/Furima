@@ -26,4 +26,28 @@ body {
     padding-left: 10px;
 }
 
+/* タブレット用 (768-850px) */
+@media (min-width: 768px) {
 
+    .header {
+        height: 50px;
+    }
+
+    .header__inner {
+        width: 28%;
+    }
+
+}
+
+/* PC用 (1400-1540px) */
+@media (min-width: 1400px) {
+
+    .header {
+        height: 60px;
+    }
+
+    .header__inner {
+        width: 35%;
+    }
+
+}

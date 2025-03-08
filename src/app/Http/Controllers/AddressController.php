@@ -23,7 +23,7 @@ class AddressController extends Controller
 
 
     //配送先変更
-    public function updateAddress(Request $request, Item $item) 
+    public function updateAddress(AddressRequest $request, Item $item) 
 {
     $shippingAddress = $request->only(['address_number', 'address', 'building']);
 

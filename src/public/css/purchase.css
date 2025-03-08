@@ -1,14 +1,38 @@
-.alert{
-    font-size: 20px;
-    color: #ff6347;
-    
-}
-.purchase-form{
+.alert {
+    display: flex;
+    justify-content: flex-end;
     width: 100vw;
     position: relative;
 }
 
-.purchase-form__content{
+.alert-success {
+    font-size: 14px;
+    margin: 5px 30px;
+    padding: 3px 10px;
+    text-align: center;
+    width: 15%;
+    position: absolute;
+    top: 10px;
+    color: green;
+    border: 1px solid green;
+    background-color: rgb(199, 255, 199);
+    border-radius: 5px;
+}
+
+.alert-success img {
+    filter: invert(38%) sepia(73%) saturate(372%) hue-rotate(88deg);
+}
+
+.alert-success span {
+    margin: 5px 0;
+}
+
+.purchase-form {
+    width: 100vw;
+    position: relative;
+}
+
+.purchase-form__content {
     position: absolute;
     top: 80px;
     left: 15%;
@@ -17,116 +41,116 @@
 }
 
 .item,
-.purchase{
+.purchase {
     display: flex;
     padding-bottom: 30px;
     border-bottom: 1px solid black;
 }
 
-.item-img{
+.item-img {
     width: 200px;
     height: 200px;
     border: 1px solid #dcdcdc;
     background-color: #dcdcdc;
 }
 
-.item__name{
+.item__name {
     margin-left: 30px;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
 }
 
-.item__price{
+.item__price {
     margin-left: 30px;
 }
 
-.item__currency{
-    font-size: 18px;
+.item__currency {
+    font-size: 20px;
 }
 
-.item__amount{
+.item__amount {
     font-size: 22px;
 }
 
-.purchase{
+.purchase {
     padding-top: 20px;
     flex-direction: column;
 }
 
-.purchase-method{
+.purchase-method {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 30px;
-    margin-left: 20px;   
+    margin-left: 20px;
 }
 
-.method__select{
+.method__select {
     width: 80%;
     display: flex;
     margin-left: 20px;
 }
 
-.method__select select{
+.method__select select {
     width: 50%;
     margin-left: 40px;
     height: 20px;
     font-size: 14px;
 }
 
-.method__select option{
+.method__select option {
     background-color: #afafb0;
 }
 
-.danger{
+.danger {
     margin-left: 60px;
     font-size: 16px;
     color: red;
     margin-top: 5px;
 }
 
-.shipping-address{
+.shipping-address {
     padding-top: 20px;
 }
 
-.shipping-address__header{
+.shipping-address__header {
     display: flex;
     justify-content: space-between;
     margin: 0 20px 30px 20px;
 }
 
-.shipping-address__header label{
+.shipping-address__header label {
     font-size: 16px;
     font-weight: bold;
 }
 
-.address__update-button{
-    text-decoration:none;  
-    color: blue;  
+.address__update-button {
+    text-decoration: none;
+    color: blue;
     font-size: 16px;
     cursor: pointer;
 }
 
 .address-number,
-.address{
+.address {
     margin-left: 60px;
 }
 
 .postal-mark,
 .number,
-.address__details{
+.address__details {
     font-size: 16px;
 }
 
-.purchase-form__confirmation{
+.purchase-form__confirmation {
     position: absolute;
     top: 80px;
-    right:15%;
+    right: 15%;
     width: 25%;
     margin-left: 30px;
 }
 
 .confirmation__price,
-.confirmation__purchase{
+.confirmation__purchase {
     width: 100%;
     display: flex;
     padding: 40px 0;
@@ -136,29 +160,29 @@
     border-left: 1px solid black;
 }
 
-.confirmation__purchase{
+.confirmation__purchase {
     border-bottom: 1px solid black;
 }
 
-.confirmation__label{
+.confirmation__label {
     width: 50%;
     display: flex;
     justify-content: center;
     font-size: 16px;
 }
 
-.confirmation__content{
+.confirmation__content {
     width: 50%;
     display: flex;
     justify-content: center;
     font-size: 18px;
 }
 
-.purchase-form__btn{
+.purchase-form__btn {
     margin: 50px 0;
     width: 100%;
 }
-.purchase__btn{
+.purchase__btn {
     border-radius: 5px;
     border: #ff6347 solid 1px;
     background-color: #ff6347;
@@ -167,4 +191,149 @@
     color: white;
     font-size: 20px;
     cursor: pointer;
+}
+
+/* タブレット (768-850px) 用のスタイル */
+@media (min-width: 768px) {
+
+    .alert-success {
+        font-size: 12px;
+        width: 20%;
+    }
+
+    .purchase-form__content {
+        left: 10%;
+        width: 44%;
+    }
+
+
+    .item-img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .item__name {
+        font-size: 24px;
+    }
+
+    .item__currency {
+        font-size: 18px;
+    }
+
+    .purchase-method {
+        font-size: 20px;
+    }
+
+    .method__select select {
+        width: 60%;
+        height: 20px;
+    }
+
+    .danger {
+        font-size: 14px;
+    }
+
+    .shipping-address__header label {
+        font-size: 20px;
+    }
+
+    .postal-mark,
+    .number,
+    .address__details {
+        font-size: 18px;
+    }
+
+    .purchase-form__confirmation {
+        right: 10%;
+        width: 33%;
+    }
+
+}
+
+/* PC (1400-1540px) 用のスタイル */
+@media (min-width: 1400px) {
+
+    .alert-success {
+        font-size: 20px;
+        padding: 3px 20px;
+        width: 20%;
+    }
+
+    .alert-success img {
+        height: 20px;
+        width: 20px;
+    }
+
+    .purchase-form__content {
+        left: 17%;
+        width: 38%;
+    }
+
+    .item-img {
+        width: 220px;
+        height: 220px;
+    }
+
+    .item__name {
+        font-size: 36px;
+    }
+
+    .item__currency {
+        font-size: 26px;
+    }
+
+    .item__amount {
+        font-size: 30px;
+    }
+
+    .purchase-method {
+        font-size: 28px;
+    }
+
+    .method__select select {
+        width: 50%;
+        height: 30px;
+        font-size: 18px;
+    }
+
+    .danger {
+        font-size: 18px;
+    }
+
+    .shipping-address__header label {
+        font-size: 28px;
+    }
+
+    .address__update-button {
+        font-size: 18px;
+    }
+
+    .postal-mark,
+    .number,
+    .address__details {
+        font-size: 22px;
+    }
+
+    .purchase-form__confirmation {
+        right: 17%;
+        width: 24%;
+    }
+
+    .confirmation__price,
+    .confirmation__purchase {
+        padding: 50px 0;
+    }
+
+    .confirmation__label {
+        font-size: 20px;
+    }
+
+    .confirmation__content {
+        font-size: 20px;
+    }
+
+    .purchase__btn {
+        height: 50px;
+        font-size: 22px;
+    }
 }

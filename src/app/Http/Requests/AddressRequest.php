@@ -23,12 +23,21 @@ class AddressRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'address_number' => 'required|min:8|max:8',
-            'address' => 'required',
-            'building' => 'required',
+        $routeName = $this->route()->getName(); //ルートによって適用
+
+        // 共通
+        $rules = [
+            'address_number' => ['required', 'regex:/^\d{3}-\d{4}$/'], 
+            'address' => ['required', 'string', 'max:255'],
+            'building' => ['required', 'string', 'max:255'],
         ];
+
+        // プロフィール設定ページは名前のバリデーションも追加
+        if ($routeName === 'profile.upload') {
+            $rules['name'] = ['required', 'string', 'max:255'];
+        }
+
+        return $rules;
     }
 
     public function messages()
