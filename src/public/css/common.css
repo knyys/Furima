@@ -151,7 +151,7 @@ body {
 @media (min-width: 1400px) {
 
     .header {
-        height: 80px;
+        height: 60px;
     }
 
     .header__logo {
@@ -159,7 +159,7 @@ body {
     }
 
     .header__logo a {
-        width: 100%;
+        width: 80%;
     }
 
     .header__inner {
@@ -178,7 +178,7 @@ body {
     }
     .header__search-form input {
         width: 75%;
-        height: 50px;
+        height: 40px;
         font-size: 24px;
     }
 

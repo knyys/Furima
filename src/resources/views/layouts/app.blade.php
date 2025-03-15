@@ -15,7 +15,7 @@
 <body>
     <header class="header">
         <div class="header__logo">
-            <a href="{{ route('home') }}">
+            <a href="{{ route('home', ['page' => 'mylist']) }}">
                 <img src="{{ asset('storage/logo.svg') }}" alt="logo">
             </a>
         </div>

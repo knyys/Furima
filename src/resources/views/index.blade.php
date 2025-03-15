@@ -28,19 +28,19 @@
                 <div class="items__list">
                     @foreach ($allItems as $allItem)
                     <div class="item">
-                        <a href="{{ route('item.detail', ['item' => $allItem->id]) }}">
                         <div class="item-img">
-                            <img id="image" class="item-icon" src="{{ asset( 'storage/' . $allItem->image) }}" alt="商品画像:{{ $allItem->name }}">
-                            <output id="image" class="image_output"></output>
+                            <a href="{{ route('item.detail', ['item' => $allItem->id]) }}">
+                                <img id="image" class="item-icon" src="{{ asset( 'storage/' . $allItem->image) }}" alt="商品画像:{{ $allItem->name }}">
+                                <output id="image" class="image_output"></output>
+                                <!--Sold-->
+                                @if ($allItem->is_sold)
+                                <div class="item--sold">
+                                    <span class="sold-label">Sold</span>
+                                </div>
+                                @endif
+                            </a>
                         </div>
-                        </a>
-                        <!--Sold-->
-                        @if ($allItem->is_sold)
-                        <div class="item--sold">
-                            <span class="sold-label">Sold</span>
-                        </div>
-                        @endif
-                        <!--Sold-->
+                        
                         <span class="item-label">
                             {{ $allItem->name }}
                         </span>
@@ -56,19 +56,18 @@
             <div class="items__list">
             @foreach ($userItems as $like)
                 <div class="item">
-                    <a href="{{ route('item.detail', ['item' => $like->id]) }}">
                     <div class="item-img">
-                        <img id="image" class="item-icon" src="{{ asset( 'storage/' . $like->item->image) }}" alt="商品画像:{{ $like->item->item_name }}">
-                        <output id="image" class="image_output"></output>
+                        <a href="{{ route('item.detail', ['item' => $like->item->id]) }}">
+                            <img id="image" class="item-icon" src="{{ asset( 'storage/' . $like->item->image) }}" alt="商品画像:{{ $like->item->item_name }}">
+                            <output id="image" class="image_output"></output>
+                            <!--Sold-->
+                            @if ($like->item->is_sold)
+                            <div class="item--sold">
+                                <span class="sold-label">Sold</span>
+                            </div>
+                            @endif
+                        </a>
                     </div>
-                    <!--Sold-->
-                    @if ($like->item->is_sold)
-                    <div class="item--sold">
-                        <span class="sold-label">Sold</span>
-                    </div>
-                    @endif
-                    <!--Sold-->
-                    </a>
                     <span class="item-label">
                         {{ $like->item->name }}
                     </span>

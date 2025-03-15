@@ -9,7 +9,10 @@ use GuzzleHttp\Promise\Create;
 use App\Models\Item;
 use App\Models\Condition;
 use App\Models\Category;
-use App\Models\Brand;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class SellController extends Controller
 {
@@ -24,9 +27,9 @@ class SellController extends Controller
     }
 
     public function getIsSoldAttribute()
-{
-    return $this->sells()->exists() ? 'Sold' : '';
-}
+    {
+        return $this->sells()->exists() ? 'Sold' : '';
+    }
     
 
     //出品
@@ -52,10 +55,8 @@ class SellController extends Controller
         }
 
         $item = Item::create($data);
-
         $item->categories()->attach($categoryIds);
         
-
         $item->save();
 
         return redirect()->route('mypage', ['item' => $item->id])->with('success', '商品を出品しました');

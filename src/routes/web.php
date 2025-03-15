@@ -9,6 +9,8 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\LikeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +58,5 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'purchase'])->name('
 Route::get('/purchase/address/{item}', [AddressController::class, 'index']);
 Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddress'])->name('address.update');
 
+//お気に入り
+Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
