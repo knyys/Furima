@@ -57,17 +57,17 @@
                 <div class="item">
                     <div class="item-img">
                         <a href="{{ route('item.detail', ['item' => $item->id]) }}">
-                        <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                            <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        
+                            <!--Sold-->
+                            @if ($item->is_sold)
+                            <div class="item--sold">
+                                <span class="sold-label">Sold</span>
+                            </div>
+                            @endif
                         </a>
                     </div>
                    
-                    <!--Sold-->
-                    @if ($item->is_sold)
-                    <div class="item--sold">
-                        <span class="sold-label">Sold</span>
-                    </div>
-                    @endif
-                    <!--Sold-->
                     <span class="item-label">{{ $item->name }}</span>
                 </div>
                 @endforeach

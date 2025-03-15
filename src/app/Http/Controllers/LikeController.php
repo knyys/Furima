@@ -3,29 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Like;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
+
 
 class LikeController extends Controller
 {
-    // app/Http/Controllers/LikeController.php
-public function store(Request $request)
-{
-    $item = Item::find($request->item_id);
-    if ($item && !Auth::user()->likes->contains($item)) {
-        $item->likes()->create(['user_id' => Auth::id()]);
-        return response()->json(['success' => true, 'action' => 'create']);
-    }
-    return response()->json(['success' => false]);
-}
 
-public function destroy(Request $request)
-{
-    $item = Item::find($request->item_id);
-    if ($item) {
-        $item->likes()->where('user_id', Auth::id())->delete();
-        return response()->json(['success' => true, 'action' => 'delete']);
+      public function favorite(Request $request, $itemId)
+    {
+        $item = Item::findOrFail($itemId);
+        $user = Auth::user(); 
+
+        // いいねが既に存在するか確認
+        $like = Like::where('item_id', $itemId)->where('user_id', $user->id)->first();
+
+        if ($like) {
+            // 「いいね」がある⇒削除
+            $like->delete();
+            $isLiked = false;
+        } else {
+            // 「いいね」がない⇒新規追加
+            Like::create([
+                'item_id' => $itemId,
+                'user_id' => $user->id,
+            ]);
+            $isLiked = true;
+        }
+
+        return response()->json([
+            'liked' => $isLiked,
+        ]);
     }
-    return response()->json(['success' => false]);
-}
+
 }

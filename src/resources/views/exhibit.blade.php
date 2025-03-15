@@ -11,7 +11,11 @@
 <div class="form__content">
 	<span class="content__label">商品画像</span>
 	<div class="item__img">
-		<img class="icon" src="">
+		<img id="icon" class="icon" 
+    src="{{ session('image_temp') ? asset('storage/' . session('image_temp')) : '' }}" 
+    alt="選択した画像が表示されます">
+	<input type="hidden" name="image_temp" value="{{ session('image_temp') }}">
+	
         <form method="post" action="{{ route('sell') }}" enctype="multipart/form-data">
            @csrf
         <output id="image" class="image_output"></output>
@@ -128,27 +132,27 @@
 @section('js')
 <script>
     document.getElementById('image-input').addEventListener('change', function(event) {
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.querySelector('.icon').src = e.target.result; 
-            }
-            reader.readAsDataURL(file);
+    var file = event.target.files[0];
 
-            // 画像名の表示
-            document.getElementById('image-name').textContent = file.name;
-        } else {
-            document.getElementById('image-name').textContent = '';
-        }
-        // 画像選択ラベル
-            const label = document.querySelector('.image-label');
-        if (this.files.length > 0) {
-            label.textContent = '画像を変更する';
-        } else {
-            label.textContent = '画像を選択する'; 
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('icon').src = e.target.result;
+			// 画像パスを hidden input にセット
+            document.querySelector('input[name="image_temp"]').value = e.target.result;
+        };
+        reader.readAsDataURL(file);
 
-        }     
-    });
+        // 画像名の表示
+        document.getElementById('image-name').textContent = file.name;
+    } else {
+        document.getElementById('image-name').textContent = '';
+    }
+
+    // 画像選択ラベル
+    const label = document.querySelector('.image-label');
+    label.textContent = this.files.length > 0 ? '画像を変更する' : '画像を選択する';
+});
+
 </script>
 @endsection

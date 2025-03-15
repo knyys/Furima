@@ -1,20 +1,5 @@
 @extends('layouts.app')
 
-@if(request()->ajax() && request('item_id'))
-    @php
-        $itemId = request('item_id');
-        $item = App\Models\Item::find($itemId);
-        if ($item->isLikedByUser(Auth::user())) {
-            $item->likes()->where('user_id', Auth::id())->delete();
-            return response()->json(['success' => true, 'action' => 'delete']);
-        } else {
-            $item->likes()->create(['user_id' => Auth::id()]);
-            return response()->json(['success' => true, 'action' => 'create']);
-        }
-    @endphp
-@endif
-
-
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
@@ -64,7 +49,12 @@
             </div>
             <div class="item__action">
                 <span class="action--favorite" data-item-id="{{ $item->id }}">
-                <img class="favorite-icon" src="{{ asset( 'storage/hoshi.png') }}" alt="お気に入り">
+                
+                    <img class="favorite-icon {{ $item->isLikedByUser(Auth::user()) ? 'liked' : '' }}" 
+                    src="{{ asset('storage/hoshi.png') }}" 
+                    alt="お気に入り"
+                    onclick="favorite(event, {{ $item->id }})">
+                
                     <!--お気に入り数を下に表示-->    
                     <span class="favorite__count">   
                     @if ($item->likes->count() > 0)
@@ -179,56 +169,31 @@
 
 @section('js')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.action--favorite').forEach(favorite => {
-        favorite.addEventListener('click', async function () {
-            const itemId = this.dataset.itemId;
-            const icon = this.querySelector('.favorite-icon');
-            const count = this.querySelector('.favorite__count');
-            
-            // icon が null でないかを確認
-            if (!icon) {
-                console.error('favorite-icon が見つかりません');
-                return;
-            }
-            if (!count) {
-                console.error('favorite__count が見つかりません');
-                return;
-            }
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            
-            let method = icon.classList.contains('liked') ? 'DELETE' : 'POST';
-            let url = `/api/items/${itemId}/like`;
+    function favorite(event, itemId) {
+        const icon = event.target;
+        icon.classList.toggle('liked');
 
-            const formData = new FormData();
-            formData.append('item_id', itemId);
-
-            await fetch(url, {
-                method: method,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json'
-                },
-                body: formData
+        const isLiked = icon.classList.contains('liked');
+        fetch(`/items/${itemId}/like`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}', 
+            },
+            body: JSON.stringify({
+                liked: isLiked
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (method === 'POST') {
-                        icon.classList.add('liked');
-                        count.textContent = parseInt(count.textContent) + 1;
-                    } else {
-                        icon.classList.remove('liked');
-                        count.textContent = parseInt(count.textContent) - 1;
-                    }
-                }
-            }).catch(error => {
-                console.error('APIエラー:', error);
-            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    });
-});
+    }
+
 
 </script>
 @endsection
