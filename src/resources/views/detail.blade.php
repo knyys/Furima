@@ -53,10 +53,10 @@
                     <img class="favorite-icon {{ $item->isLikedByUser(Auth::user()) ? 'liked' : '' }}" 
                     src="{{ asset('storage/hoshi.png') }}" 
                     alt="お気に入り"
-                    onclick="favorite(event, {{ $item->id }})">
+                    {{ Auth::check() ? "onclick=favorite(event, $item->id)" : "" }}>
                 
                     <!--お気に入り数を下に表示-->    
-                    <span class="favorite__count">   
+                    <span class="favorite__count" id="favorite-count-{{ $item->id }}">   
                     @if ($item->likes->count() > 0)
                         {{ $item->likes->count() }}
                     @endif
@@ -181,13 +181,15 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}', 
             },
-            body: JSON.stringify({
-                liked: isLiked
-            })
+            body: JSON.stringify({})
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            const countElement = document.getElementById(`favorite-count-${itemId}`);
+            if (countElement) {
+                countElement.textContent = data.likes_count;
+            }
         })
         .catch(error => {
             console.error('Error:', error);
