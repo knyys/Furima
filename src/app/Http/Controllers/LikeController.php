@@ -32,8 +32,11 @@ class LikeController extends Controller
             $isLiked = true;
         }
 
+        $likesCount = Like::where('item_id', $itemId)->count();
+
         return response()->json([
             'liked' => $isLiked,
+            'likes_count' => $likesCount,
         ]);
     }
 
