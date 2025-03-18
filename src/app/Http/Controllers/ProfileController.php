@@ -56,7 +56,7 @@ class ProfileController extends Controller
         $profile->update($data);
         $profile->update(['image' => $imageUrl]);
 
-        return redirect('/')->with('imageUrl', $imageUrl);
+        return redirect('/mypage')->with('imageUrl', $imageUrl);
     }
 
 

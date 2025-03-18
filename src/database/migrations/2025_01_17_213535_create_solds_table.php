@@ -20,8 +20,8 @@ class CreateSoldsTable extends Migration
             $table->boolean('sold')->default(0);
             $table->string('method');
             $table->string('address_number');
-            $table->string('address', );
-            $table->string('building', );
+            $table->string('address' );
+            $table->string('building',)->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade'); 

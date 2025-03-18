@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('address_number', 8);
             $table->string('address');
-            $table->string('building');
+            $table->string('building')->nullable();
             $table->string('image');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

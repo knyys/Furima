@@ -13,7 +13,7 @@
 	<div class="item__img">
 		<img id="icon" class="icon" 
     src="{{ session('image_temp') ? asset('storage/' . session('image_temp')) : '' }}" 
-    alt="選択した画像が表示されます">
+    alt="">
 	<input type="hidden" name="image_temp" value="{{ session('image_temp') }}">
 	
         <form method="post" action="{{ route('sell') }}" enctype="multipart/form-data">
