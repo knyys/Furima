@@ -16,6 +16,8 @@
     </div>
 @endif
 </div>
+<div id="favorite-error" class="error-message"></div>
+
 
 <div class="item-page__detail">
     <div class="detail__content">
@@ -47,13 +49,13 @@
                 <span>{{ number_format($item->price) }}</span>
                 <span class="tax-included">（税込）</span>
             </div>
-            <div class="item__action">
+           <div class="item__action">
                 <span class="action--favorite" data-item-id="{{ $item->id }}">
                 
                     <img class="favorite-icon {{ $item->isLikedByUser(Auth::user()) ? 'liked' : '' }}" 
                     src="{{ asset('storage/hoshi.png') }}" 
                     alt="お気に入り"
-                    {{ Auth::check() ? "onclick=favorite(event, $item->id)" : "" }}>
+                    onclick="favorite(event, {{ $item->id }})">
                 
                     <!--お気に入り数を下に表示-->    
                     <span class="favorite__count" id="favorite-count-{{ $item->id }}">   
@@ -149,7 +151,7 @@
                     <textarea class="comment__box" name="comment"></textarea>
                     <div class="comment-form__btn">
                         <!--Soldの場合はボタン非活性-->
-                        @if ($item->is_sold || $item->is_user_item)  
+                        @if ($item->is_sold)  
                             <button class="comment-form__btn--disabled" disabled>
                                 コメントを送信する
                             </button>
@@ -169,32 +171,45 @@
 
 @section('js')
 <script>
+function favorite(event, itemId) {
+    const icon = event.target;
+    icon.classList.toggle('liked');
 
-    function favorite(event, itemId) {
-        const icon = event.target;
-        icon.classList.toggle('liked');
+    fetch(`/items/${itemId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        const errorElement = document.getElementById('favorite-error');
+        
+        if (data.error) {
+            // エラーメッセージをページ内に表示
+            errorElement.textContent = data.error;
+            errorElement.style.display = 'block';
+            
+            // いいね状態を元に戻す
+            icon.classList.toggle('liked');
+            return;
+        }
 
-        const isLiked = icon.classList.contains('liked');
-        fetch(`/items/${itemId}/like`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}', 
-            },
-            body: JSON.stringify({})
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const countElement = document.getElementById(`favorite-count-${itemId}`);
-            if (countElement) {
-                countElement.textContent = data.likes_count;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+        // エラーがない場合はメッセージを非表示にする
+        errorElement.style.display = 'none';
+
+        // いいね数を更新
+        const countElement = document.getElementById(`favorite-count-${itemId}`);
+        if (countElement) {
+            countElement.textContent = data.likes_count;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 
 </script>
