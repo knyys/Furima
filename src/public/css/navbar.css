@@ -20,8 +20,8 @@ body {
     width: 30%;
 }
 
-.header__inner img {
-    max-width: 100%;
+a img{
+    width: 100%;
     height: auto;
     padding-left: 10px;
 }
@@ -46,8 +46,7 @@ body {
         height: 60px;
     }
 
-    .header__inner {
-        width: 35%;
+    .header__inner a{
+        width: 75%;
     }
-
 }
