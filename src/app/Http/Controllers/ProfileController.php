@@ -6,17 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
-use App\Models\Profile;
-use App\Models\User;
 use App\Models\Item;
 
 class ProfileController extends Controller
 {
+    
+
     //プロフィール編集画面の表示
     public function welcome()
     {
         $user = Auth::user();
         $profile = $user->profile;
+
         return view('edit_profile', compact('user', 'profile'));
     }
 

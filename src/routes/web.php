@@ -10,7 +10,9 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\LikeController;
-use App\Http\Controllers\StripeController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +25,43 @@ use App\Http\Controllers\StripeController;
 |
 */
 
+
 // 会員登録画面
 Route::get('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
 
 //プロフィール画面
-Route::get('mypage/profile', [ProfileController::class, 'welcome']);
 Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
-Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
+
+/// メール認証の通知を送信
+Route::get('/email/verify', function () {
+    return view('auth.email');
+})->middleware('auth')->name('verification.notice');
+
+// メール認証の処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('mypage/profile'); // 認証後にリダイレクト
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// メール再送信
+Route::post('/email/resend', function (Request $request) {
+    if ($request->user()->hasVerifiedEmail()) {
+        return redirect('mypage/profile');
+    }
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '認証メールを再送しました！');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+//プロフィール編集画面
+Route::get('mypage/profile', [ProfileController::class, 'welcome'])->middleware(['auth', 'verified']);
+
+Route::post('/profile/upload', [ProfileController::class, 'upload'])
+->middleware(['auth', 'verified'])
+->name('profile.upload');
+
+
 
 //ログイン
 Route::get('/login', [LoginController::class, 'loginView'])->name('login');
