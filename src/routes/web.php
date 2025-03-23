@@ -10,7 +10,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\LikeController;
-
+use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +60,4 @@ Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddre
 
 //お気に入り
 Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
+
