@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Profile;
-use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
 
 
 class PurchaseController extends Controller
@@ -47,21 +47,51 @@ class PurchaseController extends Controller
         'building' => $profile->building,
     ]);
 
-    DB::transaction(function () use ($item, $profile, $request, $shippingAddress) {
-        $sold = new Sold();
-        $sold->user_id = Auth::id();
-        $sold->item_id = $item->id;
-        $sold->sold = 1;
-        $sold->method = $request->method;
-        $sold->address_number = $shippingAddress['address_number'];
-        $sold->address = $shippingAddress['address'];
-        $sold->building = $shippingAddress['building'];
-        $sold->save();
-    });
+    // StripeのAPIキー設定
+    \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-    Session::forget('shipping_address'); //セッション削除
+    // アイテム価格
+    $amount = $item->price * 1; 
 
-    return redirect()->route('mypage', ['page' => 'buy'])->with('success', '購入が完了しました');
+    // Checkout セッションを作成
+    $session = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card', 'konbini'],
+        'line_items' => [[
+            'price_data' => [
+                'currency' => 'jpy',
+                'product_data' => [
+                    'name' => $item->name,
+                ],
+                'unit_amount' => $amount,
+            ],
+            'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' =>route('mypage', ['page' => 'buy']),
+        'metadata' => [
+            'item_id' => $item->id,
+            'user_id' => Auth::id(),
+        ],
+    ]);
+
+    DB::transaction(function () use ($item, $profile, $shippingAddress, $session) {
+                    Sold::create([
+                        'user_id' => $profile->user_id,
+                        'item_id' => $item->id,
+                        'sold' => 1,
+                        'method' => $session->payment_method_types[0], 
+                        'address_number' => $shippingAddress['address_number'],
+                        'address' => $shippingAddress['address'],
+                        'building' => $shippingAddress['building'],
+                    ]);
+                });
+
+    // セッション削除
+    Session::forget('shipping_address');
+
+    // Stripeの決済ページにリダイレクト
+    return redirect($session->url);
 }
+
 
 }
