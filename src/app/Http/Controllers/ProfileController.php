@@ -10,7 +10,6 @@ use App\Models\Item;
 
 class ProfileController extends Controller
 {
-    
 
     //プロフィール編集画面の表示
     public function welcome()
