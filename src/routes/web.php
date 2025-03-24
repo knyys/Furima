@@ -13,6 +13,9 @@ use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,35 +36,68 @@ Route::post('register', [RegisterController::class, 'store']);
 //プロフィール画面
 Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 
-/// メール認証の通知を送信
-Route::get('/email/verify', function () {
-    return view('auth.email');
-})->middleware('auth')->name('verification.notice');
+//メール認証
+    /* メール認証してくださいの画面 */
+    Route::get('/email/verify', function () {
+        return view('auth.email');
+    })->middleware('auth')->name('verification.notice');
 
-// メール認証の処理
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('mypage/profile'); // 認証後にリダイレクト
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    /* メール認証の処理 */
+    Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
+        $registerData = Session::get('register_data'); // セッションからユーザー情報を取得
 
-// メール再送信
-Route::post('/email/resend', function (Request $request) {
-    if ($request->user()->hasVerifiedEmail()) {
-        return redirect('mypage/profile');
-    }
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', '認証メールを再送しました！');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+        if (!$registerData) {
+            return redirect('/register')->withErrors(['email' => '登録データが見つかりません。']);
+        }
+        
+        if (sha1($registerData['email']) !== $hash || $registerData['email'] !== $registerData['email']) {
+            return redirect('/register')->withErrors(['email' => '認証リンクが無効です。']);
+        }
+
+        $user = User::where('email', $registerData['email'])->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $registerData['name'],
+                'email' => $registerData['email'],
+                'password' => Hash::make($registerData['password']),
+            ]);
+            $user->email_verified_at = now(); //新規登録
+            $user->save();
+        } else {
+            $user->email_verified_at = now(); //更新
+            $user->save();
+        }
+
+        auth()->login($user);
+
+        Session::forget('register_data');
+
+        return redirect('mypage/profile')->with('success', 'メール認証が完了しました。プロフィールを登録してください。');
+    })->name('verification.verify');
 
 
-//プロフィール編集画面
-Route::get('mypage/profile', [ProfileController::class, 'welcome'])->middleware(['auth', 'verified']);
+
+    /* メール認証再送信 */
+    Route::post('/email/resend', function (Request $request) {
+        // すでに認証済みのとき
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect('mypage/profile');
+        }
+
+        // 認証メールを再送信
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', '認証メールを再送しました！');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+//プロフィール編集画面（メール認証していないと×）
+Route::get('mypage/profile', [ProfileController::class, 'welcome'])
+->middleware(['auth', 'verified']);
 
 Route::post('/profile/upload', [ProfileController::class, 'upload'])
 ->middleware(['auth', 'verified'])
 ->name('profile.upload');
-
-
 
 //ログイン
 Route::get('/login', [LoginController::class, 'loginView'])->name('login');

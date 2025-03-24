@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
 class RegisterController extends Controller
 {
@@ -19,14 +26,27 @@ class RegisterController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        $user = app(CreateNewUser::class)->create($request->validated());
+        $registerData = $request->only(['name', 'email', 'password']);
         
-        // メール認証イベントを発火（認証メール送信）
-    event(new Registered($user));
+        // ユーザーのデータをセッションに保存
+        Session::put('register_data', $registerData);
 
-    // ユーザーをログインさせる
-    Auth::login($user);
+        // ユーザーの仮IDを取得
+        $userId = 0;
 
-        return redirect('/email/verify')->with('success', '登録が完了しました。メールを確認してください。');
+        // 認証用のURLを生成（仮のURL）
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $userId,  // ユーザーの仮ID
+                'hash' => sha1($registerData['email']), 
+            ]
+        );
+
+        // メール送信
+        Mail::to($registerData['email'])->send(new VerifyEmail($verificationUrl));
+
+        return redirect()->route('verification.notice')->with('message', '認証メールを確認してください。');
     }
 }
