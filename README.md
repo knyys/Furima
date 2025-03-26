@@ -6,9 +6,8 @@
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
-> *MySQLは、OSによって起動しない場合があるので、それぞれのPCに合わせてdocker-compose.ymlファイルを編集してください*
-
-
+> *MySQLは、OSによって起動しない場合があるので、それぞれのPCに合わせてdocker-compose.ymlファイルを編集してください*  
+  
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
@@ -38,22 +37,16 @@ php artisan db:seedphp artisan storage:link
 ``` bash
 php artisan storage:link
 ```
-
-## 使用技術(実行環境)
-- PHP8.2.28
-- Laravel8.83.29
-- MySQL8.0.26
-
-
-## メールのテスト方法(mailtrap)
+  
+**メール認証のテスト方法(mailtrap)**  
 [Mailtrap](https://mailtrap.io)にアクセスしてサインアップ  
 
-**メールボックスの作成**
+1. メールボックスの作成**
 Sandboxにある`Setup Inbox`をクリック
 - `Add Project`からProject Nameを入力して`Add`をクリック
 - Add Inboxをクリックしてインボックスを作成
 
-**laravelでの設定**
+2. laravelでの設定
 - Integrationsをクリックして`Laravel 7+`
 - Laravelの`.env`用の認証情報が表示されるのでコピーし`.env`ファイルに貼り付け
 - Mailtrapの認証情報をコピーし`.env`ファイルに貼り付け
@@ -69,6 +62,16 @@ MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 - メールを送るとMailtrapのインボックス内に表示される
+
+**決済方法(stripe)**  
+
+
+## 使用技術(実行環境)
+- PHP8.2.28
+- Laravel8.83.29
+- MySQL8.0.26
+
+
 
 
 ## ER図
