@@ -20,7 +20,6 @@ class LoginController extends Controller
             return redirect('/?page=mylist');
         }
         
-
         // 認証失敗時、エラーメッセージを表示し入力値を保持
         return redirect()->route('login')->withInput()->withErrors([
             'login' => 'ログイン情報が登録されていません',

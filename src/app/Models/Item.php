@@ -38,18 +38,18 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
-   public function likes()
-{
-    return $this->hasMany(Like::class);
-}
-
-public function isLikedByUser($user)
-{
-    if (!$user) {
-        return false;
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
-    return $this->likes->where('user_id', $user->id)->isNotEmpty();
-}
+
+    public function isLikedByUser($user)
+    {
+        if (!$user) {
+            return false;
+        }
+        return $this->likes->where('user_id', $user->id)->isNotEmpty();
+    }
 
     public function categories()
     {

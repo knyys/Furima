@@ -5,22 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ExhibitionRequest;
-use GuzzleHttp\Promise\Create;
 use App\Models\Item;
 use App\Models\Condition;
 use App\Models\Category;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
-
 
 
 class SellController extends Controller
 {
-    
     public function index()
     {
         if (!Auth::check()) {
-        return response('', 200);
+        return redirect('/login')->with('error', 'ログインしてください');
     }
         $user = Auth::user();
         return view('exhibit');

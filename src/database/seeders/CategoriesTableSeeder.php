@@ -16,30 +16,29 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
          $categories = [
-        '腕時計',
-        '家電',
-        '食品',
-        '靴',
-        '鞄',
-        'キッチン用品',
-        'コスメ',
-        'メンズ',
-        'レディース',
-        'ファッション',
-        'インテリア',
-        '本',
-        'ゲーム',
-        'スポーツ',
-        'キッチン',
-        'ハンドメイド',
-        'アクセサリー',
-        'おもちゃ',
-        'ベビー・キッズ',
-    ];
+            '腕時計',
+            '家電',
+            '食品',
+            '靴',
+            '鞄',
+            'キッチン用品',
+            'コスメ',
+            'メンズ',
+            'レディース',
+            'ファッション',
+            'インテリア',
+            '本',
+            'ゲーム',
+            'スポーツ',
+            'キッチン',
+            'ハンドメイド',
+            'アクセサリー',
+            'おもちゃ',
+            'ベビー・キッズ',
+        ];
 
-
-    foreach ($categories as $category) {
-        Category::firstOrCreate(['category' => $category]);
-    }
+        foreach ($categories as $category) {
+            Category::firstOrCreate(['category' => $category]);
+        }
     }
 }

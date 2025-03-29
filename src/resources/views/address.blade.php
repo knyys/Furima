@@ -23,7 +23,6 @@
                     @enderror
                 </div>
             </div>
-
             <div class="address-form__details">
                 <label>住所</label>
                 <input type="text" name="address" value="{{ old('address') }}">
@@ -33,7 +32,6 @@
                     @enderror
                 </div>
             </div>
-
             <div class="address-form__details">
                 <label>建物名</label>
                 <input type="text" name="building" value="{{ old('building') }}">
@@ -43,7 +41,6 @@
                     @enderror
                 </div>
             </div>
-        
             <div class="address-form__btn">
                 <button class="btn--update" type="submit">更新する</button>
             </div>
@@ -53,5 +50,4 @@
 @endsection
 
 @section('js')
-
 @endsection

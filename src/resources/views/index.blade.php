@@ -44,7 +44,6 @@
                         <span class="item-label">
                             {{ $allItem->name }}
                         </span>
-
                     </div>
                     @endforeach
                 </div>    
@@ -75,7 +74,7 @@
                 </div>
                 @endforeach
             </div>
-        </article>
+            </article>
            @endif 
         </div>
     </div>
