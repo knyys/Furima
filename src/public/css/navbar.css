@@ -20,7 +20,7 @@ body {
     width: 30%;
 }
 
-a img{
+a img {
     width: 100%;
     height: auto;
     padding-left: 10px;
@@ -28,7 +28,6 @@ a img{
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) {
-
     .header {
         height: 50px;
     }
@@ -36,17 +35,15 @@ a img{
     .header__inner {
         width: 28%;
     }
-
 }
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) {
-
     .header {
         height: 60px;
     }
 
-    .header__inner a{
+    .header__inner a {
         width: 75%;
     }
 }

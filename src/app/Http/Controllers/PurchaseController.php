@@ -47,6 +47,14 @@ class PurchaseController extends Controller
         'building' => $profile->building,
     ]);
 
+    $selectedMethod = $request->input('method');
+
+    $stripePaymentMethod = match($selectedMethod) {
+        'コンビニ払い' => 'konbini',
+        'カード支払い' => 'card',
+        default => 'card',
+    };
+
     // StripeのAPIキー設定
     \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -55,7 +63,7 @@ class PurchaseController extends Controller
 
     // Checkout セッションを作成
     $session = \Stripe\Checkout\Session::create([
-        'payment_method_types' => ['card', 'konbini'],
+        'payment_method_types' => [$stripePaymentMethod],
         'line_items' => [[
             'price_data' => [
                 'currency' => 'jpy',
@@ -73,18 +81,6 @@ class PurchaseController extends Controller
             'user_id' => Auth::id(),
         ],
     ]);
-
-    DB::transaction(function () use ($item, $profile, $shippingAddress, $session) {
-                    Sold::create([
-                        'user_id' => $profile->user_id,
-                        'item_id' => $item->id,
-                        'sold' => 1,
-                        'method' => $session->payment_method_types[0], 
-                        'address_number' => $shippingAddress['address_number'],
-                        'address' => $shippingAddress['address'],
-                        'building' => $shippingAddress['building'],
-                    ]);
-                });
 
     // セッション削除
     Session::forget('shipping_address');

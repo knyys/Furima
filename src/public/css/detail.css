@@ -6,7 +6,7 @@
 }
 
 .alert-success,
-.alert-danger{
+.alert-danger {
     font-size: 14px;
     margin: 10px 30px;
     padding: 0 10px;
@@ -43,7 +43,6 @@
     top: 20px;
     color: red;
 }
-
 
 .item-page__detail {
     position: relative;
@@ -311,7 +310,6 @@
     font-size: 18px;
 }
 
-
 .comment__danger {
     width: 100%;
     color: red;
@@ -321,9 +319,9 @@
 }
 
 .favorite-icon.liked {
-    filter: invert(80%) sepia(90%) saturate(400%) hue-rotate(700deg) brightness(1.0);
+    filter: invert(80%) sepia(90%) saturate(400%) hue-rotate(700deg)
+        brightness(1);
 }
-
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) {

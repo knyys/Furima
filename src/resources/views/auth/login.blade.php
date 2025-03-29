@@ -15,14 +15,14 @@
         <div class="login-form__heading">
             <h2>ログイン</h2>
         </div>
-    @if ($errors->has('login'))
-    <div class="login-form__error">
-        <span class="error">
-            <img src="{{ asset('storage/error_icons.png') }}" alt="error-icon">
-            {{ $errors->first('login') }}
-        </span>
-    </div>
-    @endif
+        @if ($errors->has('login'))
+        <div class="login-form__error">
+            <span class="error">
+                <img src="{{ asset('storage/error_icons.png') }}" alt="error-icon">
+                {{ $errors->first('login') }}
+            </span>
+        </div>
+        @endif
 
         <form class="form" action="/login" method="post">
             @csrf
@@ -63,5 +63,4 @@
         </div>
     </div>
 </div>
-
 @endsection

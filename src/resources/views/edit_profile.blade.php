@@ -13,22 +13,22 @@
 <div class="profile-form">
     <div class="profile-form__content">
         <h2 class="profile-form__heading">プロフィール設定</h2>
-
         <div class="profile-form__img">
             <img class="icon" src="{{ session('image_url') ? session('image_url') : asset($profile->image ?? '') }}" alt="Profile Image">
-            <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
-                @csrf
-                <output id="image" class="image_output"></output>
-                <!--画像選択ラベル-->
-                <label for="image-input" class="image-label">画像を選択する</label>
-                <input type="file" id="image-input" name="image" accept=".jpg, .png">
-                <span id="image-name" class="image-name"></span>
-            </div>
-            <div class="img__error">
-                @error('image')
-                    {{ $message }}
-                @enderror
-            </div>
+        <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
+            @csrf
+            <output id="image" class="image_output"></output>
+            <!--画像選択ラベル-->
+            <label for="image-input" class="image-label">画像を選択する</label>
+            <input type="file" id="image-input" name="image" accept=".jpg, .png">
+            <span id="image-name" class="image-name"></span>
+        </div>
+        <div class="img__error">
+            @error('image')
+                {{ $message }}
+            @enderror
+        </div>
+        
             
         <div class="form__group">
             <div class="form__label">
@@ -116,9 +116,7 @@
         } else {
             label.textContent = '画像を選択する'; 
 
-        }
-    
-            
+        }     
     });
 </script>
 @endsection

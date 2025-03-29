@@ -6,18 +6,17 @@
 
 @section('content')
 <div class="alert">
-@if(session('success'))
+    @if(session('success'))
     <div class="alert-success">
         <p>{{ session('success') }}</p>
     </div>
-@elseif($errors->any())
+    @elseif($errors->any())
     <div class="alert-danger">
         <p>エラーがあります。</p>
     </div>
-@endif
+    @endif
 </div>
 <div id="favorite-error" class="error-message"></div>
-
 
 <div class="item-page__detail">
     <div class="detail__content">
@@ -32,7 +31,6 @@
             @endif
             <!--Sold-->
         </div>
-        
         <div class="item__detail">
             <div class="item__name">
                 {{ $item->name }}
@@ -49,9 +47,8 @@
                 <span>{{ number_format($item->price) }}</span>
                 <span class="tax-included">（税込）</span>
             </div>
-           <div class="item__action">
+            <div class="item__action">
                 <span class="action--favorite" data-item-id="{{ $item->id }}">
-                
                     <img class="favorite-icon {{ $item->isLikedByUser(Auth::user()) ? 'liked' : '' }}" 
                     src="{{ asset('storage/hoshi.png') }}" 
                     alt="お気に入り"
@@ -76,9 +73,8 @@
                 </span>
             </div>
             <div class="item-purchase__btn">
-                <!--Soldの場合はボタン非活性-->
-                @if ($item->is_sold || $item->is_user_item) 
-                    <button class="purchase__btn--disabled" disabled>
+                @if ($item->is_sold || $item->is_user_item)
+                    <button class="purchase__btn--disabled" disabled> <!--Soldの場合はボタン非活性-->
                          購入手続きへ
                     </button>
                 @else
@@ -87,7 +83,6 @@
                     </a>
                 @endif
             </div>
-
             <div class="item__description">
                 <span class="description__label">商品説明</span>
                 <span>
@@ -114,7 +109,7 @@
             <div class="item__comment">
                 <div class="comment__count">
                 コメント
-               <!-- コメントがある場合は コメント数 表示-->
+                <!--コメント数-->
                 @if($item->comments->count() > 0)
                 （{{ $item->comments->count() }}）
                 @endif
@@ -139,7 +134,6 @@
                 @endif
                 
                 <div class="comment-form">
-                    
                     <span class="comment-form__label">商品へのコメント</span>
                     <form action="" method="post">
                         @csrf
@@ -150,7 +144,6 @@
                         </div>
                     <textarea class="comment__box" name="comment"></textarea>
                     <div class="comment-form__btn">
-                        <!--Soldの場合はボタン非活性-->
                         @if ($item->is_sold)  
                             <button class="comment-form__btn--disabled" disabled>
                                 コメントを送信する

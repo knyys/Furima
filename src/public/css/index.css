@@ -73,10 +73,10 @@ label:hover {
 
 .items__list {
     display: grid;
-    grid-template-columns: repeat(6, minmax(200px, 1fr)); 
+    grid-template-columns: repeat(6, minmax(200px, 1fr));
     gap: 50px;
     width: 100%;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .item {
@@ -85,7 +85,7 @@ label:hover {
     align-items: center;
     margin: 20px 0;
     position: relative;
-    max-width: 200px; 
+    max-width: 200px;
     width: 100%;
 }
 
@@ -122,7 +122,6 @@ label:hover {
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) {
-
     .tab-box {
         margin-top: 40px;
     }
@@ -132,12 +131,12 @@ label:hover {
     }
 
     .items__list {
-        grid-template-columns: repeat(5, minmax(150px, 1fr)); 
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
     }
 
     .item {
         margin: 10px 0;
-        max-width: 150px; 
+        max-width: 150px;
     }
 
     .item-icon {
@@ -157,7 +156,6 @@ label:hover {
     }
 }
 
-
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) {
     .tab-box {
@@ -169,12 +167,12 @@ label:hover {
     }
 
     .items__list {
-        grid-template-columns: repeat(6, minmax(220px, 1fr)); 
+        grid-template-columns: repeat(6, minmax(220px, 1fr));
     }
 
     .item {
         margin: 20px 0;
-        max-width: 220px; 
+        max-width: 220px;
     }
 
     .item-icon {
@@ -193,5 +191,4 @@ label:hover {
     .item-label {
         font-size: 18px;
     }
-
 }

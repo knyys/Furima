@@ -10,13 +10,11 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\LikeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
+use App\Http\Controllers\StripeWebhookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,3 +126,6 @@ Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddre
 //お気に入り
 Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
 
+
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);

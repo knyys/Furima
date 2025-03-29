@@ -27,8 +27,7 @@
                 <span class="item__currency">￥</span>
                 <span class="item__amount">{{ number_format($item->price) }}</span>
             </div>
-            </div>
-           
+            </div>       
         </div>
 
         <div class="purchase">
@@ -70,7 +69,7 @@
             <div class="confirmation__content">
                 <span class="item__currency">￥</span>
                 <span class="item__amount">{{ number_format($item->price) }}</span>
-                </div>
+            </div>
         </div>
         <div class="confirmation__purchase">
             <div class="confirmation__label">支払い方法</div>
@@ -83,14 +82,14 @@
             <button class="purchase__btn" type="submit">購入する</button>
         </div>
     </div>
-</form>
+    </form>
 </div>
 @endsection
 
 @section('js')
 <script>
-document.getElementById("options").addEventListener("change", function() {
-    document.getElementById("selectedText").textContent = this.value;
-});
+    document.getElementById("options").addEventListener("change", function() {
+        document.getElementById("selectedText").textContent = this.value;
+    });
 </script>
 @endsection

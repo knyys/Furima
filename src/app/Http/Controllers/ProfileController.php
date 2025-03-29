@@ -65,7 +65,7 @@ class ProfileController extends Controller
     {
         if (!Auth::check()) {
 
-        return response('', 200);
+        return redirect('/login')->with('error', 'ログインしてください');
     }
         $user = Auth::user();
         $profile = $user->profile; 

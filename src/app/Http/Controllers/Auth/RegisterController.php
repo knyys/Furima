@@ -28,7 +28,6 @@ class RegisterController extends Controller
     {
         $registerData = $request->only(['name', 'email', 'password']);
         
-        // ユーザーのデータをセッションに保存
         Session::put('register_data', $registerData);
 
         // ユーザーの仮IDを取得

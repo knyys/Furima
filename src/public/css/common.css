@@ -52,7 +52,7 @@ body {
 
 .header__nav {
     display: grid;
-    grid-template-columns: repeat(3, minmax(50px, 1fr)); 
+    grid-template-columns: repeat(3, minmax(50px, 1fr));
     width: 40%;
     gap: 20px;
     padding: 0 5px;
@@ -84,7 +84,7 @@ body {
     align-items: center;
 }
 
-.sell-btn{
+.sell-btn {
     text-decoration: none;
     border: 1px solid black;
     border-radius: 5px;
@@ -97,7 +97,6 @@ body {
 
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) {
-
     .header {
         height: 50px;
     }
@@ -131,17 +130,16 @@ body {
         font-size: 16px;
         height: 30px;
     }
-    .nav__btn--mypage{
+    .nav__btn--mypage {
         height: 30px;
         display: flex;
-
     }
     .mypage-btn {
         font-size: 16px;
-        padding: 3px 0;  
+        padding: 3px 0;
     }
 
-    .sell-btn{
+    .sell-btn {
         padding: 3px 20px;
         font-size: 16px;
     }
@@ -149,7 +147,6 @@ body {
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) {
-
     .header {
         height: 60px;
     }
@@ -191,7 +188,7 @@ body {
     }
 
     .logout-btn button {
-            font-size: 24px
+        font-size: 24px;
     }
 
     .mypage-btn {
@@ -202,5 +199,4 @@ body {
         padding: 5px 40px;
         font-size: 24px;
     }
-
 }

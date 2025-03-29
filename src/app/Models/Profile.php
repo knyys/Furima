@@ -11,10 +11,10 @@ class Profile extends Model
 
     protected $fillable = [
         'user_id',
-    'address_number',
-    'address',
-    'building',
-    'image'
+        'address_number',
+        'address',
+        'building',
+        'image'
     ];
 
     //リレーション

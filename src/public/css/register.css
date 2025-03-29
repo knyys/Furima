@@ -35,11 +35,11 @@
     border-radius: 5px;
 }
 
-.form__content{
+.form__content {
     font-size: 16px;
 }
 
-.form__btn{
+.form__btn {
     width: calc(100% - 20px);
 }
 
@@ -71,10 +71,8 @@
     margin-top: 5px;
 }
 
-
 /* タブレット用 (768-850px) */
 @media (min-width: 768px) {
-
     .register-form__heading {
         font-size: 20px;
     }
@@ -87,12 +85,10 @@
         color: red;
         font-size: 14px;
     }
-
 }
 
 /* PC用 (1400-1540px) */
 @media (min-width: 1400px) {
-
     .register-form__content {
         width: 40%;
     }
@@ -105,7 +101,7 @@
         font-size: 20px;
     }
 
-    .form__content{
+    .form__content {
         font-size: 18px;
     }
 
@@ -120,5 +116,4 @@
     .form__error {
         font-size: 16px;
     }
-
 }

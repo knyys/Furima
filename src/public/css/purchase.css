@@ -195,7 +195,6 @@
 
 /* タブレット (768-850px) 用のスタイル */
 @media (min-width: 768px) {
-
     .alert-success {
         font-size: 12px;
         width: 20%;
@@ -205,7 +204,6 @@
         left: 10%;
         width: 44%;
     }
-
 
     .item-img {
         width: 170px;
@@ -247,12 +245,10 @@
         right: 10%;
         width: 33%;
     }
-
 }
 
 /* PC (1400-1540px) 用のスタイル */
 @media (min-width: 1400px) {
-
     .alert-success {
         font-size: 20px;
         padding: 3px 20px;

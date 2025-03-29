@@ -29,7 +29,6 @@ class AddressRequest extends FormRequest
         $rules = [
             'address_number' => ['required', 'regex:/^\d{3}-\d{4}$/'], 
             'address' => ['required', 'string', 'max:255'],
-           
         ];
 
         // プロフィール設定ページは名前のバリデーションも追加
@@ -43,11 +42,10 @@ class AddressRequest extends FormRequest
     public function messages()
     {
         return [
-        'name.required' => 'お名前を入力してください',
-        'address_number.required' =>'郵便番号を入力してください。',        
-        'address_number.regex' => '郵便番号は「XXX-XXXX」の形式で入力してください。',
-        'address.required' => '住所を入力してください',
-      
+            'name.required' => 'お名前を入力してください',
+            'address_number.required' =>'郵便番号を入力してください。',        
+            'address_number.regex' => '郵便番号は「XXX-XXXX」の形式で入力してください。',
+            'address.required' => '住所を入力してください',
         ];
     }
 
