@@ -45,16 +45,16 @@ php artisan storage:link
 - Laravelの`.env`用の認証情報が表示されるのでコピーし`.env`ファイルに貼り付け
 - Mailtrapの認証情報をコピーし`.env`ファイルに貼り付け
 
-```vim
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=生成されたUSERNAME  //mailtrapを貼り付け
-MAIL_PASSWORD=生成されたPASSWORD  //mailtrapを貼り付け
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS="hello@example.com"
-MAIL_FROM_NAME="${APP_NAME}"
-```
+  ```vim
+  MAIL_MAILER=smtp
+  MAIL_HOST=smtp.mailtrap.io
+  MAIL_PORT=2525
+  MAIL_USERNAME=生成されたUSERNAME  //mailtrapを貼り付け
+  MAIL_PASSWORD=生成されたPASSWORD  //mailtrapを貼り付け
+  MAIL_ENCRYPTION=tls
+  MAIL_FROM_ADDRESS="hello@example.com"
+  MAIL_FROM_NAME="${APP_NAME}"
+  ```
 - メールを送るとMailtrapのインボックス内に表示される
 
 **ngrokとstripeの設定（決済サービス）**  
@@ -70,19 +70,55 @@ MAIL_FROM_NAME="${APP_NAME}"
     ``` 
   - ngrok が以下のようなURLを発行  
         `Forwarding                    https://2af2-222-150-156-21.ngrok-free.app -> http://localhost:80`  
-  - .env の APP_URL をngrok のURLに変更  
+  - `.env`ファイルの APP_URL をngrok のURLに変更  
     ``` bash
-    APP_URL=APP_URL=https://f3d2-222-150-156-21.ngrok-free.app
+    APP_URL=APP_URL=your_ngrok_url
     ```
   - 設定を反映させる
     ``` text
     php artisan config:clear  
     php artisan cache:clear  
     ```
-　- 
- stripe listen --forward-to https://2af2-222-150-156-21.ngrok-free.app/stripe/webhook
+2. stripeの設定  
+- [stripe](https://dashboard.stripe.com/register)にアクセスしてサインアップ
+- アカウント作成後、Stripeダッシュボードにログイン
+- ダッシュボードの右上にあるメニューから、「Developers」＞「API keys」を選択し、テスト用のAPIキー（Publishable KeyとSecret Key）をメモ  
+- ``` text
+  docker-compose exec php bash  
+  composer require stripe/stripe-php
+  ```
+- Stripe APIキーの設定  
+`.env`ファイルにStripeのAPIキーを追加
+  ``` text
+  STRIPE_SECRET_KEY=your_secret_key  
+  STRIPE_PUBLISHABLE_KEY=your_publishable_key
+  ```
+- config/services.php に設定を追加
+  ``` text  
+  'stripe' => [
+      'secret' => env('STRIPE_SECRET_KEY'),
+      'publishable' => env('STRIPE_PUBLISHABLE_KEY'),  
+  ],
+  ```
+- Webhookエンドポイントの作成
+  「Developers」＞「Webhook」を選択し、「新規Webhookの作成」
+  イベントには「checkout.session.completed」を選択
+  エンドポイントはngrokで取得したURLを使用「your_ngrok_url/stripe/webhook」  
+- 作成後、送信先の詳細から署名シークレットをコピーし、`.env`ファイルに記述
+  ``` text
+  STRIPE_WEBHOOK_SECRET=your_webhook_secret  
+  ```
+- 設定を反映させる
+  ``` text
+  php artisan config:clear  
+  php artisan cache:clear  
+  ```
+- Stripeから送られるイベントを設定したWebhookエンドポイントに転送できるようにする
+  ``` text
+  stripe listen --forward-to your_ngrok_url/stripe/webhook  
+  ```  
 
-4. 
+
 
 
 ## 使用技術(実行環境)
