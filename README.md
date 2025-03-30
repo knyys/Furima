@@ -64,9 +64,9 @@ MAIL_FROM_NAME="${APP_NAME}"
     ``` bash
     docker pull ngrok/ngrok
     ```   
-  - アプリをオンラインで展開する
+  - アプリをオンラインで展開する（Authtokenを確認し、YOUR Authtokenに代入する）
     ``` bash
-    docker run --net=host -it -e NGROK_AUTHTOKEN=2ua0rYtY1cRveHmoZyyzibXbsDo_38ZiBLxR1boYxt1naQNXH ngrok/ngrok:latest http 80
+    docker run --net=host -it -e NGROK_AUTHTOKEN=YOUR Authtoken ngrok/ngrok:latest http 80
     ``` 
   - ngrok が以下のようなURLを発行  
         `Forwarding                    https://2af2-222-150-156-21.ngrok-free.app -> http://localhost:80`  
