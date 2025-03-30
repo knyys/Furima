@@ -38,15 +38,9 @@ php artisan db:seedphp artisan storage:link
 php artisan storage:link
 ```
   
-**メール認証のテスト方法(mailtrap)**  
+**メール認証の設定(mailtrap)**  
 [Mailtrap](https://mailtrap.io)にアクセスしてサインアップ  
 
-1. メールボックスの作成**
-Sandboxにある`Setup Inbox`をクリック
-- `Add Project`からProject Nameを入力して`Add`をクリック
-- Add Inboxをクリックしてインボックスを作成
-
-2. laravelでの設定
 - Integrationsをクリックして`Laravel 7+`
 - Laravelの`.env`用の認証情報が表示されるのでコピーし`.env`ファイルに貼り付け
 - Mailtrapの認証情報をコピーし`.env`ファイルに貼り付け
@@ -63,7 +57,32 @@ MAIL_FROM_NAME="${APP_NAME}"
 ```
 - メールを送るとMailtrapのインボックス内に表示される
 
-**決済方法(stripe)**  
+**ngrokとstripeの設定（決済サービス）**  
+1. ngrokの設定  
+  - [ngrok](https://ngrok.com/)にアクセスしてサインアップ  
+  - Dockerを選び、インストール
+    ``` bash
+    docker pull ngrok/ngrok
+    ```   
+  - アプリをオンラインで展開する
+    ``` bash
+    docker run --net=host -it -e NGROK_AUTHTOKEN=2ua0rYtY1cRveHmoZyyzibXbsDo_38ZiBLxR1boYxt1naQNXH ngrok/ngrok:latest http 80
+    ``` 
+  - ngrok が以下のようなURLを発行  
+        `Forwarding                    https://2af2-222-150-156-21.ngrok-free.app -> http://localhost:80`  
+  - .env の APP_URL をngrok のURLに変更  
+    ``` bash
+    APP_URL=APP_URL=https://f3d2-222-150-156-21.ngrok-free.app
+    ```
+  - 設定を反映させる
+    ``` text
+    php artisan config:clear  
+    php artisan cache:clear  
+    ```
+　- 
+ stripe listen --forward-to https://2af2-222-150-156-21.ngrok-free.app/stripe/webhook
+
+4. 
 
 
 ## 使用技術(実行環境)
