@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class RegisterController extends Controller
 {
