@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/exhibit.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/exhibit.css') }}">
 @endsection
 
 @section('content')
@@ -29,8 +29,7 @@
 			</div>
 		</div>
 			
-		<h3 class="content__title">商品の詳細</h3>
-			
+		<h3 class="content__title">商品の詳細</h3>	
 		<div class="item__category">
 			<span class="content__label">カテゴリー</span>
 			<div class="category__check">

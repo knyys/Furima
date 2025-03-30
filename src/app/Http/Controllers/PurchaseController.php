@@ -32,62 +32,75 @@ class PurchaseController extends Controller
     ]);
 
     return view('purchase', compact('user', 'profile', 'item', 'shippingAddress'));
-}
+    }
 
 
     // 商品購入
     public function purchase(PurchaseRequest $request, $itemId)
-{
-    $item = Item::findOrFail($itemId);
-    $profile = Profile::where('user_id', Auth::id())->first();
+    {
+        if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+        $item = Item::findOrFail($itemId);
+        $profile = Profile::where('user_id', Auth::id())->first();
 
-    $shippingAddress = Session::get('shipping_address', [
-        'address_number' => $profile->address_number,
-        'address' => $profile->address,
-        'building' => $profile->building,
-    ]);
+        $shippingAddress = Session::get('shipping_address', [
+            'address_number' => $profile->address_number,
+            'address' => $profile->address,
+            'building' => $profile->building,
+        ]);
 
-    $selectedMethod = $request->input('method');
+        $selectedMethod = $request->input('method');
 
-    $stripePaymentMethod = match($selectedMethod) {
-        'コンビニ払い' => 'konbini',
-        'カード支払い' => 'card',
-        default => 'card',
-    };
+        $stripePaymentMethod = match($selectedMethod) {
+            'コンビニ払い' => 'konbini',
+            'カード支払い' => 'card',
+            default => 'card',
+        };
 
-    // StripeのAPIキー設定
-    \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        // StripeのAPIキー設定
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-    // アイテム価格
-    $amount = $item->price * 1; 
+        // アイテム価格
+        $amount = $item->price * 1; 
 
-    // Checkout セッションを作成
-    $session = \Stripe\Checkout\Session::create([
-        'payment_method_types' => [$stripePaymentMethod],
-        'line_items' => [[
-            'price_data' => [
-                'currency' => 'jpy',
-                'product_data' => [
-                    'name' => $item->name,
+        // Checkout セッションを作成
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => [$stripePaymentMethod],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    'unit_amount' => $amount,
                 ],
-                'unit_amount' => $amount,
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' =>route('mypage', ['page' => 'buy']),
+            'metadata' => [
+                'item_id' => $item->id,
+                'user_id' => Auth::id(),
             ],
-            'quantity' => 1,
-        ]],
-        'mode' => 'payment',
-        'success_url' =>route('mypage', ['page' => 'buy']),
-        'metadata' => [
-            'item_id' => $item->id,
-            'user_id' => Auth::id(),
-        ],
-    ]);
+        ]);
 
-    // セッション削除
-    Session::forget('shipping_address');
+        DB::transaction(function () use ($item, $profile, $shippingAddress, $session) {
+            Sold::create([
+                'user_id' => $profile->user_id,
+                'item_id' => $item->id,
+                'sold' => 1,
+                'method' => $session->payment_method_types[0], 
+                'address_number' => $shippingAddress['address_number'],
+                'address' => $shippingAddress['address'],
+                'building' => $shippingAddress['building'],
+            ]);
+        });
 
-    // Stripeの決済ページにリダイレクト
-    return redirect($session->url);
-}
+        // セッション削除
+        Session::forget('shipping_address');
 
-
+        // Stripeの決済ページにリダイレクト
+        return redirect($session->url);
+    }
 }

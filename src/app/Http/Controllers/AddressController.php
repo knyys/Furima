@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
 use App\Models\Profile;
-use App\Models\Sold;
-use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 

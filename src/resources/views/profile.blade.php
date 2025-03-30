@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/profile.css') }}">
 @endsection
 
 @section('content')
@@ -12,6 +12,11 @@
     </div>
     @endif
 </div>
+@if ($purchaseCompleted)
+    <div class="alert alert-success">
+        購入が完了しました！
+    </div>
+@endif
 
 <div class="profile-form">
     <div class="profile-form__content">

@@ -51,7 +51,7 @@
     padding: 5px 5px;
     position: absolute;
     top: 35%;
-    left: 25%;
+    left: 30%;
 }
 
 .profile-form__img input {
@@ -169,7 +169,7 @@
         padding: 5px 5px;
         position: absolute;
         top: 35%;
-        left: 25%;
+        left: 50%;
     }
 
     .profile-form__img input {
@@ -299,7 +299,7 @@
         padding: 5px 5px;
         position: absolute;
         top: 35%;
-        left: 25%;
+        left: 30%;
     }
 
     .profile-form__img input {

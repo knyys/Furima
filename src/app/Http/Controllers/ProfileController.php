@@ -87,6 +87,11 @@ class ProfileController extends Controller
 
         $purchasedItems = $purchasedItems->whereNotIn('id', $userItems->pluck('id'));
 
-        return view('profile', compact('user', 'profile', 'userItems', 'purchasedItems'));
+        $purchaseCompleted = session('purchase_completed', false);
+
+    // フラグをセッションから削除しておく
+    session()->forget('purchase_completed');
+
+        return view('profile', compact('user', 'profile', 'userItems', 'purchasedItems', 'purchaseCompleted'));
     }
 }

@@ -10,36 +10,35 @@ use Illuminate\Support\Facades\Auth;
 class FavoriteController extends Controller
 {
     public function favorite(Request $request)
-{
-    $user = Auth::user();
-    if (!$user) {
-        return response()->json(['success' => false, 'message' => 'Unauthenticated'], 401);
-    }
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Unauthenticated'], 401);
+        }
 
-    $itemId = $request->item_id;
+        $itemId = $request->item_id;
 
-    $like = Like::where('user_id', $user->id)
-                ->where('item_id', $itemId)
-                ->first();
+        $like = Like::where('user_id', $user->id)
+                    ->where('item_id', $itemId)
+                    ->first();
 
-    if ($like) {
-        $like->delete();
-        $action = 'delete';
-    } else {
-        Like::create([
-            'user_id' => $user->id,
-            'item_id' => $itemId,
+        if ($like) {
+            $like->delete();
+            $action = 'delete';
+        } else {
+            Like::create([
+                'user_id' => $user->id,
+                'item_id' => $itemId,
+            ]);
+            $action = 'create';
+        }
+
+        $likeCount = Like::where('item_id', $itemId)->count();
+
+        return response()->json([
+            'success' => true,
+            'action' => $action,
+            'like_count' => $likeCount,
         ]);
-        $action = 'create';
     }
-
-    $likeCount = Like::where('item_id', $itemId)->count();
-
-    return response()->json([
-        'success' => true,
-        'action' => $action,
-        'like_count' => $likeCount,
-    ]);
-}
-
 }

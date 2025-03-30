@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StripeWebhookController;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
+use Stripe\Webhook;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,7 +97,7 @@ Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 Route::get('mypage/profile', [ProfileController::class, 'welcome'])
 ->middleware(['auth', 'verified']);
 
-Route::post('/profile/upload', [ProfileController::class, 'upload'])
+Route::post('mypage/profile', [ProfileController::class, 'upload'])
 ->middleware(['auth', 'verified'])
 ->name('profile.upload');
 
@@ -128,4 +132,4 @@ Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
 
 
 
-Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('webhook');

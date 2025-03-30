@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/edit_profile.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/edit_profile.css') }}">
 @endsection
 
 @section('content')
@@ -29,7 +29,6 @@
             @enderror
         </div>
         
-            
         <div class="form__group">
             <div class="form__label">
                 <label>ユーザー名</label>

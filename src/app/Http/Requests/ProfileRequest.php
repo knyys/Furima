@@ -31,7 +31,6 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.required' => '画像をアップロードしてください',
             'image.max' => '画像のサイズは1MB以下にしてください。',
             'image.mimes' => 'アップロードできる画像の形式はJPEGまたはPNGのみです。',
         ];
