@@ -1,0 +1,66 @@
+@extends('layouts.navbar')
+
+@section('css')
+<link rel="stylesheet" href="{{ secure_asset('css/login.css') }}">
+@endsection
+
+@section('content') 
+<div class="alert">
+    @if(session('error'))
+        <p class="alert--danger">{{ session('error') }}</p>
+    @endif
+</div>
+<div class="login-form">
+    <div class="login-form__content">
+        <div class="login-form__heading">
+            <h2>ログイン</h2>
+        </div>
+        @if ($errors->has('login'))
+        <div class="login-form__error">
+            <span class="error">
+                <img src="{{ asset('storage/error_icons.png') }}" alt="error-icon">
+                {{ $errors->first('login') }}
+            </span>
+        </div>
+        @endif
+
+        <form class="form" action="/login" method="post">
+            @csrf
+            <div class="form__group">
+                <div class="form__label">
+                    <label>ユーザー名 / メールアドレス</label>
+                </div>
+                <div class="form__content">
+                    <input type="email" name="email" value="{{ old('email') }}">
+                </div>
+                <div class="form__error">
+                    @error('email')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        
+            <div class="form__group">
+                <div class="form__label">
+                    <label>パスワード</label>
+                </div>
+                <div class="form__content">
+                    <input type="password" name="password" value="{{ old('password') }}">
+                </div>
+                <div class="form__error">
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        
+            <div class="form__btn">
+                <button type="submit">ログインする</button>
+            </div>
+        </form>
+        <div class="register-btn">
+            <a href="/register">会員登録はこちら</a>
+        </div>
+    </div>
+</div>
+@endsection
