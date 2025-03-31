@@ -23,10 +23,10 @@ class LikeFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // ユーザーが商品詳細ページを訪問
-        $response = $this->actingAs($user)->get(route('products.show', $item->id));
+        $response = $this->actingAs($user)->get(route('item.detail', $item->id));
 
         // いいねアイコンを押す
-        $response = $this->actingAs($user)->post(route('products.like', $item->id));
+        $response = $this->actingAs($user)->post(route('item.detail', $item->id));
 
         // 商品のいいねが登録され、いいね合計値が増加することを確認
         $item->refresh();  // 商品データを再取得
@@ -48,10 +48,10 @@ class LikeFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // ユーザーが商品詳細ページを訪問して、いいねを押す
-        $this->actingAs($user)->post(route('products.like', $item->id));
+        $this->actingAs($user)->post('/like/{post}', $item->id);
 
         // 再度いいねアイコンを押下して、いいねを解除
-        $response = $this->actingAs($user)->post(route('products.like', $item->id));
+        $response = $this->actingAs($user)->post('/like/{post}', $item->id);
 
         // 商品のいいねが解除され、いいね合計値が減少することを確認
         $item->refresh();

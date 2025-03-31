@@ -25,10 +25,10 @@ class ProductListingTest extends TestCase
         $this->actingAs($user);
 
         // 商品出品ページを開く
-        $response = $this->get('/products/create');
+        $response = $this->get('/sell');
 
         // 必要な情報を送信して商品を作成
-        $response = $this->post('/products', [
+        $response = $this->post('/sell', [
             'category' => 'Electronics', // カテゴリ
             'condition' => 'New', // 商品の状態
             'name' => 'Sample Product', // 商品名
@@ -47,7 +47,7 @@ class ProductListingTest extends TestCase
         ]);
 
         // 商品一覧画面にリダイレクトされることを確認
-        $response->assertRedirect('/products');
+        $response->assertRedirect('/');
     }
 
     /**
@@ -58,7 +58,7 @@ class ProductListingTest extends TestCase
     public function testUnauthenticatedUserCannotAccessProductListingPage()
     {
         // 未認証ユーザーが商品出品ページにアクセス
-        $response = $this->get('/products/create');
+        $response = $this->get('/sell');
 
         // ログインページにリダイレクトされることを確認
         $response->assertRedirect(route('login'));

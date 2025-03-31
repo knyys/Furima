@@ -27,7 +27,7 @@ class ShippingAddressTest extends TestCase
         $this->actingAs($user);
 
         // 送付先住所変更画面を表示
-        $response = $this->get(route('shipping.address.edit'));
+        $response = $this->get('/purchase/address/{item}',  $item->id );
         $response->assertStatus(200); // 住所変更画面が表示されることを確認
 
         // 住所を登録（仮の住所）
@@ -38,10 +38,10 @@ class ShippingAddressTest extends TestCase
         ];
 
         // 住所登録フォームを送信
-        $response = $this->post(route('shipping.address.update'), $addressData);
+        $response = $this->post(route('address.update'), $addressData);
 
         // 商品購入画面に遷移
-        $response = $this->get(route('product.purchase'));
+        $response = $this->get(route('purchase'));
         $response->assertStatus(200); // 商品購入画面が表示されることを確認
 
         // 登録した住所が商品購入画面に反映されていることを確認
@@ -65,7 +65,7 @@ class ShippingAddressTest extends TestCase
         $this->actingAs($user);
 
         // 送付先住所変更画面を表示
-        $response = $this->get(route('shipping.address.edit'));
+        $response = $this->get('/purchase/address/{item}',  $item->id );
         $response->assertStatus(200); // 住所変更画面が表示されることを確認
 
         // 住所を登録（仮の住所）
@@ -76,10 +76,10 @@ class ShippingAddressTest extends TestCase
         ];
 
         // 住所登録フォームを送信
-        $response = $this->post(route('shipping.address.update'), $addressData);
+        $response = $this->post(route('address.update'), $addressData);
 
         // 商品購入画面に遷移し、購入処理を行う
-        $response = $this->post(route('product.purchase', ['item' => $item->id]));
+        $response = $this->post(route('purchase', ['item' => $item->id]));
 
         // 購入完了後、購入した商品に住所が紐づいていることを確認
         $this->assertDatabaseHas('orders', [

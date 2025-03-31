@@ -24,7 +24,7 @@ class ProductSearchTest extends TestCase
         $item3 = Item::factory()->create(['name' => '商品C']);
 
         // 検索キーワード「商品A」で商品を検索
-        $response = $this->get('/products?search=商品A');
+        $response = $this->get('/?item_name=商品A');
 
         // 部分一致する商品が表示されることを確認
         $response->assertSee('商品A');
@@ -45,7 +45,7 @@ class ProductSearchTest extends TestCase
         $item3 = Item::factory()->create(['name' => '商品C']);
 
         // 検索キーワード「商品A」で商品を検索
-        $response = $this->get('/products?search=商品A');
+        $response = $this->get('/?item_name=商品A');
 
         // 検索結果が表示されることを確認
         $response->assertSee('商品A');

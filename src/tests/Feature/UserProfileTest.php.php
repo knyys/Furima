@@ -42,7 +42,7 @@ class UserProfileTest extends TestCase
         $this->actingAs($user);
 
         // プロフィールページを開く
-        $response = $this->get('/profile');
+        $response = $this->get('/mypage');
 
         // 必要な情報が表示されているかを検証
         $response->assertStatus(200);
