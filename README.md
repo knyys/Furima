@@ -3,8 +3,9 @@
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:knyys/Furima.git`
-2. DockerDesktopアプリを立ち上げる
-3. `docker-compose up -d --build`
+2. `cd Furima`
+3. DockerDesktopアプリを立ち上げる
+4. `docker-compose up -d --build`
 
 > *MySQLは、OSによって起動しない場合があるので、それぞれのPCに合わせてdocker-compose.ymlファイルを編集してください*  
   
