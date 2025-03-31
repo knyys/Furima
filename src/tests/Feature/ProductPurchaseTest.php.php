@@ -26,11 +26,11 @@ class ProductPurchaseTest extends TestCase
         $this->actingAs($user);
 
         // 商品購入画面を開く
-        $response = $this->get(route('product.purchase', $item->id));
+        $response = $this->get(route('purchase', $item->id));
         $response->assertStatus(200); // 商品購入画面が表示されることを確認
 
         // 購入ボタンを押下
-        $response = $this->post(route('product.purchase.store', $item->id));
+        $response = $this->post(route('purchase.complete', $item->id));
 
         // 購入が完了し、商品のステータスが "sold" になっていることを確認
         $item->refresh();
@@ -53,10 +53,10 @@ class ProductPurchaseTest extends TestCase
 
         // ユーザーが商品を購入
         $this->actingAs($user);
-        $this->post(route('product.purchase.store', $item->id));
+        $this->post(route('purchase.complete', $item->id));
 
         // 商品一覧画面を表示
-        $response = $this->get(route('product.index'));
+        $response = $this->get('/');
 
         // 購入した商品が「sold」として表示されていることを確認
         $response->assertSee('sold'); // 商品一覧に「sold」というラベルが表示されていることを確認
@@ -75,10 +75,10 @@ class ProductPurchaseTest extends TestCase
 
         // ユーザーが商品を購入
         $this->actingAs($user);
-        $this->post(route('product.purchase.store', $item->id));
+        $this->post(route('purchase.complete', $item->id));
 
         // プロフィール画面を表示
-        $response = $this->get(route('profile.show'));
+        $response = $this->get(route('mypage'));
 
         // 購入した商品が「購入した商品一覧」に表示されていることを確認
         $response->assertSee($item->name); // プロフィール画面に購入した商品の名前が表示されていることを確認

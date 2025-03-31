@@ -41,9 +41,9 @@ class CommentFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // ユーザーがコメントを送信
-        $response = $this->actingAs($user)->post(route('comments.store', $item->id), [
-            'comment' => '素晴らしい商品です！'
-        ]);
+        $response = $this->actingAs($user)->post(route('item.detail', $item->id), [
+        'comment' => '素晴らしい商品です！'
+    ]);
 
         // コメントが保存され、コメント数が増加することを確認
         $item->refresh();
@@ -62,7 +62,7 @@ class CommentFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // ログインしていない状態でコメントを送信しようとする
-        $response = $this->post(route('comments.store', $item->id), [
+        $response = $this->post(route('item.detail', $item->id), [
             'comment' => '素晴らしい商品です！'
         ]);
 
@@ -83,7 +83,7 @@ class CommentFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // コメントを入力せずに送信
-        $response = $this->actingAs($user)->post(route('comments.store', $item->id), [
+        $response = $this->actingAs($user)->post(route('item.detail', $item->id), [
             'comment' => ''
         ]);
 
@@ -103,7 +103,7 @@ class CommentFeatureTest extends TestCase
         $item = Item::factory()->create();
 
         // 256文字以上のコメントを入力
-        $response = $this->actingAs($user)->post(route('comments.store', $item->id), [
+        $response = $this->actingAs($user)->post(route('item.detail', $item->id), [
             'comment' => str_repeat('a', 256) // 256文字のコメント
         ]);
 

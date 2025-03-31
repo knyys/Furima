@@ -26,11 +26,11 @@ class PaymentMethodTest extends TestCase
         $this->actingAs($user);
 
         // 商品購入画面に遷移（仮のルート）
-        $response = $this->get(route('payment.method.select'));
+        $response = $this->get(route('purchase'));
         $response->assertStatus(200); // 支払い方法選択画面が表示されることを確認
 
         // プルダウンメニューから支払い方法を選択（仮の支払い方法 'credit_card'）
-        $response = $this->post(route('payment.method.store'), [
+        $response = $this->post(route('purchase'), [
             'payment_method' => 'credit_card'
         ]);
 
@@ -38,7 +38,7 @@ class PaymentMethodTest extends TestCase
         $response->assertSessionHas('payment_method', 'credit_card'); // セッションに選択した支払い方法が保存されていることを確認
 
         // 小計画面（仮のルート）を表示し、選択した支払い方法が反映されているか確認
-        $response = $this->get(route('payment.subtotal'));
+        $response = $this->get(route('purchase'));
         $response->assertSee('credit_card'); // 小計画面に選択した支払い方法が表示されることを確認
     }
 }

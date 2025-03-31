@@ -30,7 +30,7 @@ class UserProfileUpdateTest extends TestCase
         $this->actingAs($user);
 
         // プロフィールページを開く
-        $response = $this->get('/profile');
+        $response = $this->get('/mypage');
 
         // 各項目の初期値が正しく表示されているかを検証
         $response->assertStatus(200);
@@ -48,7 +48,7 @@ class UserProfileUpdateTest extends TestCase
     public function testUnauthenticatedUserCannotAccessProfilePage()
     {
         // 未認証ユーザーでプロフィールページにアクセス
-        $response = $this->get('/profile');
+        $response = $this->get('/mypage');
         
         // 認証されていない場合、ログイン画面にリダイレクトされることを確認
         $response->assertRedirect(route('login'));

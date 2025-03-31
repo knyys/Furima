@@ -41,7 +41,7 @@ class ProductDetailTest extends TestCase
         ]);
 
         // 商品詳細ページを開く
-        $response = $this->get(route('products.show', $item->id));
+        $response = $this->get(route('item.detail', $item->id));
 
         // 商品詳細ページに必要な情報がすべて表示されていることを確認
         $response->assertSee($item->name);
@@ -73,7 +73,7 @@ class ProductDetailTest extends TestCase
         $item->categories()->attach([$category1->id, $category2->id]);  // 商品に複数のカテゴリを関連付け
 
         // 商品詳細ページを開く
-        $response = $this->get(route('products.show', $item->id));
+        $response = $this->get(route('item.detail', $item->id));
 
         // 複数選択されたカテゴリが表示されていることを確認
         $response->assertSee($category1->name);
