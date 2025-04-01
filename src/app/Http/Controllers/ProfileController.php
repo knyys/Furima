@@ -69,7 +69,6 @@ class ProfileController extends Controller
     }
         $user = Auth::user();
         $profile = $user->profile; 
-
         // 出品した商品
         $userItems = $user->items; //自分が出品したものすべて
         $userItems->each(function ($item) {
