@@ -32,7 +32,7 @@ php artisan migrate
 ```
 7. シーディングの実行
 ``` bash
-php artisan db:seedphp artisan storage:link
+php artisan db:seed  
 ```
 8. シンボリックリンク作成
 ``` bash
@@ -42,7 +42,7 @@ php artisan storage:link
 **メール認証の設定(mailtrap)**  
 [Mailtrap](https://mailtrap.io)にアクセスしてサインアップ  
 
-- Integrationsをクリックして`Laravel 7+`
+- Integrationsをクリックして`Laravel 7.x and 8.x`
 - Laravelの`.env`用の認証情報が表示されるのでコピーし`.env`ファイルに貼り付け
 - Mailtrapの認証情報をコピーし`.env`ファイルに貼り付け
 
@@ -94,17 +94,18 @@ php artisan storage:link
   STRIPE_SECRET_KEY=your_secret_key  
   STRIPE_PUBLISHABLE_KEY=your_publishable_key
   ```
-- config/services.php に設定を追加
+- config/services.php に以下を追加
   ``` text  
   'stripe' => [
       'secret' => env('STRIPE_SECRET_KEY'),
       'publishable' => env('STRIPE_PUBLISHABLE_KEY'),  
   ],
-  ```
+  ```  
 - Webhookエンドポイントの作成
-  「Developers」＞「Webhook」を選択し、「新規Webhookの作成」
+  「Developers」＞「Webhook」を選択し、「送信先を追加する」
   イベントには「checkout.session.completed」を選択
-  エンドポイントはngrokで取得したURLを使用「your_ngrok_url/stripe/webhook」  
+  「Webhook エンドポイント」を選択  
+  エンドポイントURLはngrokで取得したURLを使用「your_ngrok_url/stripe/webhook」  
 - 作成後、送信先の詳細から署名シークレットをコピーし、`.env`ファイルに記述
   ``` text
   STRIPE_WEBHOOK_SECRET=your_webhook_secret  
@@ -117,9 +118,12 @@ php artisan storage:link
 - Stripeから送られるイベントを設定したWebhookエンドポイントに転送できるようにする
   ``` text
   stripe listen --forward-to your_ngrok_url/stripe/webhook  
-  ```  
-
-
+  ```
+  　　
+**ngrokで取得したURLを使用してサーバーを開きます**
+> *Windowsではファイル権限エラーが発生しやすい  
+  アクセスした際に、上記の画像のようなPermission deniedというエラーが発生した場合は  
+`sudo chmod -R 777 src/*`*
 
 
 ## 使用技術(実行環境)
