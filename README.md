@@ -83,7 +83,7 @@ php artisan storage:link
 2. stripeの設定  
 - [stripe](https://dashboard.stripe.com/register)にアクセスしてサインアップ
 - アカウント作成後、Stripeダッシュボードにログイン
-- ダッシュボードの右上にあるメニューから、「Developers」＞「API keys」を選択し、テスト用のAPIキー（Publishable KeyとSecret Key）をメモ  
+- ダッシュボードの右上にあるメニューから、「Developers」＞「API keys」を選択し、テスト用のAPIキー（Publishable KeyとSecret Key）をコピー  
 - ``` text
   docker-compose exec php bash  
   composer require stripe/stripe-php
@@ -118,12 +118,21 @@ php artisan storage:link
 - Stripeから送られるイベントを設定したWebhookエンドポイントに転送できるようにする
   ``` text
   stripe listen --forward-to your_ngrok_url/stripe/webhook  
-  ```
-  　　
-**ngrokで取得したURLを使用してサーバーを開きます**
-> *Windowsではファイル権限エラーが発生しやすい  
-  アクセスした際に、上記の画像のようなPermission deniedというエラーが発生した場合は  
-`sudo chmod -R 777 src/*`*
+  ```  
+**ngrokで取得したURLを使用してサーバーを開きます**  
+- ngrok 使用時の CSS 読み込みについて  
+  ngrok の URL でアプリを開くと、asset() で指定した CSS が適用されない場合がある。  
+  以下のように asset() を secure_asset() に変更。
+  ``` text  
+  修正前  
+  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
+  修正後  
+  <link rel="stylesheet" href="{{ secure_asset('css/sanitize.css') }}" />
+  ```  
+
+  > *Windowsではファイル権限エラーが発生しやすい  
+    アクセスした際に、Permission deniedというエラーが発生した場合は  
+  `sudo chmod -R 777 src/*`*
 
 
 ## 使用技術(実行環境)
