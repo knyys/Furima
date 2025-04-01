@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('css')
-<link rel="stylesheet" href="{{ secure_asset('css/register.css') }}">
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
 @section('content')

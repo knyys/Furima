@@ -1,18 +1,18 @@
 @extends('layouts.navbar')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/email.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
-    <h1>メール認証が必要です</h1>
-        <p>登録したメールアドレスに認証リンクを送信しました。</p>
-        <p>メールが届かない場合は、下のボタンから再送信できます。</p>
+    <p>登録していただいたメールアドレスに認証メールを送信しました。<br>メール認証を完了してください。</p>
 
-    @if (session('message'))
-        <p>{{ session('message') }}</p>
-    @endif
+    <button type="submit" class="auth">認証はこちらから</button>
 
-    <form method="POST" action="{{ route('verification.send') }}">
+    <form method="POST" class="auth__retry" action="{{ route('verification.send') }}">
         @csrf
-        <button type="submit">認証メールを再送信</button>
+        <button type="submit">認証メールを再送する</button>
     </form>
 </div>
 @endsection

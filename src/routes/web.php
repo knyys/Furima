@@ -75,7 +75,7 @@ Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 
         Session::forget('register_data');
 
-        return redirect('mypage/profile')->with('success', 'メール認証が完了しました。プロフィールを登録してください。');
+        return redirect('mypage/profile');
     })->name('verification.verify');
 
 
@@ -89,7 +89,7 @@ Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
 
         // 認証メールを再送信
         $request->user()->sendEmailVerificationNotification();
-        return back()->with('message', '認証メールを再送しました！');
+        return back();
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
