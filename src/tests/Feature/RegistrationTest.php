@@ -41,7 +41,7 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        // メールが送信されていることを確認
+        // メール送信
         Mail::assertSent(VerifyEmail::class, function ($mail) {
             return $mail->hasTo('test@example.com');
         });
@@ -121,10 +121,10 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        // ログイン画面にリダイレクトされることを確認
+        
         $response->assertRedirect('/login');
 
-        // データベースにユーザーが登録されていることを確認
+        
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
         ]);

@@ -20,7 +20,6 @@ class ProductDetailTest extends TestCase
      */
     public function testProductDetailDisplaysAllNecessaryInformation()
     {
-        // 商品、カテゴリ、コメント、ユーザーを作成
         $item = Item::factory()->create([
             'name' => '商品A',
             'price' => 1000,
@@ -31,19 +30,17 @@ class ProductDetailTest extends TestCase
         $category1 = Category::factory()->create(['name' => 'カテゴリ1']);
         $category2 = Category::factory()->create(['name' => 'カテゴリ2']);
         
-        $item->categories()->attach([$category1->id, $category2->id]);  // 商品に複数のカテゴリを関連付け
+        $item->categories()->attach([$category1->id, $category2->id]);  
         
-        $user = User::factory()->create();  // コメントするユーザーを作成
+        $user = User::factory()->create();  
         $comment = Comment::factory()->create([
             'item_id' => $item->id,
             'user_id' => $user->id,
             'comment' => 'これはテストコメントです。',
         ]);
 
-        // 商品詳細ページを開く
         $response = $this->get(route('item.detail', $item->id));
 
-        // 商品詳細ページに必要な情報がすべて表示されていることを確認
         $response->assertSee($item->name);
         $response->assertSee($item->price);
         $response->assertSee($item->description);
@@ -51,18 +48,17 @@ class ProductDetailTest extends TestCase
         $response->assertSee($category1->name);
         $response->assertSee($category2->name);
         $response->assertSee($comment->comment);
-        $response->assertSee($user->name);  // コメントしたユーザー名
+        $response->assertSee($user->name); 
         $response->assertSee($comment->comment);
     }
 
     /**
-     * 商品詳細ページに複数選択されたカテゴリが表示されることを確認するテスト
+     * カテゴリー複数選択
      *
      * @return void
      */
     public function testMultipleCategoriesAreDisplayedOnProductDetail()
     {
-        // 商品、カテゴリを作成
         $item = Item::factory()->create([
             'name' => '商品B',
         ]);
@@ -70,12 +66,10 @@ class ProductDetailTest extends TestCase
         $category1 = Category::factory()->create(['name' => 'カテゴリA']);
         $category2 = Category::factory()->create(['name' => 'カテゴリB']);
         
-        $item->categories()->attach([$category1->id, $category2->id]);  // 商品に複数のカテゴリを関連付け
+        $item->categories()->attach([$category1->id, $category2->id]);  
 
-        // 商品詳細ページを開く
         $response = $this->get(route('item.detail', $item->id));
 
-        // 複数選択されたカテゴリが表示されていることを確認
         $response->assertSee($category1->name);
         $response->assertSee($category2->name);
     }
