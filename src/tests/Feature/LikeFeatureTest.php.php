@@ -12,52 +12,43 @@ class LikeFeatureTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * いいねアイコンを押下して、商品がいいねされたことを確認するテスト
+     *商品のいいね確認
      *
      * @return void
      */
     public function testLikeItem()
     {
-        // ユーザーと商品を作成
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
-        // ユーザーが商品詳細ページを訪問
         $response = $this->actingAs($user)->get(route('item.detail', $item->id));
 
-        // いいねアイコンを押す
         $response = $this->actingAs($user)->post(route('item.detail', $item->id));
 
-        // 商品のいいねが登録され、いいね合計値が増加することを確認
-        $item->refresh();  // 商品データを再取得
-        $this->assertEquals(1, $item->likes_count);  // いいね合計値が1になっている
+        $item->refresh();  
+        $this->assertEquals(1, $item->likes_count); 
 
-        // いいねアイコンが押された状態で色が変化していることを確認
-        $response->assertSee('liked');  // アイコンが押された状態で「liked」クラスが表示される
+
+        $response->assertSee('liked');  
     }
 
     /**
-     * いいねアイコンを再度押下して、いいねを解除できることを確認するテスト
+     * いいね解除確認
      *
      * @return void
      */
     public function testUnlikeItem()
     {
-        // ユーザーと商品を作成
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
-        // ユーザーが商品詳細ページを訪問して、いいねを押す
         $this->actingAs($user)->post('/like/{post}', $item->id);
 
-        // 再度いいねアイコンを押下して、いいねを解除
         $response = $this->actingAs($user)->post('/like/{post}', $item->id);
 
-        // 商品のいいねが解除され、いいね合計値が減少することを確認
         $item->refresh();
-        $this->assertEquals(0, $item->likes_count);  // いいね合計値が0になっている
+        $this->assertEquals(0, $item->likes_count); 
 
-        // いいねアイコンが押されていない状態で色が変化していないことを確認
-        $response->assertDontSee('liked');  // アイコンが押されていない状態で「liked」クラスが表示されない
+        $response->assertDontSee('liked');  
     }
 }

@@ -19,7 +19,6 @@ class LoginTest extends TestCase
             'password' => 'password123',
         ]);
 
-        // 「メールアドレスを入力してください」
         $response->assertSessionHasErrors('email');
     }
 
@@ -31,7 +30,6 @@ class LoginTest extends TestCase
             'password' => '',
         ]);
 
-        // 「パスワードを入力してください」
         $response->assertSessionHasErrors('password');
     }
 
@@ -43,7 +41,6 @@ class LoginTest extends TestCase
             'password' => 'wrongpassword',
         ]);
 
-        // 「ログイン情報が登録されていません」
         $response->assertSessionHasErrors('email');
     }
 
@@ -56,13 +53,11 @@ class LoginTest extends TestCase
             'password' => Hash::make('password123'),
         ]);
 
-        // ログイン
         $response = $this->post('/login', [
             'email' => 'test@example.com',
             'password' => 'password123',
         ]);
 
-        // ログイン後、マイページにリダイレクト
         $response->assertRedirect('/mypage');
         $this->assertAuthenticatedAs($user); 
     }
