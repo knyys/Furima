@@ -52,11 +52,16 @@ class PurchaseController extends Controller
 
         $selectedMethod = $request->input('method');
 
-        $stripePaymentMethod = match($selectedMethod) {
-            'コンビニ払い' => 'konbini',
-            'カード支払い' => 'card',
-            default => 'card',
-        };
+        switch ($selectedMethod) {
+            case 'コンビニ払い':
+                $stripePaymentMethod = 'konbini';
+                break;
+            case 'カード支払い':
+                $stripePaymentMethod = 'card';
+                break;
+            default:
+                $stripePaymentMethod = 'card';
+        }
 
         // StripeのAPIキー設定
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
