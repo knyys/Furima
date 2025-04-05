@@ -22,7 +22,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
-        ])->withSession(['foo' => 'bar']); ;
+        ]);
 
         $response->assertSessionHasErrors('name');
     }
@@ -120,11 +120,9 @@ class RegistrationTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         
         $response->assertRedirect('/login');
 
-        
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
         ]);
