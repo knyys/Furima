@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\Sold;
+use App\Models\Condition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,74 +15,157 @@ class MyListTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * いいねをした商品マイリスト表示
-     * 
-     *
-     * @return void
+    /** 
+     * @test
+     * いいねした商品だけが表示される
      */
     public function testLikedItemsAreDisplayedInMyList()
     {
-        $user = User::factory()->create();
+        $user = User::create([
+        'name' => 'Test User',
+        'email' => 'testuser@example.com',
+        'password' => bcrypt('password'),
+        ]);
         $this->actingAs($user);
 
-        $item1 = Item::factory()->create(['name' => '商品1']);
-        $item2 = Item::factory()->create(['name' => '商品2']);
+        $condition = Condition::create([
+                'condition' => '新品',
+            ]);
+        $category = Category::create([
+            'category' => '腕時計',
+        ]);
 
+        $item1 = Item::create([
+            'name' => '商品1',
+            'price' => 1000,
+            'image' => 'some_image.jpg',
+            'detail' => '商品詳細1',
+            'condition_id' => $condition -> id,
+            'user_id' => $user->id,
+            'brand' => 'ブランド1',
+        ]);
+        $item1->categories()->attach($category->id);
+
+        $item2 = Item::create([
+            'name' => '商品2',
+            'price' => 2000,
+            'image' => 'some_image2.jpg',
+            'detail' => '商品詳細2',
+            'condition_id' => $condition -> id,
+            'user_id' => $user->id,
+            'brand' => 'ブランド2',
+        ]);
+        $item2->categories()->attach($category->id);
+
+        // いいねを追加
         Like::create(['user_id' => $user->id, 'item_id' => $item1->id]);
 
-        $response = $this->get('/mylist'); 
+        $response = $this->get('/?page=mylist&item_name=');
 
-        $response->assertSee('商品1');
-        $response->assertDontSee('商品2'); 
+        $response->assertSee('商品1'); 
+        $response->assertDontSee('商品2');
     }
+    
 
-    /**
-     * 購入済み商品を確認する
-     *
-     * @return void
+    /** 
+     * @test
+     * 購入済み商品は「Sold」と表示される
      */
     public function testSoldItemsDisplaySoldLabelInMyList()
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        // テストデータ作成
+        $user = User::create([
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => bcrypt('password'),
+        ]);
 
-        $item = Item::factory()->create(['name' => '商品1', 'sold' => true]);
+        $condition = Condition::create([
+            'condition' => '新品',
+        ]);
+        $category = Category::create([
+            'category' => '腕時計',
+        ]);
+        $item = Item::create([
+            'name' => '腕時計',
+            'price' => 15000,
+            'image' => 'images/Armani+Mens+Clock.jpg',
+            'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+            'condition_id' => $condition->id,
+            'user_id' => $user->id,
+            'brand' => 'COACH',
+        ]);
+        $item->categories()->attach($category->id);
 
-        Like::create(['user_id' => $user->id, 'item_id' => $item->id]);
+        // マイリスト（いいね）に追加
+        Like::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+        ]);
 
-        $response = $this->get('/mylist'); 
+        // 商品が販売済みに
+        Sold::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'sold' => true,
+            'method' => 'card',
+            'address_number' => '123-4567',
+            'address' => 'Japan',
+            'building' => 'Building',
+        ]);
 
+        // 認証状態でアクセス
+        $response = $this->actingAs($user)->get('/?page=mylist&item_name=');
+
+        // Sold ラベルが表示されていることを確認
         $response->assertSee('Sold');
     }
 
-    /**
-     * 自分が出品した商品がはイリストに表示されない
-     *
-     * @return void
+
+    /** 
+     * @test
+     * 自分が出品した商品は表示されない
      */
     public function testItemsSoldByUserAreNotDisplayedlInMyList()
     {
-        $user = User::factory()->create();
+        // テストデータ作成
+        $user = User::create([
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
         $this->actingAs($user);
 
-        $item = Item::factory()->create(['user_id' => $user->id, 'name' => '自分の商品']);
+        $condition = Condition::create([
+            'condition' => '新品',
+        ]);
+        $category = Category::create([
+            'category' => '腕時計',
+        ]);
+        $item = Item::create([
+            'name' => '自分の商品',
+            'price' => 1000,
+            'image' => 'some_image.jpg',
+            'detail' => '自分の商品詳細',
+            'condition_id' => $condition->id,
+            'user_id' => $user->id,  
+            'brand' => 'ブランド名',
+        ]);
+        $item->categories()->attach($category->id);
 
-        Like::create(['user_id' => $user->id, 'item_id' => $item->id]);
-
-        $response = $this->get('/mylist'); 
+        $response = $this->get('/?page=mylist&item_name='); 
         $response->assertDontSee('自分の商品');
     }
 
-    /**
-     * 未認証の場合
-     *
-     * @return void
+    /** 
+     * @test
+     * 未認証の場合は何も表示されない
      */
     public function testGuestsCannotSeeMyList()
     {
-        $response = $this->get('/mylist');
+        $response = $this->get('/?page=mylist&item_name=');
 
-        $response->assertStatus(302); 
+        $response->assertStatus(302);
     }
 }

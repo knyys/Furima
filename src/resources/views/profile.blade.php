@@ -23,8 +23,6 @@
         <div class="profile-form__header">
             <div class="profile__img">
                 <img id="image" class="profile-icon" src="{{ asset($profile->image) }}" alt="プロフィール画像">
-                <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
-                @csrf
                 <output id="image" class="image_output"></output>
             </div>    
             <div class="profile__user-name">    

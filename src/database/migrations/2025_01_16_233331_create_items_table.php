@@ -25,7 +25,7 @@ class CreateItemsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('condition_id')->references('id')->on('conditions')->onDelete('cascade');
-});
+        });
 
     }
 
