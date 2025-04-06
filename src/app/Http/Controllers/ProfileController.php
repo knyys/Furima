@@ -89,8 +89,7 @@ class ProfileController extends Controller
 
         $purchaseCompleted = session('purchase_completed', false);
 
-    // フラグをセッションから削除しておく
-    session()->forget('purchase_completed');
+        session()->forget('purchase_completed');
 
         return view('profile', compact('user', 'profile', 'userItems', 'purchasedItems', 'purchaseCompleted'));
     }

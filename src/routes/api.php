@@ -16,4 +16,6 @@ use App\Http\Controllers\LikeController;
 */
 
 
-Route::middleware(['auth'])->post('/like/{post}', [LikeController::class, 'toggleLike']);
+// APIルート
+Route::middleware(['auth'])->post('/like/{itemId}', [LikeController::class, 'favorite'])->name('item.like');
+

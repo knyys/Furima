@@ -16,6 +16,10 @@ class ItemController extends Controller
         $page = $request->query('page', 'index'); 
         $searchKeyword = $request->input('item_name');
 
+        if ($page === 'mylist' && !auth()->check()) {
+        return redirect()->route('login');  // ログインページにリダイレクト
+        }
+
         // すべての商品を検索
         $allItems = Item::nameSearch($searchKeyword)
             ->where('user_id', '!=', auth()->id())

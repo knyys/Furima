@@ -10,8 +10,9 @@ class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
+    /** 
+     * @test
+     * ログアウトができる
      */
     public function testUserCanLogout()
     {
@@ -22,11 +23,11 @@ class LogoutTest extends TestCase
             'password' => 'password', 
         ]);
 
-        $response->assertRedirect('/mypage');
+        $response->assertRedirect('/?page=mylist');
 
         $response = $this->post('/logout');
 
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/');
 
         $this->assertGuest();
     }

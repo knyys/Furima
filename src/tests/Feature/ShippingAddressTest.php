@@ -2,78 +2,157 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\User;
-use App\Models\Address;
 use App\Models\Item;
+use App\Models\Profile;
+use App\Models\Condition;
+use App\Models\Sold;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Session;
+use Mockery;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class ShippingAddressTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * 送付先住所変更画面で登録した住所が商品購入画面に反映される
-     *
-     * @return void
-     */
-    public function testShippingAddressIsReflectedOnProductPurchaseScreen()
+    public function tearDown(): void
     {
-        $user = User::factory()->create();
-        $item = Item::factory()->create();
-
-        $this->actingAs($user);
-
-        $response = $this->get('/purchase/address/{item}',  $item->id );
-        $response->assertStatus(200); 
-
-        $addressData = [
-            'address' => '東京都渋谷区1-1-1',
-            'postcode' => '150-0001',
-            'phone' => '080-1234-5678'
-        ];
-
-        $response = $this->post(route('address.update'), $addressData);
-
-        $response = $this->get(route('purchase'));
-        $response->assertStatus(200); 
-
-        $response->assertSee($addressData['address']); 
-        $response->assertSee($addressData['postcode']); 
-        $response->assertSee($addressData['phone']);
+        Mockery::close(); // モックをクリーンアップ
+        parent::tearDown();
     }
 
     /**
-     * 購入した商品に送付先住所が紐づいている
-     *
-     * @return void
+     * @test 
+     * 送付先住所変更画面にて登録した住所が商品購入画面に反映されている
      */
-    public function testShippingAddressIsAssociatedWithThePurchasedProduct()
+    public function testShippingAddressIsReflectedOnProductPurchaseScreen()
     {
-        $user = User::factory()->create();
-        $item = Item::factory()->create();
-
+        $user = User::create([
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => bcrypt('password'),
+            'email_verified_at' => now(),
+        ]);
         $this->actingAs($user);
 
-        $response = $this->get('/purchase/address/{item}',  $item->id );
-        $response->assertStatus(200); 
+        $condition = Condition::create(['condition' => '新品']);
+        $category = Category::create(['category' => '時計']);
+        $item = Item::create([
+            'name' => '商品1',
+            'price' => 15000,
+            'image' => 'images/Armani+Mens+Clock.jpg',
+            'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+            'condition_id' => $condition->id,
+            'user_id' => $user->id,
+            'brand' => 'COACH',
+        ]);
+        $item->categories()->attach($category->id);
 
-        $addressData = [
-            'address' => '東京都渋谷区1-1-1',
-            'postcode' => '150-0001',
-            'phone' => '080-1234-5678'
+        // ユーザーのプロフィール作成
+        $image = UploadedFile::fake()->create('sample.jpg', 100, 'image/jpeg');
+        $imagePath = $image->storeAs('profile', 'sample.jpg', 'public');
+        Profile::create([
+            'user_id' => $user->id,
+            'address_number' => '000-0000',
+            'address' => 'aaaaa',
+            'building' => 'bbbbb',
+            'image' => 'storage/' . $imagePath,
+        ]);
+
+        // 送付先住所をセッションに設定
+        $shippingAddress = [
+            'address_number' => '150-0001',
+            'address' => 'ccccc',
+            'building' => '11111',
         ];
+        Session::put('shipping_address', $shippingAddress);
 
-        $response = $this->post(route('address.update'), $addressData);
+        $response = $this->get("/purchase/address/{$item->id}");
+        $response->assertStatus(200);
 
-        $response = $this->post(route('purchase', ['item' => $item->id]));
+        // 住所変更を送信
+        $response = $this->patch("/purchase/address/{$item->id}", $shippingAddress);
+        $response->assertRedirect("/purchase/{$item->id}");
 
-        $this->assertDatabaseHas('orders', [
+        // 商品購入画面を再度確認
+        $response = $this->get("/purchase/{$item->id}");
+        $response->assertStatus(200);
+        $response->assertSee($shippingAddress['address']);
+        $response->assertSee($shippingAddress['address_number']);
+        $response->assertSee($shippingAddress['building']);
+    }
+
+    /**
+     * @test 
+     * 購入した商品に送付先住所が紐づいて登録される
+     */
+     public function testShippingAddressIsAssociatedWithThePurchasedProduct()
+    {
+        $user = User::create([
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => bcrypt('password'),
+            'email_verified_at' => now(),
+        ]);
+        $this->actingAs($user);
+
+        $condition = Condition::create(['condition' => '新品']);
+        $category = Category::create(['category' => '時計']);
+        $item = Item::create([
+            'name' => '商品1',
+            'price' => 15000,
+            'image' => 'images/Armani+Mens+Clock.jpg',
+            'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+            'condition_id' => $condition->id,
+            'user_id' => $user->id,
+            'brand' => 'COACH',
+        ]);
+        $item->categories()->attach($category->id);
+
+        // ユーザーのプロフィール作成
+        $image = UploadedFile::fake()->create('sample.jpg', 100, 'image/jpeg');
+        $imagePath = $image->storeAs('profile', 'sample.jpg', 'public');
+        Profile::create([
+            'user_id' => $user->id,
+            'address_number' => '000-0000',
+            'address' => 'aaaaa',
+            'building' => 'bbbbb',
+            'image' => 'storage/' . $imagePath,
+        ]);
+
+        // 送付先住所をセッションに設定
+        $shippingAddress = [
+            'address_number' => '150-0001',
+            'address' => 'dddd',
+            'building' => '222',
+        ];
+        Session::put('shipping_address', $shippingAddress);
+
+        // StripeのCheckoutセッションをモック
+        $stripeSessionMock = Mockery::mock(StripeSession::class);
+        $stripeSessionMock->shouldReceive('create')->once()->andReturn((object) ['url' => 'http://stripe.com/success']);
+
+        // StripeのCheckoutセッションのモックを設定
+        $this->app->instance(StripeSession::class, $stripeSessionMock);
+
+        $purchaseData = [
+            'method' => 'card',  
+        ];
+        $response = $this->post("/purchase/{$item->id}", $purchaseData);
+        $response->assertRedirect();
+
+        $this->assertDatabaseHas('solds', [
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'shipping_address' => $addressData['address'],
-            'shipping_postcode' => $addressData['postcode'],
-            'shipping_phone' => $addressData['phone']
+            'method' => 'card',
+            'address_number' => $shippingAddress['address_number'],
+            'address' => $shippingAddress['address'],
+            'building' => $shippingAddress['building'],
         ]);
     }
 }

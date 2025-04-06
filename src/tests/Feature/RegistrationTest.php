@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 
@@ -13,7 +12,8 @@ class RegistrationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @test
+     * @test 
+     * 名前が入力されていない場合、バリデーションメッセージが表示される
      */
     public function testNameIsRequired()
     {
@@ -26,31 +26,10 @@ class RegistrationTest extends TestCase
 
         $response->assertSessionHasErrors('name');
     }
-
-    /**
-     * @test
-     */
-    public function testRegistrationEmailSent()
-    {
-        Mail::fake();
-
-        $response = $this->post('/register', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
-        ]);
-
-        // メール送信
-        Mail::assertSent(VerifyEmail::class, function ($mail) {
-            return $mail->hasTo('test@example.com');
-        });
-
-        $response->assertRedirect(route('verification.notice'));
-    }
     
     /**
      * @test
+     * メールアドレスが入力されていない場合、バリデーションメッセージが表示される
      */
     public function testEmailIsRequired()
     {
@@ -66,6 +45,7 @@ class RegistrationTest extends TestCase
 
     /**
      * @test
+     * パスワードが入力されていない場合、バリデーションメッセージが表示される
      */
     public function testPasswordIsRequired()
     {
@@ -81,6 +61,7 @@ class RegistrationTest extends TestCase
 
     /**
      * @test
+     * パスワードが7文字以下の場合、バリデーションメッセージが表示される
      */
     public function testPasswordMustBeAtLeast8Characters()
     {
@@ -96,6 +77,7 @@ class RegistrationTest extends TestCase
 
     /**
      * @test
+     * パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される
      */
     public function testPasswordAndConfirmationMustMatch()
     {
@@ -103,7 +85,7 @@ class RegistrationTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
-            'password_confirmation' => 'differentpassword',
+            'password_confirmation' => 'password098',
         ]);
 
         $response->assertSessionHasErrors('password');
@@ -111,20 +93,40 @@ class RegistrationTest extends TestCase
 
     /**
      * @test
+     * 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移される
      */
     public function testRegistrationSucceedsWhenAllFieldsAreValid()
     {
+        Mail::fake();
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-        
-        $response->assertRedirect('/login');
 
-        $this->assertDatabaseHas('users', [
-            'email' => 'test@example.com',
-        ]);
+        $response->assertRedirect('/email/verify');
+
+
+        $this->assertTrue(session()->has('register_data'), "セッションに登録データが保存されていません");
+
+        $user = \App\Models\User::where('email', 'test@example.com')->first();
+        $this->assertNull($user, "ユーザーがデータベースに保存されています");
+
+        $registerData = session()->get('register_data');
+
+        $verificationUrl = url("/email/verify/{$registerData['email']}/" . sha1($registerData['email']));
+        $response = $this->get($verificationUrl);
+
+        $user = \App\Models\User::where('email', 'test@example.com')->first();
+        $this->assertNotNull($user, "ユーザーがデータベースに保存されていません");
+
+        $this->assertNotNull($user->email_verified_at, "メール認証が完了していません");
+
+        // メール送信がされたことを確認
+        Mail::assertSent(VerifyEmail::class, function ($mail) use ($registerData) {
+            return $mail->hasTo($registerData['email']);
+        });
     }
 }

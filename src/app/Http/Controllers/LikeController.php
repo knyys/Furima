@@ -44,6 +44,10 @@ class LikeController extends Controller
         }
 
         $likesCount = Like::where('item_id', $itemId)->count();
+        // 商品のlikes_countを更新
+    $item->update(['likes_count' => $likesCount]);
+
+    $item->refresh();
 
         return response()->json([
             'liked' => $isLiked,

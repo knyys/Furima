@@ -47,7 +47,7 @@ class ItemsTableSeeder extends Seeder
             'user_id' => 3,
             'brand' => null
         ]);
-        $item1->categories()->attach([3]);
+        $item3->categories()->attach([3]);
 
         $item4 = Item::create([
             'name' => '革靴',
