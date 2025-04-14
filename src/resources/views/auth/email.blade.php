@@ -10,7 +10,7 @@
 
     <button type="submit" class="auth">認証はこちらから</button>
 
-    <form method="POST" class="auth__retry" action="{{ route('verification.send') }}">
+    <form method="" class="auth__retry" action="">
         @csrf
         <button type="submit">認証メールを再送する</button>
     </form>
