@@ -79,20 +79,6 @@ Route::get('mypage', [ProfileController::class, 'index'])->name('mypage');
     })->name('verification.verify');
 
 
-
-    /* メール認証再送信 */
-    Route::post('/email/resend', function (Request $request) {
-        // すでに認証済みのとき
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect('mypage/profile');
-        }
-
-        // 認証メールを再送信
-        $request->user()->sendEmailVerificationNotification();
-        return back();
-    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-
 //プロフィール編集画面（メール認証していないと×）
 Route::get('mypage/profile', [ProfileController::class, 'welcome'])
 ->middleware(['auth', 'verified']);
