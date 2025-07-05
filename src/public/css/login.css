@@ -108,7 +108,7 @@
 }
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 850px) {
     .alert {
         font-size: 12px;
     }
@@ -137,44 +137,3 @@
     }
 }
 
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) {
-    .alert {
-        font-size: 15px;
-    }
-
-    .login-form__content {
-        width: 45%;
-    }
-
-    .error {
-        font-size: 18px;
-    }
-    .error img {
-        width: 24px;
-    }
-
-    .login-form__heading {
-        font-size: 22px;
-    }
-
-    .form__label {
-        font-size: 20px;
-    }
-
-    .form__content {
-        font-size: 18px;
-    }
-
-    .form__btn button {
-        font-size: 20px;
-    }
-
-    .register-btn a {
-        font-size: 16px;
-    }
-
-    .form__error {
-        font-size: 16px;
-    }
-}

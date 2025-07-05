@@ -167,7 +167,7 @@
 }
 
 /* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width:850px) {
     .exhiit-form__heading {
         margin-top: 40px;
     }
@@ -193,50 +193,3 @@
     }
 }
 
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) {
-    .exhiit-form__heading {
-        font-size: 30px;
-        margin-top: 50px;
-    }
-
-    .form__content {
-        width: 40%;
-        left: 30%;
-    }
-
-    .icon {
-        height: 200px;
-    }
-
-    .item__brand input,
-    .item__name input,
-    .item__price input {
-        height: 40px;
-    }
-
-    .content__title {
-        font-size: 24px;
-    }
-
-    .category-label {
-        font-size: 18px;
-    }
-
-    .content__label {
-        font-size: 20px;
-    }
-
-    .item__condition select {
-        height: 40px;
-    }
-
-    .exhibit__btn {
-        font-size: 20px;
-        height: 40px;
-    }
-
-    .form__error {
-        font-size: 18px;
-    }
-}

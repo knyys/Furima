@@ -7,14 +7,13 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Profile;
 use App\Models\Condition;
-use App\Models\Sold;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Session;
 use Mockery;
-use Stripe\Stripe;
-use Stripe\Checkout\Session as StripeSession;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\UploadedFile;
+use App\Services\StripeService;
+
 
 class ShippingAddressTest extends TestCase
 {
@@ -22,7 +21,7 @@ class ShippingAddressTest extends TestCase
 
     public function tearDown(): void
     {
-        Mockery::close(); // モックをクリーンアップ
+        Mockery::close(); 
         parent::tearDown();
     }
 
@@ -91,7 +90,7 @@ class ShippingAddressTest extends TestCase
      * @test 
      * 購入した商品に送付先住所が紐づいて登録される
      */
-     public function testShippingAddressIsAssociatedWithThePurchasedProduct()
+    public function testShippingAddressIsAssociatedWithThePurchasedProduct()
     {
         $user = User::create([
             'name' => 'Test User',
@@ -114,7 +113,7 @@ class ShippingAddressTest extends TestCase
         ]);
         $item->categories()->attach($category->id);
 
-        // ユーザーのプロフィール作成
+        // ユーザープロフィール作成
         $image = UploadedFile::fake()->create('sample.jpg', 100, 'image/jpeg');
         $imagePath = $image->storeAs('profile', 'sample.jpg', 'public');
         Profile::create([
@@ -125,7 +124,7 @@ class ShippingAddressTest extends TestCase
             'image' => 'storage/' . $imagePath,
         ]);
 
-        // 送付先住所をセッションに設定
+        // セッションに送付先住所を設定
         $shippingAddress = [
             'address_number' => '150-0001',
             'address' => 'dddd',
@@ -133,19 +132,21 @@ class ShippingAddressTest extends TestCase
         ];
         Session::put('shipping_address', $shippingAddress);
 
-        // StripeのCheckoutセッションをモック
-        $stripeSessionMock = Mockery::mock(StripeSession::class);
-        $stripeSessionMock->shouldReceive('create')->once()->andReturn((object) ['url' => 'http://stripe.com/success']);
+        $this->instance(StripeService::class, Mockery::mock(StripeService::class, function ($mock) {
+            $mock->shouldReceive('createCheckoutSession')->andReturn((object)[
+                'url' => 'http://stripe.com/success',
+                'payment_method_types' => ['card'],
+            ]);
+        }));
 
-        // StripeのCheckoutセッションのモックを設定
-        $this->app->instance(StripeSession::class, $stripeSessionMock);
+        $response = $this->post("/purchase/{$item->id}", [
+            'method' => 'カード支払い',
+        ]);
 
-        $purchaseData = [
-            'method' => 'card',  
-        ];
-        $response = $this->post("/purchase/{$item->id}", $purchaseData);
+        // リダイレクト先のURLは特に検証せず、リダイレクトがあればOKとする
         $response->assertRedirect();
 
+        // DBに購入履歴と住所が正しく登録されているか検証
         $this->assertDatabaseHas('solds', [
             'user_id' => $user->id,
             'item_id' => $item->id,

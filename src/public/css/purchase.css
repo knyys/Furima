@@ -194,7 +194,7 @@
 }
 
 /* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 850px) {
     .alert-success {
         font-size: 12px;
         width: 20%;
@@ -244,92 +244,5 @@
     .purchase-form__confirmation {
         right: 10%;
         width: 33%;
-    }
-}
-
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) {
-    .alert-success {
-        font-size: 20px;
-        padding: 3px 20px;
-        width: 20%;
-    }
-
-    .alert-success img {
-        height: 20px;
-        width: 20px;
-    }
-
-    .purchase-form__content {
-        left: 17%;
-        width: 38%;
-    }
-
-    .item-img {
-        width: 220px;
-        height: 220px;
-    }
-
-    .item__name {
-        font-size: 36px;
-    }
-
-    .item__currency {
-        font-size: 26px;
-    }
-
-    .item__amount {
-        font-size: 30px;
-    }
-
-    .purchase-method {
-        font-size: 28px;
-    }
-
-    .method__select select {
-        width: 50%;
-        height: 30px;
-        font-size: 18px;
-    }
-
-    .danger {
-        font-size: 18px;
-    }
-
-    .shipping-address__header label {
-        font-size: 28px;
-    }
-
-    .address__update-button {
-        font-size: 18px;
-    }
-
-    .postal-mark,
-    .number,
-    .address__details {
-        font-size: 22px;
-    }
-
-    .purchase-form__confirmation {
-        right: 17%;
-        width: 24%;
-    }
-
-    .confirmation__price,
-    .confirmation__purchase {
-        padding: 50px 0;
-    }
-
-    .confirmation__label {
-        font-size: 20px;
-    }
-
-    .confirmation__content {
-        font-size: 20px;
-    }
-
-    .purchase__btn {
-        height: 50px;
-        font-size: 22px;
     }
 }

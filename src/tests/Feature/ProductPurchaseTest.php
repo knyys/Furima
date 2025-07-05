@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use Tests\TestCase;
@@ -20,8 +19,8 @@ class ProductPurchaseTest extends TestCase
 
     public function tearDown(): void
     {
-        Mockery::close();
         parent::tearDown();
+        Mockery::close();
     }
 
     /**
@@ -69,13 +68,6 @@ class ProductPurchaseTest extends TestCase
             'image' => 'storage/' . $imagePath,
         ]);
 
-        // Stripe
-        $mock = Mockery::mock('overload:' . \Stripe\Checkout\Session::class);
-        $mock->shouldReceive('create')->andReturn((object)[
-            'url' => route('mypage', ['page' => 'buy']),
-            'payment_method_types' => ['card'],
-        ]);
-
         $response = $this->post(route('purchase.complete', $item->id), [
             'method' => 'カード支払い',
         ]);
@@ -91,8 +83,10 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($user2->id, $sold->user_id);
         $this->assertEquals($item->id, $sold->item_id);
 
-        // リダイレクト先の確認
-        $response->assertRedirect(route('mypage', ['page' => 'buy']));
+        $response->assertRedirect(); // リダイレクトしてるかどうかだけ確認
+
+        // Stripe URL で始まっているか確認
+        $this->assertStringStartsWith('https://checkout.stripe.com/', $response->headers->get('Location'));
     }
 
     /**

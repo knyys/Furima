@@ -68,7 +68,7 @@
 }
 
 /* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width:850px) {
     .address-form {
         width: 60%;
         left: 20%;
@@ -90,34 +90,5 @@
     .danger {
         color: red;
         font-size: 14px;
-    }
-}
-/* PC (1400-1540px) 用のスタイル */
-@media (min-width: 1400px) {
-    .address-form {
-        width: 50%;
-        left: 25%;
-    }
-
-    .address-form__header {
-        font-size: 28px;
-    }
-
-    .address-form__details label {
-        font-size: 20px;
-    }
-
-    .address-form__details input {
-        height: 45px;
-    }
-
-    .btn--update {
-        font-size: 20px;
-        height: 45px;
-    }
-
-    .danger {
-        color: red;
-        font-size: 16px;
     }
 }

@@ -8,11 +8,13 @@
 <div class="container">
     <p>登録していただいたメールアドレスに認証メールを送信しました。<br>メール認証を完了してください。</p>
 
-    <button type="submit" class="auth">認証はこちらから</button>
+    <button type="submit" class="auth">
+        <a href="https://mailtrap.io/home">認証はこちらから</a>
+    </button>
 
-    <form method="" class="auth__retry" action="">
+    <form class="auth__retry" method="POST" action="{{ route('verification.send') }}">
         @csrf
-        <button type="submit">認証メールを再送する</button>
+        <button type="submit" class="auth__retry button">認証メールを再送する</button>
     </form>
 </div>
 @endsection

@@ -1,71 +1,54 @@
 .container {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    width: 100%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  margin-top: 100px;
 }
 
 p {
-    position: absolute;
-    top: 60px;
-    font-size: 22px;
+  font-size: 22px;
 }
 
+.auth a{
+  color: black;
+  text-decoration: none;
+}
 .auth {
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: lightgrey;
-    margin: 10px 10px;
-    padding: 10px 15px;
-    position: absolute;
-    top: 180px;
-    font-size: 24px;
-    font-weight: bold;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: lightgrey;
+  margin: 30px 10px 10px 10px; 
+  padding: 10px 15px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .auth__retry {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    position: absolute;
-    top: 300px;
+  width: 100%;
+  margin-top: 30px;
 }
 
 .auth__retry button {
-    border: none;
-    font-size: 20px;
-    color: blue;
-    background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: blue;
+  background-color: transparent;
+  width: 100%;
 }
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) {
-    p {
-        font-size: 20px;
-    }
+@media (min-width: 768px) and (max-width:850px) {
+  p {
+    font-size: 20px;
+  }
 
-    .auth {
-        font-size: 22px;
-    }
+  .auth {
+    font-size: 22px;
+  }
 
-    .auth__retry button {
-        font-size: 18px;
-    }
-}
-
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) {
-    p {
-        font-size: 22px;
-    }
-
-    .auth {
-        font-size: 24px;
-    }
-
-    .auth__retry button {
-        font-size: 20px;
-    }
+  .auth__retry button {
+    font-size: 18px;
+  }
 }

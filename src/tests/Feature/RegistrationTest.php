@@ -4,8 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerifyEmail;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
@@ -97,36 +98,34 @@ class RegistrationTest extends TestCase
      */
     public function testRegistrationSucceedsWhenAllFieldsAreValid()
     {
-        Mail::fake();
+        Notification::fake();
 
+        // ユーザー登録処理を送信
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
+    
+        // 登録後、メール認証画面にリダイレクトされる
         $response->assertRedirect('/email/verify');
-
-
-        $this->assertTrue(session()->has('register_data'), "セッションに登録データが保存されていません");
-
+    
+        // DBにユーザーが作成されている
+        $this->assertDatabaseHas('users', [
+            'email' => 'test@example.com',
+            'name' => 'Test User',
+        ]);
+    
+        // 作成されたユーザーを取得
         $user = \App\Models\User::where('email', 'test@example.com')->first();
-        $this->assertNull($user, "ユーザーがデータベースに保存されています");
-
-        $registerData = session()->get('register_data');
-
-        $verificationUrl = url("/email/verify/{$registerData['email']}/" . sha1($registerData['email']));
-        $response = $this->get($verificationUrl);
-
-        $user = \App\Models\User::where('email', 'test@example.com')->first();
-        $this->assertNotNull($user, "ユーザーがデータベースに保存されていません");
-
-        $this->assertNotNull($user->email_verified_at, "メール認証が完了していません");
-
+        $this->assertNotNull($user);
+        $this->assertNull($user->email_verified_at);
+    
         // メール送信がされたことを確認
-        Mail::assertSent(VerifyEmail::class, function ($mail) use ($registerData) {
-            return $mail->hasTo($registerData['email']);
-        });
+        Notification::assertSentTo(
+            User::where('email', 'test@example.com')->first(),
+            VerifyEmail::class
+        );
     }
 }

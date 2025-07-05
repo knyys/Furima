@@ -324,7 +324,7 @@
 }
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width:850px) {
     .alert-success,
     .alert-danger {
         font-size: 12px;
@@ -368,130 +368,5 @@
 
     .comment__danger {
         font-size: 16px;
-    }
-}
-
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) {
-    .alert-success,
-    .alert-danger {
-        font-size: 16px;
-    }
-
-    .item__img img {
-        width: 350px;
-        height: 350px;
-    }
-
-    .item--sold {
-        font-size: 30px;
-        text-align: center;
-        padding: 30px 0;
-        top: 130px;
-        width: 350px;
-        height: 90px;
-    }
-
-    .item__name {
-        font-size: 40px;
-    }
-
-    .item__brand {
-        font-size: 18px;
-    }
-
-    .item__price {
-        font-size: 30px;
-    }
-
-    .item__action {
-        width: 12%;
-    }
-
-    .comment-icon,
-    .favorite-icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    .favorite__count,
-    .comments__count {
-        font-size: 16px;
-    }
-
-    .purchase__btn--disabled {
-        width: 40%;
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .purchase__btn--submit {
-        width: 40%;
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .item__description,
-    .item__info {
-        width: 40%;
-    }
-
-    .description__label,
-    .info__label {
-        font-size: 24px;
-    }
-
-    .item__category-label,
-    .item__condition-label {
-        font-size: 18px;
-    }
-
-    .item__category-type {
-        font-size: 14px;
-        padding: 4px 10px;
-    }
-
-    .item__condition-type {
-        font-size: 14px;
-        padding: 4px 10px;
-    }
-
-    .item__comment {
-        width: 40%;
-    }
-
-    .comment__count {
-        font-size: 24px;
-    }
-
-    .user__img img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .user__name {
-        font-size: 20px;
-    }
-
-    .comment__detail {
-        font-size: 18px;
-    }
-
-    .comment-form__label {
-        font-size: 18px;
-    }
-
-    .comment__box {
-        font-size: 18px;
-    }
-
-    .comment-form__btn--submit {
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .comment-form__btn--disabled {
-        height: 50px;
-        font-size: 20px;
     }
 }
