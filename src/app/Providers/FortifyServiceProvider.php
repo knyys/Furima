@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -46,11 +47,14 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-
-        //二要素認証⇒1分間に5回までしか試行できない
-        /*RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        $this->app->singleton(RegisterResponse::class, function () {
+            return new class implements RegisterResponse {
+                public function toResponse($request)
+                {
+                    return redirect()->route('verification.notice'); 
+                }
+            };
         });
-        */
+
     }
 }

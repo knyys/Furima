@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/edit_profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit_profile.css') }}">
 @endsection
 
 @section('content')
@@ -10,25 +10,25 @@
         <p class="alert--success">{{ session('success') }}</p>
     @endif
 </div>
+
 <div class="profile-form">
     <div class="profile-form__content">
         <h2 class="profile-form__heading">プロフィール設定</h2>
         <div class="profile-form__img">
             <img class="icon" src="{{ session('image_url') ? session('image_url') : asset($profile->image ?? '') }}" alt="Profile Image">
         <form method="POST" action="{{ route('profile.upload') }}" enctype="multipart/form-data">
-            @csrf
-            <output id="image" class="image_output"></output>
-            <!--画像選択ラベル-->
-            <label for="image-input" class="image-label">画像を選択する</label>
-            <input type="file" id="image-input" name="image" accept=".jpg, .png">
-            <span id="image-name" class="image-name"></span>
+        @csrf
+        <output id="image" class="image_output"></output>
+        <!--画像選択ラベル-->
+        <label for="image-input" class="image-label">画像を選択する</label>
+        <input type="file" id="image-input" name="image" accept=".jpg, .png">
+        <span id="image-name" class="image-name"></span>
         </div>
         <div class="img__error">
             @error('image')
-                {{ $message }}
+            {{ $message }}
             @enderror
         </div>
-        
         <div class="form__group">
             <div class="form__label">
                 <label>ユーザー名</label>
@@ -42,7 +42,6 @@
                 @enderror
             </div>
         </div>
-
         <div class="form__group">
             <div class="form__label">
                 <label>郵便番号</label>
@@ -56,7 +55,6 @@
                 @enderror
             </div>
         </div>
-
         <div class="form__group">
             <div class="form__label">
                 <label>住所</label>
@@ -70,7 +68,6 @@
                 @enderror
             </div>
         </div>
-
         <div class="form__group">
             <div class="form__label">
                 <label>建物名</label>
@@ -99,23 +96,21 @@
         if (file) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                document.querySelector('.icon').src = e.target.result; 
+            document.querySelector('.icon').src = e.target.result; 
             }
-            reader.readAsDataURL(file);
-
-            // 画像名の表示
-            document.getElementById('image-name').textContent = file.name;
+        reader.readAsDataURL(file);
+        // 画像名の表示
+        document.getElementById('image-name').textContent = file.name;
         } else {
             document.getElementById('image-name').textContent = '';
         }
         // 画像選択ラベル
-            const label = document.querySelector('.image-label');
+        const label = document.querySelector('.image-label');
         if (this.files.length > 0) {
             label.textContent = '画像を変更する';
         } else {
-            label.textContent = '画像を選択する'; 
-
-        }     
+            label.textContent = '画像を選択する';    
+        }
     });
 </script>
 @endsection

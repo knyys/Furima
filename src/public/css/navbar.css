@@ -27,7 +27,7 @@ a img {
 }
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width:850px) {
     .header {
         height: 50px;
     }
@@ -37,13 +37,4 @@ a img {
     }
 }
 
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) {
-    .header {
-        height: 60px;
-    }
 
-    .header__inner a {
-        width: 75%;
-    }
-}

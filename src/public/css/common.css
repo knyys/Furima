@@ -32,7 +32,7 @@ body {
 }
 
 .header__search-form {
-    width: 60%;
+    width: 55%;
 }
 
 .search-form {
@@ -43,7 +43,7 @@ body {
 }
 
 .header__search-form input {
-    width: 75%;
+    width: 80%;
     height: 40px;
     font-size: 18px;
     padding: 0 10px;
@@ -53,8 +53,8 @@ body {
 .header__nav {
     display: grid;
     grid-template-columns: repeat(3, minmax(50px, 1fr));
-    width: 40%;
-    gap: 20px;
+    width: 45%;
+    gap: 10px;
     padding: 0 5px;
 }
 
@@ -96,7 +96,7 @@ body {
 }
 
 /* タブレット用 (768-850px) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 850px) {
     .header {
         height: 50px;
     }
@@ -109,94 +109,56 @@ body {
         width: 73%;
     }
 
+    .header__search-form {
+        width: 50%;
+    }
+
+    .search-form {
+        width: 90%;
+        padding: 0 5px;
+    }
+    
     .header__search-form input {
-        width: 80%;
+        width: 90%;
         height: 35px;
         font-size: 16px;
     }
 
     .header__nav {
-        width: 50%;
+        width: 60%;
         gap: 10px;
         margin: 0 0;
     }
 
     .logout-btn button {
-        font-size: 16px;
+        font-size: 14px;
         height: 30px;
     }
 
+    .nav__btn{
+        text-align: center;
+        align-items: center;
+    }
+
     .login-btn {
-        font-size: 16px;
+        font-size: 14px;
         height: 30px;
+        
     }
     .nav__btn--mypage {
         height: 30px;
         display: flex;
+        text-align: center;
+        align-items: center;
     }
     .mypage-btn {
-        font-size: 16px;
+        font-size: 14px;
         padding: 3px 0;
     }
 
     .sell-btn {
         padding: 3px 20px;
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
-/* PC用 (1400-1540px) */
-@media (min-width: 1400px) {
-    .header {
-        height: 60px;
-    }
-
-    .header__logo {
-        width: 30%;
-    }
-
-    .header__logo a {
-        width: 70%;
-    }
-
-    .header__inner {
-        width: 70%;
-    }
-
-    .header__search-form {
-        width: 70%;
-    }
-
-    .search-form {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding-right: 0;
-    }
-    .header__search-form input {
-        width: 75%;
-        height: 40px;
-        font-size: 24px;
-    }
-
-    .header__nav {
-        gap: 20px;
-    }
-
-    .login-btn {
-        font-size: 24px;
-    }
-
-    .logout-btn button {
-        font-size: 24px;
-    }
-
-    .mypage-btn {
-        font-size: 24px;
-    }
-
-    .nav__btn--sell a {
-        padding: 5px 40px;
-        font-size: 24px;
-    }
-}

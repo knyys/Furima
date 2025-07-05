@@ -10,11 +10,18 @@ use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
-use Stripe\Stripe;
+use App\Services\StripeService;
 
 
 class PurchaseController extends Controller
 {
+    protected $stripeService;
+
+    public function __construct(StripeService $stripeService)
+    {
+        $this->stripeService = $stripeService;
+    }
+
     // 購入画面表示
     public function index(Item $item)
     {
@@ -63,14 +70,14 @@ class PurchaseController extends Controller
                 $stripePaymentMethod = 'card';
         }
 
-        // StripeのAPIキー設定
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        
 
         // アイテム価格
         $amount = $item->price * 1; 
 
         // Checkout セッションを作成
-        $session = \Stripe\Checkout\Session::create([
+        // Stripe CheckoutセッションをService経由で作成
+        $session = $this->stripeService->createCheckoutSession([
             'payment_method_types' => [$stripePaymentMethod],
             'line_items' => [[
                 'price_data' => [
@@ -83,7 +90,7 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' =>route('mypage', ['page' => 'buy']),
+            'success_url' => route('mypage', ['page' => 'buy']),
             'metadata' => [
                 'item_id' => $item->id,
                 'user_id' => Auth::id(),
