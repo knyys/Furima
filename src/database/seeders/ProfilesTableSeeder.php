@@ -17,36 +17,55 @@ class ProfilesTableSeeder extends Seeder
      */
     public function run()
     {
-        // ユーザー「User1」を取得
-        $user = User::where('name', 'User1')->first();
-
-        if (!$user) {
-            $this->command->error('User1が見つかりませんでした');
-            return;
-        }
-
-        // 保存先
+        // image保存先
         $relativePath = 'profile_images/images.png';
         $sourcePath = storage_path('app/public/profile/images.png');
 
-        // まだストレージにないならコピー
         if (!Storage::disk('public')->exists($relativePath)) {
             Storage::disk('public')->put($relativePath, file_get_contents($sourcePath));
         }
-
-        // ⭐ URL形式で保存する（←ここが変更点！）
         $imageUrl = asset('storage/' . $relativePath);
 
+        // プロフィールデータ
+        $profiles = [
+            [
+                'name' => 'User1',
+                'address_number' => '111-1111',
+                'address' => '東京都新宿区新宿1-1-1',
+                'building' => '新宿タワー101',
+            ],
+            [
+                'name' => 'User2',
+                'address_number' => '222-2222',
+                'address' => '東京都新宿区新宿2-2-2',
+                'building' => '新宿タワー202',
+            ],
+            [
+                'name' => 'User3',
+                'address_number' => '333-3333',
+                'address' => '東京都新宿区新宿3-3-3',
+                'building' => '新宿タワー303',
+            ],
+        ];
 
-        DB::table('profiles')->insert([
-            'user_id' => $user->id,
-            'address_number' => '111-1111',
-            'address' => '東京都渋谷区',
-            'building' => '渋谷ビル101',
-            'image' => $imageUrl,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-    
+        foreach ($profiles as $data) {
+            $user = User::where('name', $data['name'])->first();
+
+            if (!$user) {
+                $this->command->warn("{$data['name']} が見つかりませんでした。");
+                continue;
+            }
+
+            DB::table('profiles')->insert([
+                'user_id' => $user->id,
+                'address_number' => $data['address_number'],
+                'address' => $data['address'],
+                'building' => $data['building'],
+                'image' => $imageUrl,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+        }
     }
 }
