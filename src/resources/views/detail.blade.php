@@ -74,7 +74,8 @@
             </div>
             <div class="item-purchase__btn">
                 @if ($item->is_sold || $item->is_user_item)
-                    <button class="purchase__btn--disabled" disabled> <!--Soldの場合はボタン非活性-->
+                    <!--Soldまたは自分で出品している場合はボタン非活性-->
+                    <button class="purchase__btn--disabled" disabled> 
                          購入手続きへ
                     </button>
                 @else
@@ -190,7 +191,7 @@ function favorite(event, itemId) {
             return;
         }
 
-        // エラーがない場合はメッセージを非表示にする
+        // エラーがない場合はメッセージを非表示
         errorElement.style.display = 'none';
 
         // いいね数を更新
@@ -203,7 +204,5 @@ function favorite(event, itemId) {
         console.error('Error:', error);
     });
 }
-
-
 </script>
 @endsection

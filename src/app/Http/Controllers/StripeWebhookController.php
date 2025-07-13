@@ -40,9 +40,9 @@ class StripeWebhookController extends Controller
                 $sold->user_id = $user->id; 
                 $sold->item_id = $session->metadata->item_id;
                 $sold->sold = 1;
-                $sold->method = $session->payment_method_types[0]; // 支払い方法を記録
+                $sold->method = $session->payment_method_types[0];
                 $sold->save();
-                // セッションに購入完了フラグをセット
+
                 session(['purchase_completed' => true]);
             }
         }

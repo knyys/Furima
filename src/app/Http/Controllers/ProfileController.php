@@ -64,15 +64,15 @@ class ProfileController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-
         return redirect('/login')->with('error', 'ログインしてください');
-    }
+        }
+
         $user = Auth::user();
         $profile = $user->profile; 
         // 出品した商品
         $userItems = $user->items; //自分が出品したものすべて
         $userItems->each(function ($item) {
-        $item->is_sold = $item->solds()->exists(); //soldになったもの
+            $item->is_sold = $item->solds()->exists(); //soldになったもの
         });
 
         // 購入した商品
