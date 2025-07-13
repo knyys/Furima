@@ -14,7 +14,7 @@ class AddressController extends Controller
     public function index($item)
     {
         $item = Item::findOrFail($item);
-       $profile = Profile::where('user_id', Auth::id())->first();
+        $profile = Profile::where('user_id', Auth::id())->first();
 
         return view('address', compact('item','profile'));
     }
@@ -22,16 +22,16 @@ class AddressController extends Controller
 
     //配送先変更
     public function updateAddress(AddressRequest $request, Item $item) 
-{
-    $shippingAddress = $request->only(['address_number', 'address', 'building']);
+    {
+        $shippingAddress = $request->only(['address_number', 'address', 'building']);
 
-    Session::put('shipping_address', $shippingAddress);
+        Session::put('shipping_address', $shippingAddress);
 
-    return redirect()->route('purchase', ['item' => $item->id])
-                     ->with('success', '住所が更新されました')
-                     ->with('address_number', $shippingAddress['address_number'])
-                     ->with('address', $shippingAddress['address'])
-                     ->with('building', $shippingAddress['building']);
-}
+        return redirect()->route('purchase', ['item' => $item->id])
+                        ->with('success', '住所が更新されました')
+                        ->with('address_number', $shippingAddress['address_number'])
+                        ->with('address', $shippingAddress['address'])
+                        ->with('building', $shippingAddress['building']);
+    }
 
 }

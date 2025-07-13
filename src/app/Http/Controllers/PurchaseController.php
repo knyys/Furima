@@ -33,12 +33,12 @@ class PurchaseController extends Controller
         $profile = $user->profile;
         
         $shippingAddress = Session::get('shipping_address', [
-        'address_number' => $profile->address_number ?? '',
-        'address' => $profile->address ?? '',
-        'building' => $profile->building ?? '',
-    ]);
+            'address_number' => $profile->address_number ?? '',
+            'address' => $profile->address ?? '',
+            'building' => $profile->building ?? '',
+        ]);
 
-    return view('purchase', compact('user', 'profile', 'item', 'shippingAddress'));
+        return view('purchase', compact('user', 'profile', 'item', 'shippingAddress'));
     }
 
 
@@ -46,8 +46,8 @@ class PurchaseController extends Controller
     public function purchase(PurchaseRequest $request, $itemId)
     {
         if (!Auth::check()) {
-        return redirect()->route('login');
-    }
+            return redirect()->route('login');
+        }
         $item = Item::findOrFail($itemId);
         $profile = Profile::where('user_id', Auth::id())->first();
 
@@ -69,8 +69,6 @@ class PurchaseController extends Controller
             default:
                 $stripePaymentMethod = 'card';
         }
-
-        
 
         // アイテム価格
         $amount = $item->price * 1; 

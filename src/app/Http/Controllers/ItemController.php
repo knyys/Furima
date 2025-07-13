@@ -17,7 +17,7 @@ class ItemController extends Controller
         $searchKeyword = $request->input('item_name');
 
         if ($page === 'mylist' && !auth()->check()) {
-        return redirect()->route('login');  // ログインページにリダイレクト
+            return redirect()->route('login');  // ログインページにリダイレクト
         }
 
         // すべての商品を検索
@@ -53,22 +53,21 @@ class ItemController extends Controller
     }
 
 
-
     //コメント追加後画面
     public function addComment(CommentRequest $commentrequest, $id)
     {
         
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'ログインしてください');
-    }
+        }
 
         $user = Auth::user();
         $item = Item::with(['condition', 'categories', 'comments.user','likes','solds'])->findOrFail($id);
 
         Comment::create([
-        'user_id' => Auth::id(),
-        'item_id' => $item->id,
-        'comment' => $commentrequest->comment,
+            'user_id' => Auth::id(),
+            'item_id' => $item->id,
+            'comment' => $commentrequest->comment,
         ]);
 
         $item->is_sold = $item->solds()->exists();
@@ -83,7 +82,7 @@ class ItemController extends Controller
         $item = Item::with(['condition', 'categories', 'comments.user','likes', 'solds'])->findOrFail($id);
 
         $item->is_sold = $item->solds()->exists();
-        $item->is_user_item = $item->user_id === auth()->id();
+        $item->is_user_item = $item->user_id === auth()->id(); //自分で出品したもの
 
         return view('detail', compact('item'));
 

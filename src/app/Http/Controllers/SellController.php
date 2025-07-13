@@ -14,8 +14,8 @@ class SellController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-        return redirect('/login')->with('error', 'ログインしてください');
-    }
+            return redirect('/login')->with('error', 'ログインしてください');
+        }
         $user = Auth::user();
         return view('exhibit');
     }

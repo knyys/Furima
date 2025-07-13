@@ -22,8 +22,9 @@ class Item extends Model
     {
         if ($keyword) {
         return $query->where('name', 'like', '%' . $keyword . '%');
-    }
-    return $query;
+        }
+        
+        return $query;
     }
 
 
