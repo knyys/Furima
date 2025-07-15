@@ -134,6 +134,23 @@ php artisan storage:link
     アクセスした際に、Permission deniedというエラーが発生した場合は  
   `sudo chmod -R 777 src/*`*
 
+## テストアカウント
+```vim
+name: User1
+email: user1@example.com
+password: password1111  
+```  
+```vim
+name: User2
+email: user2@example.com
+password: password2222  
+```  
+```vim
+name: User3
+email: user3@example.com
+password: password3333  
+```
+
 
 ## 使用技術(実行環境)
 - PHP8.2.28
