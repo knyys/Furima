@@ -87,6 +87,10 @@ Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
 //チャット画面
 Route::get('/chat/{item}', [ChatController::class, 'chatView'])->name('chatView');
 Route::post('/chat/{item}', [ChatController::class, 'sendMessage'])->name('sendMessage');
+// メッセージ削除
+Route::delete('/chat/delete', [ChatController::class, 'deleteMessage'])->name('deleteMessage');
+// メッセージ編集
+Route::patch('/chat/update', [ChatController::class, 'updateMessage'])->name('updateMessage');
 
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('webhook');

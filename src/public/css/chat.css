@@ -51,7 +51,8 @@
     border-bottom: 1px solid black;
 }
 
-.deal-closed{
+.modal-button{
+    text-decoration: none;
     color: white;
     background-color: #ff7860;
     padding: 5px 20px;
@@ -133,7 +134,7 @@
     align-self: flex-start;
     border-radius: 10px;
     display: flex;
-    max-width: 45%;
+    width: 45%;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 30px;
@@ -143,7 +144,7 @@
     align-self: flex-end; 
     border-radius: 10px;
     display: flex;
-    max-width: 45%;
+    width: 45%;
     flex-direction: column;
     align-items: flex-end;
     margin-top: 30px;
@@ -175,10 +176,50 @@
     padding: 10px;
     border-radius: 5px;
     word-wrap: break-word;
-    max-width: 100%;
+    max-width: 100%;  
     height: auto;
+    box-sizing: border-box;
 }
 
+/** 編集フォーム **/
+.edit-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.edit-message-input{
+    max-width: 100%; 
+    width: 100% ; 
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 24px;
+    margin-bottom: 10px;
+    height: auto;
+    box-sizing: border-box;
+    line-height: auto;
+}
+
+.edit-button{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.edit-form button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 18px;
+}
+/** ** **/
+
+.chat-image{
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
 .message-btn {
     display: flex;
     justify-content: flex-end;
@@ -189,7 +230,7 @@
 .btn__edit{
     border: none;
     color: gray;
-    text-decoration: none;
+    background-color: transparent;
     cursor: pointer;
     font-size: 18px;
 }
@@ -226,9 +267,9 @@
     font-size: 24px;
     width: 100%;
 }
-.alert-danger ul{
-    list-style: none;
-    padding: 0;
+
+.image-name{
+    font-size: 24px;
 }
 
 .form-row {
@@ -270,3 +311,118 @@ input[type="file"] {
     height: 70px;
     border: none;
 }
+
+
+/** モーダルウィンドウ **/
+.modal-wrapper {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 40px 10px;
+  text-align: center;
+ 
+  width: 100%;
+}
+.modal-form{
+    width: 100%;
+    height: 100%;
+     display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-wrapper:not(:target) {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+}
+
+.modal-wrapper:target {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .4s, visibility .4s;
+}
+
+.modal-wrapper::after {
+  display: none;
+}
+
+.modal-wrapper .modal-window {
+  box-sizing: border-box;
+  display: inline-block;
+  z-index: 20;
+  position: relative;
+  width: 40%;
+  max-width: 100%;
+  height: 40%;
+  padding: auto 0;
+  border-radius: 10px;
+  border: 1px solid black;
+  background: rgb(253, 253, 210);
+  vertical-align: middle
+}
+
+.modal-wrapper .modal-window .modal-content {
+  max-height: 100%;
+  overflow-y: auto;
+  text-align: left
+}
+
+.modal-header{
+    border-bottom: 1px solid black;
+}
+
+.modal-header p{
+    font-size: 50px;
+    padding: 10px 20px 20px 20px;
+    margin: 0;
+    text-align: left;
+}
+
+.modal-content{
+    border-bottom: 1px solid black;
+    height: 250px;
+}
+
+.modal-content p {
+    margin: 10px 0 0 0;
+    padding: 0 20px;
+    font-size: 30px;
+    color: rgb(173, 171, 171);
+}
+
+.star-rating {
+    font-size: 120px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.star-rating .selected{
+    color: #FFD700;
+}
+
+.star {
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.modal-btn{
+    text-align: center;
+    margin: 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-submit{
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #ff7860;
+    cursor: pointer;
+    font-size: 24px;
+}
+
