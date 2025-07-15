@@ -18,42 +18,41 @@ class ChatController extends Controller
      * @return \Illuminate\View\View
      */
 
-    // 購入者用チャット画面
+    // チャット画面
     public function chatView($id)
     {
         $item = Item::with(['solds', 'user.profile'])->findOrFail($id);
-    $sold = $item->solds->first();
-    $items = Item::with('solds')
-    ->where('user_id', auth()->id())
-    ->whereHas('solds') // 購入された（売れた）商品だけ
-    ->get();
-
-    // ログインチェック＆出品者または購入者であることの確認
-    if (!auth()->check() || (auth()->id() !== $item->user_id && auth()->id() !== $sold->user_id)) {
-        abort(403, 'このページにはアクセスできません');
-    }
-
-    // 相手ユーザーID（自分が出品者なら購入者、購入者なら出品者）
-    $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
-
-    // チャット一覧（自分が送信 or 相手が送信）
-    $chats = Chat::with('user.profile')
-        ->where('item_id', $item->id)
-        ->where(function ($query) use ($opponentUserId) {
-            $query->where('user_id', auth()->id())
-                  ->orWhere('user_id', $opponentUserId);
-        })
-        ->orderBy('created_at', 'asc')
+        $sold = $item->solds->first();
+        $items = Item::with('solds')
+        ->where('user_id', auth()->id())
+        ->whereHas('solds')
         ->get();
 
-    return view('chat', [
-        'item' => $item,
-        'sold' => $sold,
-        'chats' => $chats,
-        'items' => $items,
-    ]);
+        // 出品者か購入者か確認
+        if (!auth()->check() || (auth()->id() !== $item->user_id && auth()->id() !== $sold->user_id)) {
+            abort(403, 'このページにはアクセスできません');
+        }
+
+        $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
+
+        $chats = Chat::with('user.profile')
+            ->where('item_id', $item->id)
+            ->where(function ($query) use ($opponentUserId) {
+                $query->where('user_id', auth()->id())
+                    ->orWhere('user_id', $opponentUserId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('chat', [
+            'item' => $item,
+            'sold' => $sold,
+            'chats' => $chats,
+            'items' => $items,
+        ]);
     }
 
+    // チャット送信
     public function sendMessage(SendMessageRequest $request)
     {
         $request->validated();
@@ -73,19 +72,40 @@ class ChatController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('chatView', ['item' => $request->input('item_id')])
-            ;
+        return redirect()->route('chatView', ['item' => $request->input('item_id')]);
     }
 
-
-
-
-
-    public function completeDeal(Request $request)
+    // メッセージ削除
+    public function deleteMessage(Request $request)
     {
-        // 取引完了の処理をここに実装
-        // 例: データベースの更新、通知の送信など
+        $chat = Chat::findOrFail($request->input('chat_id'));
 
-        return redirect()->back()->with('status', '取引が完了しました。');
+        $chat->delete();
+
+        return redirect()->route('chatView', ['item' => $request->input('item_id')]);
     }
+
+    // メッセージ編集
+    public function updateMessage(SendMessageRequest $request)
+    {
+        $request->validated();
+
+        $chat = Chat::findOrFail($request->input('chat_id'));
+
+        $chat->message = $request->input('message');
+        $chat->save();
+
+        return redirect()->route('chatView', ['item' => $request->input('item_id')]);
+    }
+
+    // 取引完了
+    public function completeTransaction(Request $request, $itemId)
+    {
+        $item = Item::findOrFail($itemId);
+        $sold = Sold::where('item_id', $itemId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+        $sold->status = 'completed';
+        $sold->save(); 
+
 }

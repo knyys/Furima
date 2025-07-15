@@ -25,7 +25,7 @@ class SendMessageRequest extends FormRequest
     {
         return [
             'message' => 'required|max:400',
-            'image' => 'max:1024|mimes:jpeg,png',
+            'image' => 'nullable|max:1024|mimes:jpeg,png',
         ];
     }
 
