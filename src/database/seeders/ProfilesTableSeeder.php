@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 class ProfilesTableSeeder extends Seeder
@@ -18,7 +17,7 @@ class ProfilesTableSeeder extends Seeder
     public function run()
     {
         // image保存先
-        $relativePath = 'profile_images/images.png';
+        $relativePath = 'profile/images.png';
         $sourcePath = storage_path('app/public/profile/images.png');
 
         if (!Storage::disk('public')->exists($relativePath)) {

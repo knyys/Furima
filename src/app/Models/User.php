@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Profile;
+use App\Models\Item;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Sold;
+use App\Models\Chat;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -68,5 +73,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function solds()
     {
         return $this->hasMany(Sold::class);
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'user_id');
+    }
+
+    public function receivedChats()
+    {
+        return $this->hasMany(Chat::class, 'to_user_id');
     }
 }

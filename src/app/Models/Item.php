@@ -67,5 +67,10 @@ class Item extends Model
         return $this->hasMany(Sold::class);
     }
 
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
 }
 

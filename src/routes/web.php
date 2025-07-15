@@ -9,6 +9,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -83,6 +84,9 @@ Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddre
 //お気に入り
 Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
 
+//チャット画面
+Route::get('/chat/{item}', [ChatController::class, 'chatView'])->name('chatView');
+Route::post('/chat/{item}', [ChatController::class, 'sendMessage'])->name('sendMessage');
 
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('webhook');
