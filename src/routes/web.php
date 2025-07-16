@@ -84,6 +84,9 @@ Route::patch('/purchase/address/{item}', [AddressController::class, 'updateAddre
 //お気に入り
 Route::post('/items/{itemId}/like', [LikeController::class, 'favorite']);
 
+// 評価
+Route::post('/chat/rate', [ChatController::class, 'rating'])->name('chat.rate');
+
 //チャット画面
 Route::get('/chat/{item}', [ChatController::class, 'chatView'])->name('chatView');
 Route::post('/chat/{item}', [ChatController::class, 'sendMessage'])->name('sendMessage');
@@ -91,6 +94,7 @@ Route::post('/chat/{item}', [ChatController::class, 'sendMessage'])->name('sendM
 Route::delete('/chat/delete', [ChatController::class, 'deleteMessage'])->name('deleteMessage');
 // メッセージ編集
 Route::patch('/chat/update', [ChatController::class, 'updateMessage'])->name('updateMessage');
+   
 
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])->name('webhook');

@@ -72,5 +72,10 @@ class Item extends Model
         return $this->hasMany(Chat::class);
     }
 
+    public function rating()
+    {
+        return $this->hasMany(Rating::class, 'item_id');
+    }
+
 }
 

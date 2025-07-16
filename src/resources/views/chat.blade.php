@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <div class="chat-form">
     <div class="form-nav">
         <p class="nav-header">その他の取引</p>
@@ -93,14 +94,15 @@
     </div>
     <form class="messages-send-form" method="POST" action="{{ route('sendMessage', ['item' => $item->id]) }}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="form_type" value="chat">
         <input type="hidden" name="item_id" value="{{ $item->id }}">
         <input type="hidden" name="to_user_id" value="{{ $sold->user_id === auth()->id() ? $item->user_id : $sold->user_id }}">
 
         <div class="message-form"> 
-            @if ($errors->has('message'))
-            <div class="alert-danger">
-                <p>{{ $errors->first('message') }}</p>
-            </div>
+            @if (old('form_type') === 'chat' && $errors->has('message'))
+                <div class="alert-danger">
+                    <p>{{ $errors->first('message') }}</p>
+                </div>
             @endif
             @if ($errors->has('image'))
             <div class="alert-danger">
@@ -122,16 +124,17 @@
 
 <!-- モーダルウィンドウ -->
 <div class="modal-wrapper" id="modal">
-    <form action="" method="POST" class="modal-form">
+    <form action="{{ route('chat.rate') }}" method="POST" class="modal-form">
         @csrf
+        <input type="hidden" name="form_type" value="rating">
         <input type="hidden" name="item_id" value="{{ $item->id }}">
         <input type="hidden" name="sold_id" value="{{ $sold->id }}">
         <input type="hidden" name="to_user_id" value="{{ $sold->user_id === auth()->id() ? $item->user_id : $sold->user_id }}">
-    <a href="#!" class="modal-overlay"></a>
+        <a href="#!" class="modal-overlay"></a>
         <div class="modal-window">
-        <div class="modal-header">
-            <p>取引が完了しました。</p>
-        </div>
+            <div class="modal-header">
+                <p>取引が完了しました。</p>
+            </div>
         <div class="modal-content">
             <p>今回の取引相手はどうでしたか？</p>
             <div class="star-rating" id="rating">
@@ -146,8 +149,6 @@
 
         <div class="modal-btn">
             <button class="btn-submit" type="submit">送信する</button>
-        </div>
-
         </div>
     </form>
 </div>
@@ -217,4 +218,18 @@
         });
     });
 </script>
+<!-- 購入者が評価完了の時出品者に表示 -->
+@if ($showModal)
+<script>
+    window.onload = () => {
+        if (location.hash !== '#modal') {
+            location.hash = '';
+            setTimeout(() => {
+                location.hash = '#modal';
+            }, 10);
+        }
+    };
+</script>
+@endif
+
 @endsection

@@ -7,8 +7,9 @@ use App\Http\Requests\SendMessageRequest;
 use App\Models\Chat;
 use App\Models\Item;
 use App\Models\Sold;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Mail\RatingCompletedMail;
+use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
 {
@@ -35,6 +36,11 @@ class ChatController extends Controller
 
         $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
 
+        Chat::where('item_id', $item->id)
+        ->where('user_id', $opponentUserId) 
+        ->where('is_read', false)
+        ->update(['is_read' => true]);
+
         $chats = Chat::with('user.profile')
             ->where('item_id', $item->id)
             ->where(function ($query) use ($opponentUserId) {
@@ -43,12 +49,28 @@ class ChatController extends Controller
             })
             ->orderBy('created_at', 'asc')
             ->get();
+            
+        $isSeller = auth()->id() === $item->user_id;
+        // 購入者が出品者を評価したか
+        $buyerRatedSeller = \App\Models\Rating::where('item_id', $item->id)
+            ->where('rater_id', $sold->user_id)
+            ->where('rated_id', $item->user_id)
+            ->exists();
+        // 出品者が購入者を評価したか
+        $alreadyRated = \App\Models\Rating::where('item_id', $item->id)
+        ->where('rater_id', auth()->id())
+        ->exists();
+
+        // モーダル表示
+        $showModal = $isSeller && $buyerRatedSeller && !$alreadyRated;
 
         return view('chat', [
             'item' => $item,
             'sold' => $sold,
             'chats' => $chats,
             'items' => $items,
+            'alreadyRated' => $alreadyRated,
+            'showModal' => $showModal,
         ]);
     }
 
@@ -99,13 +121,27 @@ class ChatController extends Controller
     }
 
     // 取引完了
-    public function completeTransaction(Request $request, $itemId)
+    public function rating(SendMessageRequest $request)
     {
-        $item = Item::findOrFail($itemId);
-        $sold = Sold::where('item_id', $itemId)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
-        $sold->status = 'completed';
-        $sold->save(); 
+        $item = Item::findOrFail($request->input('item_id'));
+        $sold = Sold::where('item_id', $item->id)->firstOrFail();
 
+        //相手のユーザー
+        $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
+        $opponentUser = User::findOrFail($opponentUserId);
+
+        // レーティングを保存
+        $opponentUser->receivedRatings()->create([
+            'rating' => $request->input('rating'),
+            'item_id' => $item->id,
+            'rater_id' => auth()->id(),
+            'rated_id' => $opponentUser->id,
+        ]);
+
+        if (auth()->id() === $sold->user_id) {
+            Mail::to($item->user->email)->send(new RatingCompletedMail($item, auth()->user()));
+        }
+
+        return redirect()->route('home');
+    }
 }
