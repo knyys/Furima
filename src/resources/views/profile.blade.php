@@ -50,6 +50,14 @@
                     購入した商品
                 </a>
             </li>
+            <li class="tab">
+                <a href="{{ route('mypage', ['page' => 'chat']) }}" class="{{ $currentPage == 'chat' ? 'active' : '' }}">
+                    取引中の商品
+                    @if($unreadCount > 0)
+                        <span class="badge">{{ $unreadCount }}</span>
+                    @endif
+                </a>
+            </li>
         </ul>
 
         <div class="tabContentList">
@@ -61,7 +69,6 @@
                     <div class="item-img">
                         <a href="{{ route('item.detail', ['item' => $item->id]) }}">
                             <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
-                        
                             <!--Sold-->
                             @if ($item->is_sold)
                             <div class="item--sold">
@@ -85,6 +92,27 @@
                 <div class="item">
                     <div class="item-img">
                         <a href="{{ route('item.detail', ['item' => $item->id]) }}">
+                        <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
+                        </a>
+                    </div>
+                        
+                    <span class="item-label">{{ $item->name }}</span>
+                </div>
+                @endforeach
+                </div>    
+            </article>
+            @endif
+            
+            @if ($currentPage == 'chat')
+            <article class="tab-content active" id="content_3">
+                <div class="items__list">
+                @foreach ($tradingItems as $item)
+                <div class="item">
+                    <div class="item-img">
+                        <a href="{{ route('chatView', ['item' => $item->id]) }}">
+                        @if($unreadByItem->has($item->id))
+                            <span class="unread-badge">{{ $unreadByItem[$item->id] }}</span>
+                        @endif
                         <img class="item-icon" src="{{ asset('storage/' . $item->image) }}" alt="商品画像:{{ $item->name }}">
                         </a>
                     </div>

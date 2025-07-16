@@ -23,15 +23,24 @@ class SendMessageRequest extends FormRequest
      */
     public function rules()
     {
+        // 評価フォームの場合（評価は rating 入ってる）
+        if ($this->input('form_type') === 'rating') {
+            return [
+                'rating' => 'required|integer|min:1|max:5',
+            ];
+        }
+
+        // チャット送信用
         return [
-            'message' => 'required|max:400',
-            'image' => 'nullable|max:1024|mimes:jpeg,png',
+            'message' => 'required|string|max:400',
+            'image' => 'nullable|mimes:jpg,png|max:2048',
         ];
     }
 
     public function messages()
     {
         return [
+            'rating.required' => '評価を選択してください',
             'message.required' => '本文を入力してください',
             'message.max' => '本文は400文字以内で入力してください',
             'image.max' => '画像のサイズは1MB以下にしてください。',

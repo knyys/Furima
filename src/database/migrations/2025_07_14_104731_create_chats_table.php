@@ -18,7 +18,7 @@ class CreateChatsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('to_user_id')->constrained('users')->onDelete('cascade'); 
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->string('message');
+            $table->text('message');
             $table->string('image')->nullable();
             $table->boolean('is_read')->default(false);
             $table->timestamps();

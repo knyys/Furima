@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
+use App\Models\Chat;
+use App\Models\Rating;
+use App\Models\Sold;
+use Illuminate\Support\Facades\DB;
+
+
 
 class ProfileController extends Controller
 {
@@ -69,6 +74,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
         $profile = $user->profile; 
+
         // 出品した商品
         $userItems = $user->items; //自分が出品したものすべて
         $userItems->each(function ($item) {
@@ -87,10 +93,63 @@ class ProfileController extends Controller
 
         $purchasedItems = $purchasedItems->whereNotIn('id', $userItems->pluck('id'));
 
-        $purchaseCompleted = session('purchase_completed', false);
+        // 取引中の商品
+        $soldItems = Sold::with(['item.user', 'user', 'item.rating', 'item.chats']) 
+        ->where(function ($query) use ($user) {
+            $query->where('user_id', $user->id) 
+                ->orWhereHas('item', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                });
+        })
+        ->get();
 
+        // 取引中の商品かつまだ評価されていないもの
+        $tradingItems = $soldItems->filter(function ($sold) {
+            $item = $sold->item;
+            if (!$item) return false;
+
+            $ratings = $item->rating ?? collect();
+
+            $buyerRated = $ratings->contains(function ($r) use ($sold) {
+                return $r->rater_id === $sold->user_id && $r->rated_id === $sold->item->user_id;
+            });
+
+            $sellerRated = $ratings->contains(function ($r) use ($sold) {
+                return $r->rater_id === $sold->item->user_id && $r->rated_id === $sold->user_id;
+            });
+
+            return !($buyerRated && $sellerRated);
+        });
+
+        // 取引中の商品の並べ替え
+        $tradingItems = $tradingItems->sortByDesc(function ($sold) {
+            return optional($sold->item->chats->last())->created_at;
+        })->pluck('item');
+
+
+        // チャットの未読数(合計)
+        $unreadCount = Chat::where('to_user_id', $user->id)
+            ->where('is_read', false)
+            ->count();
+        // チャットの未読数(アイテムごと)
+        $unreadByItem = Chat::where('to_user_id', $user->id)
+            ->where('is_read', false)
+            ->select('item_id', DB::raw('count(*) as unread_count'))
+            ->groupBy('item_id')
+            ->pluck('unread_count', 'item_id');
+
+        $purchaseCompleted = session('purchase_completed', false);
         session()->forget('purchase_completed');
 
-        return view('profile', compact('user', 'profile', 'userItems', 'purchasedItems', 'purchaseCompleted'));
+        return view('profile', compact(
+            'user', 
+            'profile', 
+            'userItems', 
+            'purchasedItems', 
+            'purchaseCompleted', 
+            'unreadCount',
+            'unreadByItem',
+            'tradingItems'            
+        ));
     }
 }

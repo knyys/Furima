@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Sold;
 use App\Models\Chat;
+use App\Models\Rating;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -83,5 +84,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function receivedChats()
     {
         return $this->hasMany(Chat::class, 'to_user_id');
+    }
+
+    // 自分が評価した評価リスト
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'rater_id');
+    }
+
+    // 自分が評価された評価リスト
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'rated_id');
     }
 }
