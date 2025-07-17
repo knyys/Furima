@@ -7,6 +7,13 @@
 @section('content')
 
 <div class="chat-form">
+    @if ($errors->any())
+    <div class="alert-danger">
+        @foreach ($errors->all() as $message)
+            <p>{{ $message }}</p>
+        @endforeach
+    </div>
+    @endif
     <div class="form-nav">
         <p class="nav-header">その他の取引</p>
         @foreach ($items as $chatItem)
@@ -21,7 +28,9 @@
         <img src="{{ asset(($sold->user_id === auth()->id() ? $item->user->profile->image : $sold->user->profile->image)) }}" alt="ユーザーアイコン">
         <h3>{{ $sold->user_id === auth()->id() ? $item->user->name : $sold->user->name }}さんとの取引画面</h3>
 
-        @if ($sold->user_id === auth()->id())
+        @if ($alreadyRated)
+            <span class="disabled-link">取引を完了する</span>
+        @else
             <a href="#modal" class="modal-button">取引を完了する</a>
         @endif
     </div>

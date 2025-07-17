@@ -61,6 +61,8 @@ class ChatController extends Controller
         ->where('rater_id', auth()->id())
         ->exists();
 
+        $isBuyer = auth()->id() === $sold->user_id;
+
         // モーダル表示
         $showModal = $isSeller && $buyerRatedSeller && !$alreadyRated;
 
@@ -70,7 +72,9 @@ class ChatController extends Controller
             'chats' => $chats,
             'items' => $items,
             'alreadyRated' => $alreadyRated,
+            'buyerRatedSeller' => $buyerRatedSeller,
             'showModal' => $showModal,
+            'isBuyer' => $isBuyer,
         ]);
     }
 
@@ -120,7 +124,7 @@ class ChatController extends Controller
         return redirect()->route('chatView', ['item' => $request->input('item_id')]);
     }
 
-    // 取引完了
+    // 取引完了(評価）
     public function rating(SendMessageRequest $request)
     {
         $item = Item::findOrFail($request->input('item_id'));
@@ -130,9 +134,16 @@ class ChatController extends Controller
         $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
         $opponentUser = User::findOrFail($opponentUserId);
 
+        $rating = $request->input('rating');
+
+        // nullだったら0
+        if (is_null($rating)) {
+            $rating = 0;
+        }
+
         // レーティングを保存
         $opponentUser->receivedRatings()->create([
-            'rating' => $request->input('rating'),
+            'rating' => $rating,
             'item_id' => $item->id,
             'rater_id' => auth()->id(),
             'rated_id' => $opponentUser->id,
