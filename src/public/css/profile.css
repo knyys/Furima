@@ -219,13 +219,26 @@ label:hover {
     text-align: center;
     position: absolute;
     top: 5px;
-    left: 5px;
-    
+    left: 5px; 
+}
+
+.star-rating{
+    position: absolute;
+    top: 100px;
+    left: 25%;
+}
+.star-rating .star {
+    font-size: 34px;
+    color: lightgray;
+}
+
+.star-rating .star.filled {
+    color: gold;
 }
 
 
 /* タブレット (768-850px) 用のスタイル */
-@media (min-width: 768px) and (max-width: 850px)  {
+@media (min-width: 768px) and (max-width: 850px) {
     .alert-success {
         font-size: 12px;
     }
@@ -243,6 +256,15 @@ label:hover {
         font-size: 22px;
         top: 60px;
         left: 30%;
+    }
+
+    .star-rating{
+        top: 150px;
+        left: 30%;
+    }
+
+    .star-rating .star {
+        font-size: 28px;
     }
 
     .profile__edit a {
@@ -293,5 +315,15 @@ label:hover {
         top: 55px;
         width: 100%;
         height: 40px;
+    }
+
+    .badge{
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+
+    .unread-badge{
+        padding: 2px 5px;
+        font-size: 10px;
     }
 }

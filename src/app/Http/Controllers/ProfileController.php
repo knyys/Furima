@@ -7,7 +7,6 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
 use App\Models\Chat;
-use App\Models\Rating;
 use App\Models\Sold;
 use Illuminate\Support\Facades\DB;
 
@@ -137,6 +136,16 @@ class ProfileController extends Controller
             ->select('item_id', DB::raw('count(*) as unread_count'))
             ->groupBy('item_id')
             ->pluck('unread_count', 'item_id');
+        
+        // 評価平均取得
+        $user->load('receivedRatings');
+        $avg = $user->receivedRatings->avg('rating');
+
+        if (is_null($avg)) {
+            $averageRating = null; // 評価がない
+        } else {
+            $averageRating = round($avg, 0); // 四捨五入
+        }
 
         $purchaseCompleted = session('purchase_completed', false);
         session()->forget('purchase_completed');
@@ -149,7 +158,8 @@ class ProfileController extends Controller
             'purchaseCompleted', 
             'unreadCount',
             'unreadByItem',
-            'tradingItems'            
+            'tradingItems',
+            'averageRating'        
         ));
     }
 }

@@ -23,10 +23,10 @@ class SendMessageRequest extends FormRequest
      */
     public function rules()
     {
-        // 評価フォームの場合（評価は rating 入ってる）
+        // 評価フォームの場合
         if ($this->input('form_type') === 'rating') {
             return [
-                'rating' => 'required|integer|min:1|max:5',
+                'rating' => 'nullable|integer|between:0,5',
             ];
         }
 
@@ -40,7 +40,6 @@ class SendMessageRequest extends FormRequest
     public function messages()
     {
         return [
-            'rating.required' => '評価を選択してください',
             'message.required' => '本文を入力してください',
             'message.max' => '本文は400文字以内で入力してください',
             'image.max' => '画像のサイズは1MB以下にしてください。',
