@@ -230,7 +230,7 @@
 /** ** **/
 
 .chat-image{
-    width: 400px;
+    width: auto;
     height: 400px;
     border-radius: 10px;
     margin: 10px 0;
@@ -371,7 +371,7 @@ input[type="file"] {
     position: relative;
     width: 40%;
     max-width: 100%;
-    height: 40%;
+    height: auto;
     padding: auto 0;
     border-radius: 10px;
     border: 1px solid black;
@@ -440,3 +440,197 @@ input[type="file"] {
     font-size: 24px;
 }
 
+@media (min-width: 768px) and (max-width: 850px) {
+    
+    .chat-form{
+        height: calc(100vh - 50px);
+        grid-template-rows: 50px 200px auto 70px;
+        grid-template-columns: 2fr 5fr;
+    }
+
+    .nav-header{
+        font-size: 20px;
+    }
+
+    .nav-items{
+        margin: 20px 10px;
+    }
+
+    .nav-link{
+        font-size: 14px;
+    }
+
+    .disabled-link{
+        font-size: 12px;
+        height: 40px;
+        margin: 5px 20px 5px auto;
+    }
+
+    .modal-button{
+        font-size: 12px;
+        height: 40px;
+        margin: 5px 20px 5px auto;
+    }
+
+    .form-header img{
+        width: 40px;
+        height: 40px;
+        margin: 5px 0 5px 20px;
+    }
+
+    .form-header h3{
+        font-size: 24px;
+        margin: 8px 0 10px 20px;
+    }
+
+    .item-img{
+        width: 160px;
+        height: 160px;
+        margin: 10px 0 10px 20px;
+    }
+
+    .item-img img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .item-details h2{
+        font-size: 30px;
+        margin-top: 30px;
+    }
+
+    .price{
+        font-size: 30px;
+        margin-top: 30px;
+    }
+
+    .chat-messages{
+        margin: 10px 20px 0 20px;
+        gap: 10px;
+    }
+
+    .message-header {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .message-header img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .sender {
+        font-weight: bold;
+        font-size: 18px;
+        margin: 0 ;
+    }
+
+    .message-content {
+        font-size: 14px;
+    }
+
+    /** 編集フォーム **/
+    .edit-message-input{
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .edit-button{
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .edit-form button{
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    /** ** **/
+
+    .chat-image{
+        width: auto;
+        height: 160px;
+    }
+
+    .message-btn {
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .btn__edit{
+        font-size: 14px;
+    }
+
+    .btn__delete{
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .messages-send-form{
+        padding-bottom: 0;
+    }
+
+    .message-form{
+        margin: 0 20px;
+    }
+
+    .alert-danger{
+        font-size: 16px;
+    }
+
+    .image-name{
+        font-size: 16px;
+    }
+
+    .message-input{
+        width: 65%;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .img-label {
+        padding: 5px 10px;
+        font-size: 16px;
+        margin: 0 10px;
+    }
+
+    .send-icon{
+        width: 40px;
+        height: 40px;
+    }
+
+
+    /** モーダルウィンドウ **/
+    .modal-wrapper .modal-window {
+        width: 60%;
+        height: auto;
+    }
+
+    .modal-content{
+        border-bottom: 1px solid black;
+        height: 200px;
+    }
+
+    .modal-header p{
+        font-size: 30px;
+    }
+
+    .modal-content p {
+        font-size: 18px;
+    }
+
+    .star-rating {
+        font-size: 70px;
+        margin-top: 20px;
+    }
+
+    .modal-btn{
+        margin: 15px 15px;
+    }
+
+    .btn-submit{
+        padding: 8px 20px;
+        font-size: 16px;
+    }
+
+}

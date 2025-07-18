@@ -259,8 +259,8 @@ label:hover {
     }
 
     .star-rating{
-        top: 150px;
-        left: 30%;
+        top: 100px;
+        left: 28%;
     }
 
     .star-rating .star {
@@ -325,5 +325,6 @@ label:hover {
     .unread-badge{
         padding: 2px 5px;
         font-size: 10px;
+        left: 3px; 
     }
 }

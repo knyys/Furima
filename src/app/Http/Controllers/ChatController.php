@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\Sold;
 use App\Models\User;
 use App\Mail\RatingCompletedMail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
@@ -24,10 +25,33 @@ class ChatController extends Controller
     {
         $item = Item::with(['solds', 'user.profile'])->findOrFail($id);
         $sold = $item->solds->first();
-        $items = Item::with('solds')
-        ->where('user_id', auth()->id())
-        ->whereHas('solds')
-        ->get();
+        $user = Auth::user();
+
+        $items = Item::with(['solds', 'rating', 'chats'])
+            ->where(function ($query) {
+                $query->where('user_id', auth()->id()) // 自分が出品者
+                    ->orWhereHas('solds', function ($q) {
+                        $q->where('user_id', auth()->id()); // 自分が購入者
+                    });
+            })
+            ->get()
+            ->filter(function ($item) {
+                $sold = $item->solds->first();
+                if (!$sold) return false;
+
+                $sellerId = $item->user_id;
+                $buyerId = $sold->user_id;
+
+                $sellerRated = $item->rating->contains(function ($rating) use ($sellerId) {
+                    return $rating->rater_id === $sellerId;
+                });
+
+                return !$sellerRated;
+            })
+            ->sortByDesc(function ($item) {
+                return optional($item->chats->sortByDesc('created_at')->first())->created_at;
+            })
+            ->values(); 
 
         // 出品者か購入者か確認
         if (!auth()->check() || (auth()->id() !== $item->user_id && auth()->id() !== $sold->user_id)) {
@@ -37,9 +61,9 @@ class ChatController extends Controller
         $opponentUserId = auth()->id() === $item->user_id ? $sold->user_id : $item->user_id;
 
         Chat::where('item_id', $item->id)
-        ->where('user_id', $opponentUserId) 
-        ->where('is_read', false)
-        ->update(['is_read' => true]);
+            ->where('user_id', $opponentUserId) 
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
 
         $chats = Chat::with('user.profile')
             ->where('item_id', $item->id)
@@ -51,20 +75,30 @@ class ChatController extends Controller
             ->get();
             
         $isSeller = auth()->id() === $item->user_id;
+        $isBuyer = auth()->id() === $sold->user_id;
+
         // 購入者が出品者を評価したか
         $buyerRatedSeller = \App\Models\Rating::where('item_id', $item->id)
             ->where('rater_id', $sold->user_id)
             ->where('rated_id', $item->user_id)
             ->exists();
-        // 出品者が購入者を評価したか
-        $alreadyRated = \App\Models\Rating::where('item_id', $item->id)
-        ->where('rater_id', auth()->id())
-        ->exists();
 
-        $isBuyer = auth()->id() === $sold->user_id;
+        // 自分がすでに評価をしたか
+        $alreadyRated = \App\Models\Rating::where('item_id', $item->id)
+            ->where('rater_id', auth()->id())
+            ->exists();
 
         // モーダル表示
         $showModal = $isSeller && $buyerRatedSeller && !$alreadyRated;
+
+        $soldItems = Sold::with(['item.user', 'user', 'item.rating', 'item.chats']) 
+            ->where(function ($query) use ($user) {
+                $query->where('user_id', $user->id) 
+                    ->orWhereHas('item', function ($q) use ($user) {
+                        $q->where('user_id', $user->id);
+                    });
+            })
+            ->get();
 
         return view('chat', [
             'item' => $item,

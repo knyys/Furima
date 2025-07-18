@@ -7,7 +7,6 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
 use App\Models\Chat;
-use App\Models\Sold;
 use Illuminate\Support\Facades\DB;
 
 
@@ -82,48 +81,47 @@ class ProfileController extends Controller
 
         // 購入した商品
         $purchasedItems = Item::whereIn('id', function ($query) use ($user) {
-            $query->select('item_id')
-                ->from('solds')
-                ->where('user_id', $user->id)
-                ->where('sold', true);
-        })
-        ->where('user_id', '!=', $user->id)
-        ->get();
+                $query->select('item_id')
+                    ->from('solds')
+                    ->where('user_id', $user->id)
+                    ->where('sold', true);
+            })
+            ->where('user_id', '!=', $user->id)
+            ->get();
 
         $purchasedItems = $purchasedItems->whereNotIn('id', $userItems->pluck('id'));
 
         // 取引中の商品
-        $soldItems = Sold::with(['item.user', 'user', 'item.rating', 'item.chats']) 
-        ->where(function ($query) use ($user) {
-            $query->where('user_id', $user->id) 
-                ->orWhereHas('item', function ($q) use ($user) {
+        $relatedItems = Item::with(['user', 'chats', 'solds', 'rating'])
+            ->where(function ($query) use ($user) {
+                $query->whereHas('solds', function ($q) use ($user) {
+                    // 自分が購入者
                     $q->where('user_id', $user->id);
+                })->orWhere(function ($q) use ($user) {
+                    // 自分が出品者、かつ 購入された
+                    $q->where('user_id', $user->id)
+                    ->whereHas('solds');
                 });
-        })
-        ->get();
+            })
+            ->get();
 
         // 取引中の商品かつまだ評価されていないもの
-        $tradingItems = $soldItems->filter(function ($sold) {
-            $item = $sold->item;
-            if (!$item) return false;
-
+        $filteredItems = $relatedItems->filter(function ($item) {
             $ratings = $item->rating ?? collect();
+            $soldUser = $item->solds->first();
 
-            $buyerRated = $ratings->contains(function ($r) use ($sold) {
-                return $r->rater_id === $sold->user_id && $r->rated_id === $sold->item->user_id;
+            if (!$soldUser) return false;
+
+            $sellerRated = $ratings->contains(function ($r) use ($item, $soldUser) {
+                return $r->rater_id === $item->user_id && $r->rated_id === $soldUser->user_id;
             });
 
-            $sellerRated = $ratings->contains(function ($r) use ($sold) {
-                return $r->rater_id === $sold->item->user_id && $r->rated_id === $sold->user_id;
-            });
-
-            return !($buyerRated && $sellerRated);
+            return !$sellerRated;
         });
-
-        // 取引中の商品の並べ替え
-        $tradingItems = $tradingItems->sortByDesc(function ($sold) {
-            return optional($sold->item->chats->last())->created_at;
-        })->pluck('item');
+                // 取引中の商品の並べ替え
+        $tradingItems = $filteredItems->sortByDesc(function ($item) {
+            return optional($item->chats->last())->created_at;
+        });
 
 
         // チャットの未読数(合計)
