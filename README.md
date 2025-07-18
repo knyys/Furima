@@ -161,7 +161,8 @@ password: password3333
 
 
 ## ER図
-![hurima](https://github.com/user-attachments/assets/98f90e6f-3640-46eb-a46b-5cce0c2e6d4a)
+<img width="821" height="1082" alt="hurima2" src="https://github.com/user-attachments/assets/2de94469-091c-4c70-b573-807d87e32a5a" />
+
 
 ## URL
 - 開発環境：http://localhost/
