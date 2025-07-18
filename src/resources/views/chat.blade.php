@@ -7,32 +7,36 @@
 @section('content')
 
 <div class="chat-form">
-    @if ($errors->any())
-    <div class="alert-danger">
-        @foreach ($errors->all() as $message)
-            <p>{{ $message }}</p>
-        @endforeach
-    </div>
-    @endif
     <div class="form-nav">
         <p class="nav-header">その他の取引</p>
         @foreach ($items as $chatItem)
-    @if ($chatItem->user_id === auth()->id() && $chatItem->solds()->exists())
-        <div class="nav-items">
-            <a href="{{ route('chatView', ['item' => $chatItem->id]) }}" class="nav-link">{{ $chatItem->name }}</a>
-        </div>
-    @endif
-@endforeach
+            @php
+                $isSellerAndSold = $chatItem->user_id === auth()->id() && $chatItem->solds->isNotEmpty();
+                $firstSold = $chatItem->solds->first();
+                $buyer = $firstSold && $firstSold->user_id === auth()->id();
+            @endphp
+
+            @if ($isSellerAndSold || $buyer)
+                <div class="nav-items">
+                    <a href="{{ route('chatView', ['item' => $chatItem->id]) }}" class="nav-link">{{ $chatItem->name }}</a>
+                </div>
+            @endif
+        @endforeach
     </div>
     <div class="form-header">
         <img src="{{ asset(($sold->user_id === auth()->id() ? $item->user->profile->image : $sold->user->profile->image)) }}" alt="ユーザーアイコン">
         <h3>{{ $sold->user_id === auth()->id() ? $item->user->name : $sold->user->name }}さんとの取引画面</h3>
 
-        @if ($alreadyRated)
-            <span class="disabled-link">取引を完了する</span>
-        @else
-            <a href="#modal" class="modal-button">取引を完了する</a>
+        @if ($isBuyer)
+            @if ($alreadyRated && !$buyerRatedSeller)
+                <span class="disabled-link">取引を完了する</span>
+            @elseif (!$alreadyRated)
+                <a href="#modal" class="modal-button">取引を完了する</a>
+            @else
+                <span class="disabled-link">取引を完了する</span>
+            @endif
         @endif
+
     </div>
     <div class="purchase-item">
         <div class="item-img">
@@ -76,7 +80,7 @@
                 <textarea name="message" class="edit-message-input">{{ $chat->message }}</textarea>
                 <div class="edit-button">
                     <button type="submit">送信</button>
-                    <button type="button" onclick="cancelEdit({{ $chat->id }})">キャンセル</button>
+                    <button type="button" onclick="cancelEdit('{{ $chat->id }}')">キャンセル</button>
                 </div>
             </form>
             <!-- -- -->
@@ -87,7 +91,7 @@
 
             @if ($isOwnMessage)
             <div class="message-btn">
-                <button class="btn__edit" onclick="startEdit({{ $chat->id }})">編集</button>
+                <button class="btn__edit" onclick="startEdit('{{ $chat->id }}')">編集</button>
 
                 <form method="POST" action="{{ route('deleteMessage') }}" class="delete-form">
                     @csrf
@@ -155,7 +159,6 @@
                 <input type="hidden" name="rating" id="rating-value">
             </div>
         </div>
-
         <div class="modal-btn">
             <button class="btn-submit" type="submit">送信する</button>
         </div>
